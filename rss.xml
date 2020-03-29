@@ -6,7 +6,7 @@
   <link href="/rss.xml" rel="self"/>
   
   <link href="https://stemha.github.io/"/>
-  <updated>2020-03-29T10:04:50.442Z</updated>
+  <updated>2020-03-29T10:30:46.348Z</updated>
   <id>https://stemha.github.io/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>学术论文的基本结构</title>
+    <link href="https://stemha.github.io/2020/03/29/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/"/>
+    <id>https://stemha.github.io/2020/03/29/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/</id>
+    <published>2020-03-29T10:14:24.000Z</published>
+    <updated>2020-03-29T10:30:46.348Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a>基本结构</h2><ol><li><strong>标题</strong><ul><li>真实反应论文内容 </li><li>简短明了 </li><li>吸引人</li><li>大背景 </li><li>小背景</li><li>技术特色</li></ul></li></ol><ol start="2"><li><strong>摘要</strong></li></ol><ul><li><p>概括你的研究</p></li><li><p>假设或要研究的问题</p></li><li><p>研究方法 </p></li><li><p>主要成果</p></li></ul><ol start="3"><li><strong>引言</strong></li></ol><ul><li><p>说明选题的背景，目的，意义</p></li><li><p>陈述研究的主要内容和论文的假说或研究问题</p></li><li><p>文章的研究方法与章节编排</p></li></ul><ol start="4"><li><strong>文献综述</strong></li></ol><ul><li>阐述前人的研究，展示文献批判能力，说明你对研究问题的掌握程度，表明你研究的创新之处。</li></ul><ol start="5"><li><strong>研究方法</strong></li></ol><ul><li>详细介绍相关信息，便于读者采取同样的方法能够重复此项研究。</li><li>研究性质</li><li>对象</li><li>步骤</li><li>工具</li><li>条件</li><li>…</li></ul><ol start="6"><li><strong>研究结果</strong></li></ol><ul><li>用文字和/或图表真实报告你获得的数据或结果。</li></ul><ol start="7"><li><strong>讨论</strong></li></ol><ul><li>基于你获得的数据论述对于研究问题可能得到的结论。</li></ul><ol start="8"><li><strong>结论</strong></li></ol><ul><li>简明总结所得到的数据，得出的结论及意义。</li><li>说明研究的价值，不足或局限性。</li></ul><ol start="9"><li><strong>致谢</strong></li></ol><ol start="10"><li><strong>参考文献</strong></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;基本结构&quot;&gt;&lt;a href=&quot;#基本结构&quot; class=&quot;headerlink&quot; title=&quot;基本结构&quot;&gt;&lt;/a&gt;基本结构&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;标题&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;真实反应论文内容 &lt;/li&gt;
+&lt;li&gt;简短明了 &lt;/li
+      
+    
+    </summary>
+    
+    
+      <category term="学术论文" scheme="https://stemha.github.io/categories/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/"/>
+    
+    
+      <category term="学术论文" scheme="https://stemha.github.io/tags/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/"/>
+    
+      <category term="基本结构" scheme="https://stemha.github.io/tags/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
   
   <entry>
     <title>好用的chrome插件</title>
