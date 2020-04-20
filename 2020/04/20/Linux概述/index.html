@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://stemha.github.io/images/og_image.png">
 <meta property="article:published_time" content="2020-04-20T13:50:16.000Z">
-<meta property="article:modified_time" content="2020-04-20T14:17:00.007Z">
+<meta property="article:modified_time" content="2020-04-20T14:47:10.553Z">
 <meta property="article:author" content="STEMHA">
 <meta property="article:tag" content="Linux概述">
 <meta name="twitter:card" content="summary">
@@ -161,7 +161,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    6 分钟 读完 (大约 955 个字)
+                    7 分钟 读完 (大约 979 个字)
                 </span>
                 
                 
@@ -188,7 +188,11 @@
 </ul>
 </li>
 </ul>
-<h2 id="Linux的接口"><a href="#Linux的接口" class="headerlink" title="Linux的接口"></a>Linux的接口</h2><p>所有版本的Linux必须提供大量的标准程序，其中一些是POSIX标准指定的，其他的根据Linux的版本而有所不同。它们包括：</p>
+<h2 id="Linux的接口"><a href="#Linux的接口" class="headerlink" title="Linux的接口"></a>Linux的接口</h2><p><img src="/2020/04/20/Linux%E6%A6%82%E8%BF%B0/Linux%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84.jpg" alt></p>
+<center>Linux系统层次结构 </center>
+
+
+<p>所有版本的Linux必须提供大量的标准程序，其中一些是POSIX标准指定的，其他的根据Linux的版本而有所不同。它们包括：</p>
 <ul>
 <li>命令处理器（shell）</li>
 <li>编译器</li>
@@ -230,7 +234,10 @@
 <li>ar：将库函数收集到存档文件中</li>
 <li>make：维护程序，跟踪哪些头文件依赖于哪些头文件等，然后安排所有需要进行的编译自动进行。 </li>
 </ul>
-<h2 id="内核结构"><a href="#内核结构" class="headerlink" title="内核结构"></a>内核结构</h2><p>内核最底层，负责中断处理程序，这是它们与设备交互的主要方式，以及底层的分派机制。分派在中断时发生。</p>
+<h2 id="内核结构"><a href="#内核结构" class="headerlink" title="内核结构"></a>内核结构</h2><p><img src="/2020/04/20/Linux%E6%A6%82%E8%BF%B0/Linux%E5%86%85%E6%A0%B8%E7%BB%93%E6%9E%84.jpg" alt></p>
+<center>Linux内核结构 </center>
+
+<p>内核最底层，负责中断处理程序，这是它们与设备交互的主要方式，以及底层的分派机制。分派在中断时发生。</p>
 <ul>
 <li>底层的代码中止正在运行的进程，将其状态存储在内核进程结构中，然后启动相应的驱动程序。</li>
 <li>进程分派，在内核完成某些操作并且需要再次启动一个用户进程时，发生。进程分派的代码是汇编代码，并且和进程调度的代码有很大不同。</li>
