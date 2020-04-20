@@ -6,7 +6,7 @@
   <link href="/rss.xml" rel="self"/>
   
   <link href="https://stemha.github.io/"/>
-  <updated>2020-04-19T16:31:26.921Z</updated>
+  <updated>2020-04-20T14:17:00.007Z</updated>
   <id>https://stemha.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux概述</title>
+    <link href="https://stemha.github.io/2020/04/20/Linux%E6%A6%82%E8%BF%B0/"/>
+    <id>https://stemha.github.io/2020/04/20/Linux%E6%A6%82%E8%BF%B0/</id>
+    <published>2020-04-20T13:50:16.000Z</published>
+    <updated>2020-04-20T14:17:00.007Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Linux设计目标"><a href="#Linux设计目标" class="headerlink" title="Linux设计目标"></a>Linux设计目标</h2><p>Unix被设计成为一种能够同时处理多进程和多用户的交互式系统，Linux继承了Linux的设计目标。</p><a id="more"></a><p>设计Linux的基本方针：</p><ul><li>每个程序只做一件事并且做好。</li></ul><h3 id="好的程序员追求的系统"><a href="#好的程序员追求的系统" class="headerlink" title="好的程序员追求的系统"></a>好的程序员追求的系统</h3><ul><li>简单，优雅，</li><li>一致性 （<code>最小惊讶原理</code>）</li><li>较强的功能性与灵活性<ul><li>意味着系统有较小的一组基本元素，产生多种多样的组合来满足各种应用需要。</li></ul></li></ul><h2 id="Linux的接口"><a href="#Linux的接口" class="headerlink" title="Linux的接口"></a>Linux的接口</h2><p>所有版本的Linux必须提供大量的标准程序，其中一些是POSIX标准指定的，其他的根据Linux的版本而有所不同。它们包括：</p><ul><li>命令处理器（shell）</li><li>编译器</li><li>编辑器</li><li>文本处理程序</li><li>文件操作工具等</li></ul><h3 id="Linux具有三种不同的接口"><a href="#Linux具有三种不同的接口" class="headerlink" title="Linux具有三种不同的接口"></a>Linux具有三种不同的接口</h3><ol><li>真正的系统调用接口</li><li>库函数接口</li><li>由标准应用程序构成的接口</li></ol><h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><p>shell中，后台运行一个程序的语法是在原本命令后加“&amp;”。</p><p>shell脚本：包含shell命令的文件。</p><ul><li>可以包含参数，同时使用if、for、while和case等结构。</li><li>可以给变量赋值，然后过一段时间再读取这些变量。</li></ul><h2 id="linux应用程序"><a href="#linux应用程序" class="headerlink" title="linux应用程序"></a>linux应用程序</h2><h3 id="应用程序分类"><a href="#应用程序分类" class="headerlink" title="应用程序分类"></a>应用程序分类</h3><p>Linux的命令行用户界面包含大量的标准应用程序。大致分为6类：</p><ol><li>文件和目录操作命令</li><li>过滤器</li><li>程序设计工具，如编辑器和编译器</li><li>文档处理</li><li>系统管理</li><li>其他</li></ol><h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h3><p>过滤器有：</p><ul><li>grep、sort、head、tail</li><li>cut和paste（文档剪切与粘贴）</li><li>od：将输入（通常是二进制，也包括八，十和十六进制）转化为ASCII文档。</li><li>pr：打印机格式化输出</li><li>tr：字符大小写转换</li></ul><h3 id="编译器和程序设计工具"><a href="#编译器和程序设计工具" class="headerlink" title="编译器和程序设计工具"></a>编译器和程序设计工具</h3><p>编译器和程序设计工具：</p><ul><li>gcc</li><li>ar：将库函数收集到存档文件中</li><li>make：维护程序，跟踪哪些头文件依赖于哪些头文件等，然后安排所有需要进行的编译自动进行。 </li></ul><h2 id="内核结构"><a href="#内核结构" class="headerlink" title="内核结构"></a>内核结构</h2><p>内核最底层，负责中断处理程序，这是它们与设备交互的主要方式，以及底层的分派机制。分派在中断时发生。</p><ul><li>底层的代码中止正在运行的进程，将其状态存储在内核进程结构中，然后启动相应的驱动程序。</li><li>进程分派，在内核完成某些操作并且需要再次启动一个用户进程时，发生。进程分派的代码是汇编代码，并且和进程调度的代码有很大不同。</li></ul><p>内核子系统的三个主要部件</p><ul><li>I/O部件<ul><li>包含所有负责与设备交互以及实现联网和存储的I/O功能的内核部件</li></ul></li><li>内存管理部件<ul><li>维护虚拟内存到物理内存的映射，维护最近被访问页面的缓存以及实现一个好的页面置换算法。并根据需要把需要的数据和代码页读入内存中。</li></ul></li><li>进程管理部件<ul><li>主要是进程的创建和中止。还有CPU调度和信号处理。</li></ul></li></ul><p>内核最顶层，是内核的系统调用接口。所有的调用都来自这里，其导致一个陷阱，将系统从用户态切换到受保护的内核态，继而将控制权交给上述的内核部件之一。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>现代操作系统</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Linux设计目标&quot;&gt;&lt;a href=&quot;#Linux设计目标&quot; class=&quot;headerlink&quot; title=&quot;Linux设计目标&quot;&gt;&lt;/a&gt;Linux设计目标&lt;/h2&gt;&lt;p&gt;Unix被设计成为一种能够同时处理多进程和多用户的交互式系统，Linux继承了Linux的设计目标。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="https://stemha.github.io/categories/Linux/"/>
+    
+    
+      <category term="Linux概述" scheme="https://stemha.github.io/tags/Linux%E6%A6%82%E8%BF%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux常用命令整理（2）</title>
