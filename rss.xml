@@ -6,7 +6,7 @@
   <link href="/rss.xml" rel="self"/>
   
   <link href="https://stemha.github.io/"/>
-  <updated>2020-04-29T12:53:33.080Z</updated>
+  <updated>2020-05-01T16:00:41.074Z</updated>
   <id>https://stemha.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>文件系统（1）</title>
+    <link href="https://stemha.github.io/2020/05/01/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%EF%BC%881%EF%BC%89/"/>
+    <id>https://stemha.github.io/2020/05/01/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%EF%BC%881%EF%BC%89/</id>
+    <published>2020-05-01T15:00:41.000Z</published>
+    <updated>2020-05-01T16:00:41.074Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><p><code>文件系统</code>：操作系统中处理文件的部分，有关文件的构造，命名，存取，使用，实现和管理都是操作系统文件系统设计的主要内容</p><a id="more"></a><h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><h3 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h3><p>文件可以有多种构造方式。</p><ul><li>字节序列（Windows，UNIX都采用这种文件模型）</li><li>记录序列（以前大型计算机系统中的常见模式，现在没多少了）</li><li>树（处理商业数据的大型计算机中获得广泛使用）<ul><li>文件在这种结构中由一棵记录树构成，每个记录并不具有同样长度，记录的固定位置有一个键。树按键排序，从而对特定的键进行快速查找</li></ul></li></ul><h3 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h3><p>Linux中分为    </p><ol><li>普通文件（regular）：存在于外部存储器中，用于存储普通文件。</li><li>目录文件（directory）：用于存放目录项，是文件系统管理的重要文件类型。</li><li>管道文件（pipe）：一种用于进程间通信的特殊文件，也称为命名管道FIFO。</li><li>套接字文件（socket）：一种用于网络间通信的特殊文件。</li><li>链接文件（link）；用于间接访问另外一个目标文件，相当于widows快捷方式。</li><li>字符设备文件（character）:字符设备在应用层的访问结构。</li><li>块设备文件（block）：块设备在应用层的访问接口。</li></ol><h3 id="文件存取"><a href="#文件存取" class="headerlink" title="文件存取"></a>文件存取</h3><ul><li>顺序存取文件（sequential access）：进程可以从头到尾顺序读取文件的全部字节或者记录，但不能跳过某一些内容，也不能不按顺序读取。可以返回到起点的。</li><li>随机存取文件（random access）：以任何次序读取其中字节或记录的文件。对很多应用程序来说是必不可少的，比如数据库系统</li></ul><h3 id="文件属性"><a href="#文件属性" class="headerlink" title="文件属性"></a>文件属性</h3><p>操作系统常用的文件属性</p><h4 id="文件保护"><a href="#文件保护" class="headerlink" title="文件保护"></a>文件保护</h4><table><thead><tr><th align="left">属性</th><th align="left">含义</th><th align="left">备注</th></tr></thead><tbody><tr><td align="left">保护</td><td align="left">谁可以存取文件，以什么方式</td><td align="left"></td></tr><tr><td align="left">口令</td><td align="left">存取文件需要的口令</td><td align="left">有一些系统中，用户必须给出口令才能存取文件</td></tr><tr><td align="left">创建者</td><td align="left">创建文件者ID</td><td align="left"></td></tr><tr><td align="left">所有者</td><td align="left">当前所有者</td><td align="left"></td></tr></tbody></table><h4 id="标志"><a href="#标志" class="headerlink" title="标志"></a>标志</h4><table><thead><tr><th align="left">属性</th><th align="left">含义</th><th align="left">备注</th></tr></thead><tbody><tr><td align="left">只读标志</td><td align="left"></td><td align="left"></td></tr><tr><td align="left">隐藏标志</td><td align="left"></td><td align="left"></td></tr><tr><td align="left">系统标志</td><td align="left">0表普通文件，1表示系统文件</td><td align="left"></td></tr><tr><td align="left">存档标志</td><td align="left">0表示已经备份，1表示需要备份</td><td align="left"></td></tr><tr><td align="left">ASCII/二进制标志</td><td align="left">0表示ASCII文件，1表示二进制文件</td><td align="left"></td></tr><tr><td align="left">随机存取标志</td><td align="left">0表示只允许顺序存取，1表示随机存取</td><td align="left"></td></tr><tr><td align="left">临时标志</td><td align="left">0表示正常，1表示进程退出时删除文件</td><td align="left"></td></tr><tr><td align="left">加锁标志</td><td align="left">0表示未加锁，非零表示加锁</td><td align="left"></td></tr></tbody></table><h4 id="查找读写相关"><a href="#查找读写相关" class="headerlink" title="查找读写相关"></a>查找读写相关</h4><table><thead><tr><th align="left">属性</th><th align="left">含义</th><th align="left">备注</th></tr></thead><tbody><tr><td align="left">记录长度</td><td align="left">一个记录中的字节数</td><td align="left"></td></tr><tr><td align="left">键的位置</td><td align="left">每个记录中键的偏移量</td><td align="left"></td></tr><tr><td align="left">键的长度</td><td align="left">键字段的字节数</td><td align="left"></td></tr><tr><td align="left">当前大小</td><td align="left">文件字节数</td><td align="left"></td></tr><tr><td align="left">最大长度</td><td align="left">文件可能增长到的字节数</td><td align="left"></td></tr></tbody></table><h4 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h4><table><thead><tr><th align="left">属性</th><th align="left">含义</th><th align="left">备注</th></tr></thead><tbody><tr><td align="left">创建时间</td><td align="left"></td><td align="left"></td></tr><tr><td align="left">最后一次存取时间</td><td align="left"></td><td align="left"></td></tr><tr><td align="left">最后一次修改时间</td><td align="left"></td><td align="left"></td></tr></tbody></table><h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><p>最常用的一些系统调用（不限制系统的总结）</p><ol><li>create</li><li>delete</li><li>open</li><li>close</li><li>read</li><li>write</li><li>append：write的限制形式，智能在文件末尾读取数据</li><li>seek：对于随机存取文件，通常需要指定从何处读取数据，通常使用seek系统调用把当前位置指针指向文件中的特定位置。seek调用结束后，就可以从该位置开始读了。</li><li>get attributes</li><li>set attributes</li><li>rename</li></ol><p>Linux文件IO函数，通常包括 open,read,write,lseek,close这五个函数。</p><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="目录操作"><a href="#目录操作" class="headerlink" title="目录操作"></a>目录操作</h3><ol><li>create</li><li>delete</li><li>opendir</li><li>closedir</li><li>readdir</li><li>rename</li><li>link</li><li>ulink</li></ol><h2 id="文件系统的实现"><a href="#文件系统的实现" class="headerlink" title="文件系统的实现"></a>文件系统的实现</h2><h3 id="文件系统布局"><a href="#文件系统布局" class="headerlink" title="文件系统布局"></a>文件系统布局</h3><p><code>文件系统存放</code>：文件系统存放在外存上。多数磁盘划分为一个或者多个分区，每个而分区有一个独立的文件系统。<br><code>主引导记录（master boot record，MBR）</code>：磁盘的0号扇区称为主引导记录，用来引导计算机，MBR之后挨着的是<code>分区表</code>,该表给出了每一个分区的起始和结束地址。</p><h3 id="文件的实现"><a href="#文件的实现" class="headerlink" title="文件的实现"></a>文件的实现</h3><h4 id="连续分配"><a href="#连续分配" class="headerlink" title="连续分配"></a>连续分配</h4><h4 id="链表分配"><a href="#链表分配" class="headerlink" title="链表分配"></a>链表分配</h4><h4 id="在内存中采用表的链表分配"><a href="#在内存中采用表的链表分配" class="headerlink" title="在内存中采用表的链表分配"></a>在内存中采用表的链表分配</h4><h4 id="i节点分配"><a href="#i节点分配" class="headerlink" title="i节点分配"></a>i节点分配</h4><p>i节点（index-node）：每个文件都赋予了一个称为i节点的数据结构，其中列出了文件属性和文件块的磁盘地址。</p><h3 id="目录的实现"><a href="#目录的实现" class="headerlink" title="目录的实现"></a>目录的实现</h3><p>每个目录项只引用i节点的目录</p><h3 id="共享文件"><a href="#共享文件" class="headerlink" title="共享文件"></a>共享文件</h3><p>硬连接和软连接</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>现代操作系统</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;基础概念&quot;&gt;&lt;a href=&quot;#基础概念&quot; class=&quot;headerlink&quot; title=&quot;基础概念&quot;&gt;&lt;/a&gt;基础概念&lt;/h2&gt;&lt;p&gt;&lt;code&gt;文件系统&lt;/code&gt;：操作系统中处理文件的部分，有关文件的构造，命名，存取，使用，实现和管理都是操作系统文件系统设计的主要内容&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="操作系统" scheme="https://stemha.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="软连接" scheme="https://stemha.github.io/tags/%E8%BD%AF%E8%BF%9E%E6%8E%A5/"/>
+    
+      <category term="硬连接" scheme="https://stemha.github.io/tags/%E7%A1%AC%E8%BF%9E%E6%8E%A5/"/>
+    
+      <category term="文件与目录" scheme="https://stemha.github.io/tags/%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95/"/>
+    
+  </entry>
   
   <entry>
     <title>软件工程简述</title>
