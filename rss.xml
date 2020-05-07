@@ -6,7 +6,7 @@
   <link href="/rss.xml" rel="self"/>
   
   <link href="https://stemha.github.io/"/>
-  <updated>2020-05-01T16:00:41.074Z</updated>
+  <updated>2020-05-07T17:55:53.050Z</updated>
   <id>https://stemha.github.io/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C++内存分配与内存划分</title>
+    <link href="https://stemha.github.io/2020/05/08/C++%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%92%E5%88%86/"/>
+    <id>https://stemha.github.io/2020/05/08/C++%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%92%E5%88%86/</id>
+    <published>2020-05-07T17:46:47.000Z</published>
+    <updated>2020-05-07T17:55:53.050Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="C-C-内存使用划分"><a href="#C-C-内存使用划分" class="headerlink" title="C/C++内存使用划分"></a><strong>C/C++内存使用划分</strong></h2><p>C/C++编译过的程序使用的内存划分：</p><a id="more"></a><h3 id="栈区"><a href="#栈区" class="headerlink" title="栈区"></a><strong>栈区</strong></h3><ul><li>是连续的内存区域。</li><li>由编译器在需要的时候分配，在不需要的时候自动清除的变量的存储区。</li><li>栈区的变量通常是局部变量、函数参数等。 </li><li>只要栈的剩余空间大于所申请空间，系统将为程序提供内存，否则将报异常提示栈溢出。</li></ul><h3 id="堆区（动态内存分配）"><a href="#堆区（动态内存分配）" class="headerlink" title="堆区（动态内存分配）"></a><strong>堆区（动态内存分配）</strong></h3><ul><li>是不连续的内存区域。</li></ul><p><code>自由存储区或堆</code>：每一个程序在执行时都占用一块可用的内存空间，用于存放动态分配的对象，此内存空间称为程序的自由存储区或堆。<br>C 语言程序使用一对标准库函数malloc 和 free 在自由存储区中分配存储空间，而 C++ 语言则使用 new 和delete 表达式实现相同的功能。可以手动释放或者程序结束自动释放存储空间。<br><strong>优点</strong>：动态内存的生存期人为决定，使用灵活。<br><strong>缺点</strong>：是容易分配/释放不当容易造成内存泄漏，频繁分配/释放会产生大量内存碎片。<br>若程序员不释放，程序结束时可能由OS（操作系统）回收。<br>注意它与数据结构中的堆是两回事，分配方式类似于链表。</p><h3 id="全局-静态存储区"><a href="#全局-静态存储区" class="headerlink" title="全局/静态存储区"></a><strong>全局/静态存储区</strong></h3><p>全局变量和静态变量的存储是放在一起。C语言中，全局变量又分为初始化的和未初始化的。C++里面没有这个区分了，他们共同占用同一块内存区。程序结束后由系统释放。</p><h3 id="常量存储区"><a href="#常量存储区" class="headerlink" title="常量存储区"></a><strong>常量存储区</strong></h3><p>这是一个比较特殊的存储区，里面存放的是常量，不允许修改。程序结束后由系统释放。</p><h3 id="程序代码区"><a href="#程序代码区" class="headerlink" title="程序代码区"></a><strong>程序代码区</strong></h3><p>存放函数的二进制代码。</p><h2 id="堆存储-栈存储"><a href="#堆存储-栈存储" class="headerlink" title="堆存储/栈存储"></a><strong>堆存储/栈存储</strong></h2><h3 id="对象是存放在堆中还是栈中"><a href="#对象是存放在堆中还是栈中" class="headerlink" title="对象是存放在堆中还是栈中"></a><strong>对象是存放在堆中还是栈中</strong></h3><p>要看怎么去构造这个对象：</p><ul><li>如果用new来生成的对象,是放在堆中的。</li><li>直接定义的局部变量内都是放在栈中的，全局和静态的对象（包括类的静态数据成员）是放在数据段的静态存储区</li></ul><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Class Test；</span><br><span class="line">Test p;            <span class="comment">//栈上分配内存</span></span><br><span class="line">Test* tTest；      <span class="comment">//指针在栈中</span></span><br><span class="line">tTest = <span class="keyword">new</span> Test;，<span class="comment">//new的在堆中</span></span><br></pre></td></tr></table></figure><h3 id="堆存储"><a href="#堆存储" class="headerlink" title="堆存储"></a><strong>堆存储</strong></h3><ul><li>因为没有专门的系统支持，效率很低；</li><li>可能引发用户态和核心态的切换，内存的申请代价变得更加昂贵。</li><li>操作系统有一个记录空闲内存地址的链表，当系统收到程序的申请时，会遍历该链表，寻找第一个空间大于所申请空间的堆结点，然后将该结点从空闲结点链表中删除，并将该结点的空间分配给程序</li><li>大多数系统，会在这块内存空间中的首地址处记录本次分配的大小，这样，代码中的delete语句才能正确的释放本内存空间。</li><li>因为找到的堆结点的大小不一定正好等于申请的大小，系统会自动的将多余的那部分重新放入空闲链表中。</li></ul><h3 id="栈存储"><a href="#栈存储" class="headerlink" title="栈存储"></a><strong>栈存储</strong></h3><ul><li>用于存储占用空间小，生命周期短的数据（局部变量/参数变量等）</li><li>若栈的剩余空间大于所申请空间，系统将为程序提供内存，否则报异常提示栈溢出</li></ul><p>出现<code>栈内存溢出</code>的常见原因有2个：</p><ol><li>函数调用层次过深,每调用一次,函数的参数、局部变量等信息就压一次栈。</li><li>局部变量体积太大。</li></ol><h3 id="地址分配"><a href="#地址分配" class="headerlink" title="地址分配"></a><strong>地址分配</strong></h3><ul><li>堆，往下增长，向内存地址增加的方向增长</li><li>栈，往上增长，向内存地址减小的方向增长（对于小端存储，高位字节在高端地址、低位字节在低位地址，因此在压栈时先压高字节后压低字节）</li><li>可能会发生堆栈冲突(从堆中分配内存失败或者爆栈)</li><li>大端存储：数据高位在内存低位，低位在内存高位（如Freescale的PowerPC处理器）</li><li>小端存储：数据高位在内存高位，低位在内存低位（Intel的芯片一般是小端存储）</li></ul><h3 id="分配效率"><a href="#分配效率" class="headerlink" title="分配效率"></a><strong>分配效率</strong></h3><p>栈是机器系统提供的数据结构，计算机会在底层对栈提供支持：分配专门的寄存器存放栈的地址，压栈出栈都有专门的指令执行，这就决定了栈的效率比较高。</p><p>堆则是C/C++函数库提供的，它的机制是很复杂的，例如为了分配一块内存，库函数会按照一定的算法在堆内存中搜索可用的足够大小的空间，如果没有足够大小的空间（可能是由于内存碎片太多），就有可能调用系统功能去增加程序数据段的内存空间，这样就有机会分到足够大小的内存，然后进行返回。显然，堆的效率比栈要低得多。</p><p><a href="https://www.cnblogs.com/yunlambert/p/10053800.html">堆、栈与大小端存储</a></p><h2 id="数据存放"><a href="#数据存放" class="headerlink" title="数据存放"></a><strong>数据存放</strong></h2><p>基本数据类型：</p><ul><li>直接存储在<strong>栈(stack)</strong>中的数据。（字符串、布尔值、未定义、数字、null）</li><li>null只是一个空指针对象，没有数据。</li></ul><p>引用类型：</p><ul><li>将该对象引用地址存储在<strong>栈(stack)</strong>中，然后对象里面的数据存放在<strong>堆</strong>中。（数组、对象、函数）</li><li>存储的是该对象在栈中的引用，真实的数据存放在堆内存里</li><li>引用数据类型在栈中存储了指针，该指针指向堆中该实体的起始地址。当解释器寻找引用值时，会首先检索其在栈中的地址，取得地址后从堆中获得实体。</li></ul><h2 id="深拷贝与浅拷贝"><a href="#深拷贝与浅拷贝" class="headerlink" title="深拷贝与浅拷贝"></a><strong>深拷贝与浅拷贝</strong></h2><h3 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a><strong>深拷贝</strong></h3><p><strong>既复制对象空间又复制资源</strong><br>在某些状况下，类内成员变量需要动态开辟堆内存，如果实行位拷贝，也就是把对象里的值完全复制给另一个对象，如A=B。这时，如果B中有一个成员变量指针已经申请了内存，那A中的那个成员变量也指向同一块内存。如果此时B中执行析构函数释放掉指向那一块堆的指针，这时A内的指针就将成为悬挂指针。因此，这种情况下不能简单地复制指针，而应该复制“资源”，也就是再重新开辟一块同样大小的内存空间。<br>当拷贝对象中有对其他资源（如堆、文件、系统等）的引用时（引用可以是指针或引用）时，对象的另开辟一块新的资源，而不再对拷贝对象中有对其他资源的引用的指针或引用进行单纯的赋值，然后同步复拷贝开辟空间的值。</p><h3 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a><strong>浅拷贝</strong></h3><p><strong>只复制对象空间而不复制资源</strong> </p><ul><li>如果在类中没有显式地声明一个拷贝构造函数，那么，编译器将会根据需要生成一个默认的拷贝构造函数，完成对象之间的位拷贝。<code>default memberwise copy</code>即称为<code>浅拷贝</code>。</li><li>即默认拷贝构造函数只是对对象进行浅拷贝复制(逐个成员依次拷贝)</li><li>浅拷贝是按位拷贝对象，它会创建一个新对象，这个对象有着原始对象属性值的一份精确拷贝。</li><li>如果属性是基本类型，拷贝的就是基本类型的值；</li><li>如果属性是内存地址（引用类型），拷贝的就是内存地址 ，因此如果其中一个对象改变了这个地址，就会影响到另一个对象。</li></ul><h2 id="C-C-内存分配的三种方式"><a href="#C-C-内存分配的三种方式" class="headerlink" title="C/C++内存分配的三种方式"></a><strong>C/C++内存分配的三种方式</strong></h2><ol><li>静态存储区分配<br>内存分配在程序编译之前完成，且在程序的整个运行期间都存在，例如全局变量、静态变量等。</li><li>栈上分配<br>在函数执行时，函数内的局部变量的存储单元在栈上创建，由操作系统自动分配，函数调用结束时内存也随之析构<br>栈内存分配运算内置于处理器的指令集中，效率高，但栈容量小。</li><li>堆上分配<br>堆分配（又称动态内存分配）。程序在运行时用malloc或者new申请内存，程序员自己用free或者delete释放,在整个程序运行周期内都存在。</li></ol><p><strong>tips:</strong></p><ul><li>申请内存后立即判断指针是否为NULL确定内存是否分配成功，如果为NULL则立即用return终止此函数，或者用exit（1）终止整个程序的运行，为new和malloc设置异常处理函数；</li><li><strong>为申请的内存赋初值</strong>，分配的是一段连续的内存空间的话，要防止指针下标越界；</li><li>sizeof是操作符，不能用sizeof得到内存空间的大小，<strong>只能在申请时候记住申请的空间大小</strong>；</li><li>在内存使用结束后必须用free或delete释放内存，注意在内存使用中如果存在指针加1或减1 的操作应特别注意，释放的内存要和申请的内存一致，放置内存泄漏，<strong>释放内存后，应该立即将指针置为NULL，不要存在野指针</strong>。</li></ul><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://segmentfault.com/a/1190000018874254">浅拷贝与深拷贝的区别</a><br><a href="https://blog.csdn.net/nyist_zxp/article/details/80257760">C++中数据存储的位置</a><br><a href="https://blog.csdn.net/lq18811566072/article/details/80331793">C++经典面试之 内存分配的三种方式</a><br><a href="https://www.cnblogs.com/yunlambert/p/10053800.html">堆、栈与大小端存储</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;C-C-内存使用划分&quot;&gt;&lt;a href=&quot;#C-C-内存使用划分&quot; class=&quot;headerlink&quot; title=&quot;C/C++内存使用划分&quot;&gt;&lt;/a&gt;&lt;strong&gt;C/C++内存使用划分&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;C/C++编译过的程序使用的内存划分：&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="C++" scheme="https://stemha.github.io/categories/C/"/>
+    
+    
+      <category term="C++" scheme="https://stemha.github.io/tags/C/"/>
+    
+      <category term="内存分配" scheme="https://stemha.github.io/tags/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/"/>
+    
+      <category term="内存分区" scheme="https://stemha.github.io/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA/"/>
+    
+      <category term="深拷贝" scheme="https://stemha.github.io/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D/"/>
+    
+      <category term="浅拷贝" scheme="https://stemha.github.io/tags/%E6%B5%85%E6%8B%B7%E8%B4%9D/"/>
+    
+  </entry>
   
   <entry>
     <title>文件系统（1）</title>
