@@ -16,18 +16,26 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>标签: 传记 - STEMHA&#39;s Blog</title>
+<title>C++特性及优缺点 - STEMHA&#39;s Blog</title>
 
 
-    <meta name="description" content="STEMHA&#39;s personal blog on github">
-<meta property="og:type" content="website">
-<meta property="og:title" content="STEMHA&#39;s Blog">
-<meta property="og:url" content="https://stemha.github.io/tags/%E4%BC%A0%E8%AE%B0/index.html">
+    <meta name="description" content="C++语言优缺点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++特性及优缺点">
+<meta property="og:url" content="https://stemha.github.io/2020/05/08/C++%E7%89%B9%E6%80%A7%E5%8F%8A%E4%BC%98%E7%BC%BA%E7%82%B9/index.html">
 <meta property="og:site_name" content="STEMHA&#39;s Blog">
-<meta property="og:description" content="STEMHA&#39;s personal blog on github">
+<meta property="og:description" content="C++语言优缺点">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://stemha.github.io/images/og_image.png">
+<meta property="article:published_time" content="2020-05-08T13:03:43.000Z">
+<meta property="article:modified_time" content="2020-05-08T13:36:30.296Z">
 <meta property="article:author" content="STEMHA">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="封装">
+<meta property="article:tag" content="继承">
+<meta property="article:tag" content="多态">
+<meta property="article:tag" content="静态多态">
+<meta property="article:tag" content="动态多态">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://stemha.github.io/images/og_image.png">
 
@@ -89,7 +97,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/og_image.png" alt="STEMHA&#39;s Blog" height="28">
+                <img src="/images/og_image.png" alt="C++特性及优缺点" height="28">
             
             </a>
         </div>
@@ -141,35 +149,24 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">传记</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
 <div class="card">
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-04-18T12:48:23.000Z">2020-04-18</time>
+                <time class="level-item has-text-grey" datetime="2020-05-08T13:03:43.000Z">2020-05-08</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+                <a class="has-link-grey -link" href="/categories/C/">C++</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    8 分钟 读完 (大约 1261 个字)
+                    11 分钟 读完 (大约 1714 个字)
                 </span>
                 
                 
@@ -178,33 +175,137 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2020/04/18/%E3%80%8A%E5%88%AB%E9%97%B9%E4%BA%86%E8%B4%B9%E6%9B%BC%E5%85%88%E7%94%9F%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">《别闹了费曼先生》读书笔记</a>
+                C++特性及优缺点
             
         </h1>
         <div class="content">
-            <h2 id="当科学大师碰上菜鸟"><a href="#当科学大师碰上菜鸟" class="headerlink" title="当科学大师碰上菜鸟"></a>当科学大师碰上菜鸟</h2>
+            <h2 id="C-语言优缺点"><a href="#C-语言优缺点" class="headerlink" title="C++语言优缺点"></a><strong>C++语言优缺点</strong></h2><a id="more"></a>
+<p><strong>优点</strong></p>
+<ul>
+<li>兼容性好，C++在保持了C语言简洁高效的特点的同时，还对C的类型系统进行改革性扩充，相比C语言，C++更安全，其编译系统也能检查出更多错误类型。</li>
+<li>面向对象编程能力，可复用性好，可以让团队衍化出自己的的类库。</li>
+<li>性能优势，程序效率高。</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>C++ 是 C 语言的一个超集，既有指针又有对象使它成为最复杂的语言，学习难度大。过分的精细和复杂了。C++的复杂度，超过了C和OO（面向对象）的复杂度之和</li>
+<li>没有垃圾回收机制。</li>
+</ul>
+<p>C++本质上说是提前编译的，Fortran也是。C#和Java大多时候是编译成字节码，运行的时候再 即使编译。Python和Ruby通常是解释型。这就产生了一个性能的分级：C++和Fortran比Java和C#快，Java和C#又比Python 和Ruby快。<br><a href="http://www.ruanyifeng.com/blog/2010/03/programming_language_evaluations_revised.html">几种计算机语言的评价（修订版）</a><br><a href="https://www.kawabangga.com/posts/582">为什么一些语言会比别的快？</a></p>
+<h2 id="C-特性"><a href="#C-特性" class="headerlink" title="C++特性"></a><strong>C++特性</strong></h2><p>C++面向对象的三个基本特征：封装、继承、多态。它们的目的都是为了——<strong>代码重用</strong>。而多态则是为了实现另一个目的——<strong>接口重用</strong><br>在 C++ 中，用类进行封装（数据抽象），用类派生从一个类继承另一个：派生类继承基类的成员。<br>多态（动态绑定）使编译器能够在运行时决定是使用基类中定义的函数还是派生类中定义的函数<br>继承和多态（动态绑定）在两个方面简化了我们的程序：能够容易地定义与其他类相似但又不相同的新类，能够更容易地编写忽略这些相似类型之间区别的程序。</p>
+<h3 id="封装（encapsulation）"><a href="#封装（encapsulation）" class="headerlink" title="封装（encapsulation）"></a><strong>封装（encapsulation）</strong></h3><p><code>封装</code>是一项低层次的元素组合起来的形成新的、高层次实体的技术。</p>
+<ul>
+<li><code>函数</code>是封装的一种形式：函数所执行的细节行为被封装在函数本身这个更大的实体中。被封装的元素隐藏了它们的实现细节——可以调用一个函数但不能访问它所执行的语句。</li>
+<li><code>类</code>也是一个封装的实体：它代表若干成员的聚焦，大多数（良好设计的）类类型隐藏了实现该类型的成员。</li>
+</ul>
+<p>目的：</p>
+<ul>
+<li>将抽象得到的数据和行为相结合，形成一个有机的整体（结合性）</li>
+<li>将对象的使用者和设计者分开，以提高软件的可维护性和可修改性</li>
+<li>实现代码重用</li>
+</ul>
+<h3 id="继承（inheritance）"><a href="#继承（inheritance）" class="headerlink" title="继承（inheritance）"></a><strong>继承（inheritance）</strong></h3><p>继承：继承性是子类自动共享父类数据结构和方法的机制，这是类之间的一种关系。在定义和实现一个类的时候，可以在一个已经存在的类的基础之上来进行，把这个已经存在的类所定义的内容作为自己的内容，并加入若干新的内容。</p>
+<ul>
+<li>通过继承关联起来的类型都共享共同的接口。当一个类继承另一个类时，这两个类通常可以使用相同的操作。更确切地说，如果两种类型存在继承关系，则可以说一个类“继承”了其父类的行为——接口。</li>
+<li>C++ 中所提及的父类称为<code>基类（base class）</code>，而继承而来的类则称为<code>派生类（derived class）</code>。</li>
+</ul>
+<h3 id="多态（polymorphism）"><a href="#多态（polymorphism）" class="headerlink" title="多态（polymorphism）"></a><strong>多态（polymorphism）</strong></h3><p>多态：多态的基础是继承。多态下，子类重写父类的方法，实际使用过程中，用父类引用变量指向子类对象，此时父类引用调用的是子类重写后的方法，由于是父类引用变量，所有无法调用子类特有的方法。如果想调用子类特有的方法，必须强制类型转换到子类。<br>多态性派生于一个希腊单词，意思是“许多形态”。之所以称<u>通过继承而相关联的类型为</u><code>多态类型</code>，是因为在许多情况下可以互换地使用派生类型或基类型的“许多形态”。在 C++ 中，多态性仅用于通过继承而相关联的类型的引用或指针。<br>多态性：指的是<strong>基于引用或指针的动态类型获得类型明确的行为的能力</strong>。</p>
+<ul>
+<li>在C++中的主要表现是动态多态（动态绑定）</li>
+<li>动态多态（动态绑定）：我们能够编写程序使用继承层次中任意类型的对象，无须关心对象的具体类型。使用这些类的程序无须区分函数是在基类还是在派生类中定义的。</li>
+<li>在 C++ 中，基类必须指出希望派生类重写哪些函数，定义为 virtual 的函数是基类期待派生类重新定义的，基类希望派生类继承的函数不能定义为虚函数。</li>
+<li>引用和指针的静态类型与动态类型可以不同，这是 C++ 用以支持多态性的基石。</li>
+</ul>
+<h4 id="静态多态（编译期-早绑定）"><a href="#静态多态（编译期-早绑定）" class="headerlink" title="静态多态（编译期/早绑定）"></a><strong>静态多态（编译期/早绑定）</strong></h4><p><code>template（模板）</code>：静态多态（编译时完成，效率高，适配性高，松耦合性），隐形接口<br><code>overload（重载）</code>：静态多态</p>
+<ol>
+<li>同名函数，不同参数/函数返回值</li>
+<li>相同范围，同一个类中</li>
+</ol>
+<p><code>overwrite（重写）</code>：静态多态，子类屏蔽父类的同名基函数</p>
+<ol>
+<li>同名同参，无virtual</li>
+<li>同名不同参</li>
+</ol>
+<h4 id="动态多态（运行期-晚绑定）"><a href="#动态多态（运行期-晚绑定）" class="headerlink" title="动态多态（运行期/晚绑定）"></a><strong>动态多态（运行期/晚绑定）</strong></h4><p><code>override（覆盖重写）</code>：动态多态（运行时完成，接口重用，编译器无法优化）</p>
+<ol>
+<li>不同类中</li>
+<li>同名，同参</li>
+<li>基类函数有virtual</li>
+</ol>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h2><p>[1]C++ primer 第四版<br>[2]<a href="http://www.ruanyifeng.com/blog/2010/03/programming_language_evaluations_revised.html">几种计算机语言的评价（修订版）</a><br>[3]<a href="https://www.kawabangga.com/posts/582">为什么一些语言会比别的快？</a><br>[4]<a href="https://blog.csdn.net/Chuwei_xu/article/details/89321191">C++ 特性及类（面试复习整理）</a><br>[5]<a href="https://www.runoob.com/cplusplus/cpp-polymorphism.html">C++ 多态-菜鸟教程</a></p>
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/04/18/%E3%80%8A%E5%88%AB%E9%97%B9%E4%BA%86%E8%B4%B9%E6%9B%BC%E5%85%88%E7%94%9F%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/C/" rel="tag">C++</a>, <a class="has-link-grey -link" href="/tags/%E5%8A%A8%E6%80%81%E5%A4%9A%E6%80%81/" rel="tag">动态多态</a>, <a class="has-link-grey -link" href="/tags/%E5%A4%9A%E6%80%81/" rel="tag">多态</a>, <a class="has-link-grey -link" href="/tags/%E5%B0%81%E8%A3%85/" rel="tag">封装</a>, <a class="has-link-grey -link" href="/tags/%E7%BB%A7%E6%89%BF/" rel="tag">继承</a>, <a class="has-link-grey -link" href="/tags/%E9%9D%99%E6%80%81%E5%A4%9A%E6%80%81/" rel="tag">静态多态</a>
                 </div>
             </div>
         </div>
         
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
         
     </div>
 </div>
 
 
 
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+        </div>
+    </div>
+</div>
 
 
 
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/05/08/C++%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%92%E5%88%86/">
+                <span class="level-item">C++内存分配与内存划分</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'e79770cfee30db02a856',
+        clientSecret: 'bb958f5fc30797ffc222ca631ec345baa48a0bee',
+        id: '6c1d304271224fda05834c49168199a1',
+        repo: 'STEMHA.github.io',
+        owner: 'STEMHA',
+        admin: "STEMHA",
+        createIssueManually: false,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
 </div>
                 
 
@@ -331,6 +432,50 @@
 </div>
     
         
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#C-语言优缺点">
+        <span class="has-mr-6">1</span>
+        <span>C++语言优缺点</span>
+        </a></li><li>
+        <a class="is-flex" href="#C-特性">
+        <span class="has-mr-6">2</span>
+        <span>C++特性</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#封装（encapsulation）">
+        <span class="has-mr-6">2.1</span>
+        <span>封装（encapsulation）</span>
+        </a></li><li>
+        <a class="is-flex" href="#继承（inheritance）">
+        <span class="has-mr-6">2.2</span>
+        <span>继承（inheritance）</span>
+        </a></li><li>
+        <a class="is-flex" href="#多态（polymorphism）">
+        <span class="has-mr-6">2.3</span>
+        <span>多态（polymorphism）</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#静态多态（编译期-早绑定）">
+        <span class="has-mr-6">2.3.1</span>
+        <span>静态多态（编译期/早绑定）</span>
+        </a></li><li>
+        <a class="is-flex" href="#动态多态（运行期-晚绑定）">
+        <span class="has-mr-6">2.3.2</span>
+        <span>动态多态（运行期/晚绑定）</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#参考资料">
+        <span class="has-mr-6">3</span>
+        <span>参考资料</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
     
         <div class="card widget">
     <div class="card-content">
@@ -963,7 +1108,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/og_image.png" alt="STEMHA&#39;s Blog" height="28">
+                    <img src="/images/og_image.png" alt="C++特性及优缺点" height="28">
                 
                 </a>
                 <p class="is-size-7">
