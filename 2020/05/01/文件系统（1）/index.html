@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://stemha.github.io/images/og_image.png">
 <meta property="article:published_time" content="2020-05-01T15:00:41.000Z">
-<meta property="article:modified_time" content="2020-05-01T16:00:41.074Z">
+<meta property="article:modified_time" content="2020-05-09T13:45:25.336Z">
 <meta property="article:author" content="STEMHA">
 <meta property="article:tag" content="软连接">
 <meta property="article:tag" content="硬连接">
@@ -163,7 +163,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    8 分钟 读完 (大约 1253 个字)
+                    23 分钟 读完 (大约 3519 个字)
                 </span>
                 
                 
@@ -176,9 +176,9 @@
             
         </h1>
         <div class="content">
-            <h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><p><code>文件系统</code>：操作系统中处理文件的部分，有关文件的构造，命名，存取，使用，实现和管理都是操作系统文件系统设计的主要内容</p>
+            <h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a><strong>基础概念</strong></h2><p><code>文件系统</code>：操作系统中处理文件的部分，有关文件的构造，命名，存取，使用，实现和管理都是操作系统文件系统设计的主要内容</p>
 <a id="more"></a>
-<h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><h3 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h3><p>文件可以有多种构造方式。</p>
+<h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a><strong>文件</strong></h2><h3 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a><strong>文件结构</strong></h3><p>文件可以有多种构造方式。</p>
 <ul>
 <li>字节序列（Windows，UNIX都采用这种文件模型）</li>
 <li>记录序列（以前大型计算机系统中的常见模式，现在没多少了）</li>
@@ -187,22 +187,22 @@
 </ul>
 </li>
 </ul>
-<h3 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h3><p>Linux中分为    </p>
+<h3 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a><strong>文件类型</strong></h3><p>Linux中分为    </p>
 <ol>
-<li>普通文件（regular）：存在于外部存储器中，用于存储普通文件。</li>
-<li>目录文件（directory）：用于存放目录项，是文件系统管理的重要文件类型。</li>
-<li>管道文件（pipe）：一种用于进程间通信的特殊文件，也称为命名管道FIFO。</li>
-<li>套接字文件（socket）：一种用于网络间通信的特殊文件。</li>
-<li>链接文件（link）；用于间接访问另外一个目标文件，相当于widows快捷方式。</li>
-<li>字符设备文件（character）:字符设备在应用层的访问结构。</li>
-<li>块设备文件（block）：块设备在应用层的访问接口。</li>
+<li><code>普通文件（regular）</code>：存在于外部存储器中，用于存储普通文件。</li>
+<li><code>目录文件（directory）</code>：用于存放目录项，是文件系统管理的重要文件类型。</li>
+<li><code>管道文件（pipe）</code>：一种用于进程间通信的特殊文件，也称为命名管道FIFO。</li>
+<li><code>套接字文件（socket）</code>：一种用于网络间通信的特殊文件。</li>
+<li><code>链接文件（link）</code>；用于间接访问另外一个目标文件，相当于widows快捷方式。</li>
+<li><code>字符设备文件（character）</code>:字符设备在应用层的访问结构。</li>
+<li><code>块设备文件（block）</code>：块设备在应用层的访问接口。</li>
 </ol>
-<h3 id="文件存取"><a href="#文件存取" class="headerlink" title="文件存取"></a>文件存取</h3><ul>
+<h3 id="文件存取"><a href="#文件存取" class="headerlink" title="文件存取"></a><strong>文件存取</strong></h3><ul>
 <li>顺序存取文件（sequential access）：进程可以从头到尾顺序读取文件的全部字节或者记录，但不能跳过某一些内容，也不能不按顺序读取。可以返回到起点的。</li>
 <li>随机存取文件（random access）：以任何次序读取其中字节或记录的文件。对很多应用程序来说是必不可少的，比如数据库系统</li>
 </ul>
-<h3 id="文件属性"><a href="#文件属性" class="headerlink" title="文件属性"></a>文件属性</h3><p>操作系统常用的文件属性</p>
-<h4 id="文件保护"><a href="#文件保护" class="headerlink" title="文件保护"></a>文件保护</h4><table>
+<h3 id="文件属性"><a href="#文件属性" class="headerlink" title="文件属性"></a><strong>文件属性</strong></h3><p>操作系统常用的文件属性</p>
+<h4 id="文件保护"><a href="#文件保护" class="headerlink" title="文件保护"></a><strong>文件保护</strong></h4><table>
 <thead>
 <tr>
 <th align="left">属性</th>
@@ -231,7 +231,7 @@
 <td align="left"></td>
 </tr>
 </tbody></table>
-<h4 id="标志"><a href="#标志" class="headerlink" title="标志"></a>标志</h4><table>
+<h4 id="标志"><a href="#标志" class="headerlink" title="标志"></a><strong>标志</strong></h4><table>
 <thead>
 <tr>
 <th align="left">属性</th>
@@ -280,7 +280,7 @@
 <td align="left"></td>
 </tr>
 </tbody></table>
-<h4 id="查找读写相关"><a href="#查找读写相关" class="headerlink" title="查找读写相关"></a>查找读写相关</h4><table>
+<h4 id="查找读写相关"><a href="#查找读写相关" class="headerlink" title="查找读写相关"></a><strong>查找读写相关</strong></h4><table>
 <thead>
 <tr>
 <th align="left">属性</th>
@@ -314,7 +314,7 @@
 <td align="left"></td>
 </tr>
 </tbody></table>
-<h4 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h4><table>
+<h4 id="时间"><a href="#时间" class="headerlink" title="时间"></a><strong>时间</strong></h4><table>
 <thead>
 <tr>
 <th align="left">属性</th>
@@ -338,7 +338,7 @@
 <td align="left"></td>
 </tr>
 </tbody></table>
-<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><p>最常用的一些系统调用（不限制系统的总结）</p>
+<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a><strong>文件操作</strong></h3><p>最常用的一些系统调用（不限制系统的总结）</p>
 <ol>
 <li>create</li>
 <li>delete</li>
@@ -353,7 +353,7 @@
 <li>rename</li>
 </ol>
 <p>Linux文件IO函数，通常包括 open,read,write,lseek,close这五个函数。</p>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="目录操作"><a href="#目录操作" class="headerlink" title="目录操作"></a>目录操作</h3><ol>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a><strong>目录</strong></h2><h3 id="目录操作"><a href="#目录操作" class="headerlink" title="目录操作"></a><strong>目录操作</strong></h3><ol>
 <li>create</li>
 <li>delete</li>
 <li>opendir</li>
@@ -363,11 +363,85 @@
 <li>link</li>
 <li>ulink</li>
 </ol>
-<h2 id="文件系统的实现"><a href="#文件系统的实现" class="headerlink" title="文件系统的实现"></a>文件系统的实现</h2><h3 id="文件系统布局"><a href="#文件系统布局" class="headerlink" title="文件系统布局"></a>文件系统布局</h3><p><code>文件系统存放</code>：文件系统存放在外存上。多数磁盘划分为一个或者多个分区，每个而分区有一个独立的文件系统。<br><code>主引导记录（master boot record，MBR）</code>：磁盘的0号扇区称为主引导记录，用来引导计算机，MBR之后挨着的是<code>分区表</code>,该表给出了每一个分区的起始和结束地址。</p>
-<h3 id="文件的实现"><a href="#文件的实现" class="headerlink" title="文件的实现"></a>文件的实现</h3><h4 id="连续分配"><a href="#连续分配" class="headerlink" title="连续分配"></a>连续分配</h4><h4 id="链表分配"><a href="#链表分配" class="headerlink" title="链表分配"></a>链表分配</h4><h4 id="在内存中采用表的链表分配"><a href="#在内存中采用表的链表分配" class="headerlink" title="在内存中采用表的链表分配"></a>在内存中采用表的链表分配</h4><h4 id="i节点分配"><a href="#i节点分配" class="headerlink" title="i节点分配"></a>i节点分配</h4><p>i节点（index-node）：每个文件都赋予了一个称为i节点的数据结构，其中列出了文件属性和文件块的磁盘地址。</p>
-<h3 id="目录的实现"><a href="#目录的实现" class="headerlink" title="目录的实现"></a>目录的实现</h3><p>每个目录项只引用i节点的目录</p>
-<h3 id="共享文件"><a href="#共享文件" class="headerlink" title="共享文件"></a>共享文件</h3><p>硬连接和软连接</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>现代操作系统</p>
+<h2 id="文件系统的实现"><a href="#文件系统的实现" class="headerlink" title="文件系统的实现"></a><strong>文件系统的实现</strong></h2><h3 id="文件系统布局"><a href="#文件系统布局" class="headerlink" title="文件系统布局"></a>文件系统布局</h3><p><code>文件系统存放</code>：文件系统存放在外存上。多数磁盘划分为一个或者多个分区，每个而分区有一个独立的文件系统。<br><code>主引导记录（master boot record，MBR）</code>：磁盘的0号扇区称为主引导记录，用来引导计算机，MBR之后挨着的是<code>分区表</code>,该表给出了每一个分区的起始和结束地址。<br>在计算机被引导时，BIOS读入并执行MBR。MBR执行的第一件事情是确定活动分区，读入活动分区的第一个块，称为<code>引导块（boot block）</code>，并执行之。引导块中的程序将装载该分区中的操作系统。为了统一，每个分区都从一个启动块开始，即使它不含一个可以启动的操作系统。不过，在将来这个分区也许会有一个操作系统的。</p>
+<h3 id="文件的实现"><a href="#文件的实现" class="headerlink" title="文件的实现"></a><strong>文件的实现</strong></h3><p>文件存储实现的关键问题是记录各个文件分别用到哪些磁盘块。不同的操作系统采用不同的方法。</p>
+<h4 id="连续分配"><a href="#连续分配" class="headerlink" title="连续分配"></a><strong>连续分配</strong></h4><p>最简单的分配方案：把每个文件座位一连串连续数据存储在磁盘上。所以，在块大小为1KB的磁盘上，50KB的文件要分配50个连续大小的块。<br>优点</p>
+<ol>
+<li>实现简单。记录每个文件用到的磁盘块简化为只需记住两个数字即可：第一块的磁盘地址和文件的块数。</li>
+<li>读性能好。单个操作就可以从磁盘上读出整个文件。只需一次查找（对第一个块）。之后就不需要寻道和旋转延迟，所以数据以磁盘全带宽的速率输入。可见连续分配实现简单且具有较高的性能。</li>
+<li>很适合DVD，CD-ROM等一次性光学介质的存储。</li>
+</ol>
+<p>缺点</p>
+<ul>
+<li>磁盘零碎问题。删除文件之后会留下空闲块，随着时间的推移会使得磁盘变得零碎，既有文件也有空洞<ul>
+<li>要么压缩磁盘。代价太高不可行。</li>
+<li>要么重新使用空洞。需要维护一个空闲空间列表，但是为了挑选合适的空闲空间，需要知道该文件的最终大小。如果用户为了避免找到的空闲空间太小而提前给出一个不切实际的较大数字，则可能无法找到合适的空闲空间而导致失败。</li>
+</ul>
+</li>
+</ul>
+<h4 id="链表分配"><a href="#链表分配" class="headerlink" title="链表分配"></a><strong>链表分配</strong></h4><p><code>链表分配</code>：为每个文件构造磁盘块列表，每一个块的<strong>第一个字作为指向下一块的指针</strong>，块的其他部分存放数据。<br>优点</p>
+<ol>
+<li>可以充分利用每个磁盘块，不会因为磁盘碎片而浪费存储空间。</li>
+<li>顺序读文件很方便</li>
+</ol>
+<p>缺点</p>
+<ol>
+<li>随机存取非常慢</li>
+<li>由于指针占去了一些字节，每个磁盘块存储文件数据的字节数不再是2的整数次幂，这种怪异的大小会降低文件的存储效率。（类似于没有对齐）<ul>
+<li>很多程序都是以2的整数次幂来读写磁盘块的。因为上面论述的原因，要读出一个完整的2的整数次幂的块需要从两个磁盘中获得和接收信息，这就因为复制引发了额外的开销。</li>
+</ul>
+</li>
+</ol>
+<h4 id="在内存中采用表的链表分配"><a href="#在内存中采用表的链表分配" class="headerlink" title="在内存中采用表的链表分配"></a><strong>在内存中采用表的链表分配</strong></h4><p>A：我们可以知道上面链表分配的不足，那么如何解决呢？<br>B: 可以取出每个磁盘块的指针字，把它放在内存的一个表里面，就可以解决链表分配的两个不足。</p>
+<p><code>文件分配表（FAT,File Allocation Table）</code>：这个表实现了链表的操作。文件分配表的每一个表项存放着文件数据的下一个块的块号</p>
+<p>优点</p>
+<ol>
+<li>磁盘文件块可以不用存放指针，这样整个块都是数据。</li>
+<li>随机存取更加容易，整个文件分配表实现的链表都在内存中，不需要磁盘引用。</li>
+<li>不管文件多大，在目录项中只需记录一个整数（起始块号），按照它就可以找到文件的全部块。</li>
+</ol>
+<p>缺点</p>
+<ul>
+<li>占用内存空间大。必须整个表都存放在内存中。<ul>
+<li>对于200GB的磁盘和1KB大小的块，这张表有2亿项，每一项至少三个字节，为了提高查找速度，有时需要4个字节。根据系统对空间和时间的优化方案，这张表需要600MB或者800MB，不实用。</li>
+</ul>
+</li>
+</ul>
+<h4 id="i节点分配"><a href="#i节点分配" class="headerlink" title="i节点分配"></a><strong>i节点分配</strong></h4><p>A：我们可以知道上面链表分配的不足，那么如何解决呢？<br>B: 既然整张文件分配表太大了，我们就拆分成小的放，实现一个新的数据结构i节点。</p>
+<p><code>i节点（index-node）</code>：每个文件都赋予了一个称为i节点的数据结构，其中列出了文件属性和文件块的<strong>磁盘地址</strong>。<br>优点：</p>
+<ul>
+<li>只有在对应的文件打开时候，其i节点才在内存中</li>
+</ul>
+<p>缺点与解决方案：</p>
+<ul>
+<li>每个i节点只能存储固定数量的磁盘地址，那么当一个文件所包含的磁盘块的数目超出了i节点所能容纳的数目怎么办呢？<ul>
+<li>一个解决方案，最后一个i节点中的磁盘地址不指向数据块，而是指向一个包含磁盘块地址的块的地址。</li>
+</ul>
+</li>
+</ul>
+<h3 id="目录的实现"><a href="#目录的实现" class="headerlink" title="目录的实现"></a><strong>目录的实现</strong></h3><p>每个目录项只引用i节点的目录</p>
+<h3 id="共享文件"><a href="#共享文件" class="headerlink" title="共享文件"></a><strong>共享文件</strong></h3><p><code>共享文件</code>：当几个用户在同一个项目里面工作时候，他们常常需要共享文件。其结果是，如果一个共享文件同时出现在属于不同用户的不同目录下面，工作起来就很方便。<br><code>连接（link）</code>：原本属于C目录下的文件也出现在B目录下的话，B的目录与该共享文件的联系称为一个<code>连接（link）</code>。这样文件系统本身也成为了一个<code>有向无环图（DAG）</code>。</p>
+<p>共享文件的问题：</p>
+<ol>
+<li>如果目录包含磁盘地址，则当连接文件的时候，必须把C目录中的磁盘地址复制到B目录。如果B或者C之后又向文件中添加内容，则新的数据块只会列入添加工作的用户的目录中。其他用户是不知道的。这违背了共享的初衷</li>
+</ol>
+<h4 id="硬连接和软连接"><a href="#硬连接和软连接" class="headerlink" title="硬连接和软连接"></a><strong>硬连接和软连接</strong></h4><p>解决方案：</p>
+<ol>
+<li><code>i节点方法</code>：磁盘块不列入目录，而是列入一个与文件本身关联的小型数据结构中，目录指向这个数据结构(Linux中的i节点）（<strong>硬连接</strong>）<ul>
+<li>实现机制：需要有一个文件<code>所有者计数机制</code>，当B连接到共享文件时，i节点记录文件的所有者是C，建立一个连接并不会改变所有关系，但是它将i节点的连接技术加1，所以系统知道当前有多少目录项指向这个文件。</li>
+<li>缺点：C删去这个文件之后，还有许多目录项指向它，其他硬连接会指向错误的文件。</li>
+<li>改进：唯一能做的是只删除C的目录项，但是保留i节点，所有者计数减一。只有到计数为0的时候才会真正删除该文件。</li>
+</ul>
+</li>
+<li><code>符号链接方法（symbolic linking）</code>：让系统建立一个类型为Link的新文件，并把该文件放在B目录下，使得B与C的一个文件存在链接。链接文件只包含了它所连接的文件的路径名。（<strong>软连接</strong>）<ul>
+<li>缺点：需要额外的开销。必须读取包含路径的文件，然后一个部分一个部分地扫描路径，直到找到i节点</li>
+<li>缺点：每个符号链接需要额外的i节点和一个额外的磁盘块用于存储路径，如果路径很短，作为一种优化，系统可以将它存储在i节点中。</li>
+<li>优点：只要简单提供一个机器的网络地址和文件在该机器上的路径，就可以连接全球任何地方的机器的文件。</li>
+</ul>
+</li>
+</ol>
+<p>tips：<br>还有一个由连接带来的问题，在符号连接和其他方式中都存在。如果允许连接，文件有两个或多个路径。查找一指定目录及其子目录下的全部文件的程序将多次定位到被连接的文件。例如，一个将某一目录及其子目录下的文件转存到磁带上的程序有可能多次复制一个被连接的文件。进而，如果接着把磁带读入另一台机器，除非转出程序具有智能，否则被连接的文件将被两次复制到磁盘上，而不是只是被链接起来。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>现代操作系统<br><a href="https://blog.csdn.net/qq_36894974/article/details/105092951">简直不要太硬了！一文带你彻底理解文件系统</a></p>
 
         </div>
         
@@ -669,7 +743,11 @@
         <a class="is-flex" href="#共享文件">
         <span class="has-mr-6">4.4</span>
         <span>共享文件</span>
-        </a></li></ul></li><li>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#硬连接和软连接">
+        <span class="has-mr-6">4.4.1</span>
+        <span>硬连接和软连接</span>
+        </a></li></ul></li></ul></li><li>
         <a class="is-flex" href="#参考资料">
         <span class="has-mr-6">5</span>
         <span>参考资料</span>
