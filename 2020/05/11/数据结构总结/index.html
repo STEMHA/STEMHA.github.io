@@ -16,19 +16,19 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>“数据结构总结 - STEMHA&#39;s Blog</title>
+<title>数据结构总结 - STEMHA&#39;s Blog</title>
 
 
     <meta name="description" content="（未完待续）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="“数据结构总结">
+<meta property="og:title" content="数据结构总结">
 <meta property="og:url" content="https://stemha.github.io/2020/05/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="STEMHA&#39;s Blog">
 <meta property="og:description" content="（未完待续）">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://stemha.github.io/images/og_image.png">
 <meta property="article:published_time" content="2020-05-10T17:17:20.000Z">
-<meta property="article:modified_time" content="2020-05-11T16:56:13.858Z">
+<meta property="article:modified_time" content="2020-05-12T13:47:23.509Z">
 <meta property="article:author" content="STEMHA">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary">
@@ -92,7 +92,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/og_image.png" alt="“数据结构总结" height="28">
+                <img src="/images/og_image.png" alt="数据结构总结" height="28">
             
             </a>
         </div>
@@ -161,7 +161,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    20 分钟 读完 (大约 3061 个字)
+                    25 分钟 读完 (大约 3785 个字)
                 </span>
                 
                 
@@ -170,7 +170,7 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                “数据结构总结
+                数据结构总结
             
         </h1>
         <div class="content">
@@ -281,9 +281,30 @@
 </ol>
 <p>所有外部节点的黑高度统一<br>特别的，根节点的黑高度也称为全树的黑高度，在数值上与外部节点的黑高度相等。<br>所有外部节点的黑高度为0.</p>
 <p>双红修正<br>双黑修正</p>
-<h3 id="平衡多路搜索树"><a href="#平衡多路搜索树" class="headerlink" title="平衡多路搜索树"></a><strong>平衡多路搜索树</strong></h3><p>平衡二叉搜索树（BBST）的推广</p>
-<h4 id="B-树"><a href="#B-树" class="headerlink" title="B- 树"></a><strong>B- 树</strong></h4><p>平衡多路搜索树的典型代表</p>
-<h4 id="kd-树"><a href="#kd-树" class="headerlink" title="kd-树"></a><strong>kd-树</strong></h4><p>四叉树与八叉树的一般性推广<br>递归定义的平衡二叉树</p>
+<h3 id="平衡多路搜索树"><a href="#平衡多路搜索树" class="headerlink" title="平衡多路搜索树"></a><strong>平衡多路搜索树</strong></h3><p>平衡二叉搜索树（BBST）的推广<br>当数据规模大到内存已经不足以容纳时候，常规平衡二叉搜索树的效率会大打折扣。其原因在于查找过程对外存的访问次数过多。</p>
+<blockquote>
+<p>外部存储适合于批量式访问，不妨通过时间成本较低的多次内存操作，来替代时间成本相对较高的单次外存操作。</p>
+</blockquote>
+<p>结合上面的思想，我们可以将通常的二叉树搜索树，改造为多路搜索树（等价变换）</p>
+<p><code>四路搜索树</code>：每个大节点拥有四个外部的分支。</p>
+<ul>
+<li>通常是将二叉搜索树以两层为间隔合并。</li>
+<li>一个大节点包含3个关键码和4个外部分支.</li>
+</ul>
+<p><code>多路搜索树（multi-way search tree）</code>：一般地，以k层为间隔如此重组，可以将二叉搜索树转化为等价的2^k路搜索树。</p>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>访问外存的方式相对于二叉搜索树已经发生了本质的变化，可以以大节点为单位读取一组（而不是一个）关键码。</li>
+<li>这组关键码在逻辑上与物理上都彼此相邻，故可以以批量方式从外存一次性读出，且需要的时间与读取单个关键码几乎一样。</li>
+<li>每组关键码的最佳数目，取决于不同外存的批量访问特性。可以根据扇区的容量等因素来计算。</li>
+</ul>
+<h4 id="B-树"><a href="#B-树" class="headerlink" title="B- 树"></a><strong>B- 树</strong></h4><p>平衡多路搜索树的典型代表<br>B-树（B-tree）：m阶B-树，也就是m路平衡搜索树</p>
+<p><strong>所有外部节点的深度都相等</strong>，每个内部节点都存有<strong>不超过</strong>m-1个关键码，以及用以指示对应分支不超过m个引用。<br>各个节点的分支数应该介于m/2（向上取整）与m之间，故也称为(m/2向上取整，m)-树<br>B-树的外部节点：<br>B-树的宽度<br>B-树的叶节点</p>
+<ul>
+<li>非常适合在相对较小的内存中，实现对大规模数据的高效操作。</li>
+</ul>
+<p>复杂度：O(log<sub>m</sub>N)</p>
+<h4 id="kd-树（k-dimensional-tree）"><a href="#kd-树（k-dimensional-tree）" class="headerlink" title="kd-树（k-dimensional tree）"></a><strong>kd-树（k-dimensional tree）</strong></h4><p>四叉树与八叉树的一般性推广<br>递归定义的平衡二叉树<br>一维范围查询（range query）：给定直线L上的点集P={p<sub>0</sub>,p<sub>n-1</sub>},对于任一区间R=[x<sub>1</sub>,x<sub>2</sub>],P中的哪些顶点落在其中？<br>离线方式和在线方式<br><code>输出敏感（output sensitive）</code>的算法<br>平衡二叉搜索树解决一维度范围i查询问题， 找到最低共同祖先，忽略<br>分割成为矩形，举行左边底边开，右边和顶边封闭<br>每次切分都在中位点（对应的坐标排序居中者）。 以保证全树的高度不超过O(log n)<br>复杂度O（根号n）</p>
 <h2 id="图"><a href="#图" class="headerlink" title="图"></a><strong>图</strong></h2><p>非线性结构</p>
 <h3 id="邻接矩阵"><a href="#邻接矩阵" class="headerlink" title="邻接矩阵"></a>邻接矩阵</h3><h3 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h3><h3 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h3><h3 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h3><h3 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h3><h2 id="优先级队列与堆"><a href="#优先级队列与堆" class="headerlink" title="优先级队列与堆"></a>优先级队列与堆</h2><h3 id="完全二叉堆"><a href="#完全二叉堆" class="headerlink" title="完全二叉堆"></a>完全二叉堆</h3><h4 id="上滤与下滤"><a href="#上滤与下滤" class="headerlink" title="上滤与下滤"></a>上滤与下滤</h4><h3 id="左式堆"><a href="#左式堆" class="headerlink" title="左式堆"></a>左式堆</h3><h2 id="串"><a href="#串" class="headerlink" title="串"></a>串</h2><h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><h3 id="串匹配"><a href="#串匹配" class="headerlink" title="串匹配"></a>串匹配</h3><h2 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h2><p>看这篇文章即可：<a href="https://stemha.github.io/2020/04/14/%E5%93%88%E5%B8%8C%E8%A1%A8%EF%BC%88%E6%95%A3%E5%88%97%E8%A1%A8%EF%BC%89%E8%AF%A6%E8%A7%A3/#more">哈希表（散列表）详解</a></p>
 <h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><p>偏序只对部分元素成立关系R，全序对集合中任意两个元素都有关系R。</p>
@@ -660,9 +681,9 @@
         <span class="has-mr-6">7.5.1</span>
         <span>B- 树</span>
         </a></li><li>
-        <a class="is-flex" href="#kd-树">
+        <a class="is-flex" href="#kd-树（k-dimensional-tree）">
         <span class="has-mr-6">7.5.2</span>
-        <span>kd-树</span>
+        <span>kd-树（k-dimensional tree）</span>
         </a></li></ul></li></ul></li><li>
         <a class="is-flex" href="#图">
         <span class="has-mr-6">8</span>
@@ -893,14 +914,14 @@
             
             <a href="/2020/05/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="“数据结构总结">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="数据结构总结">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-10T17:17:20.000Z">2020-05-11</time></div>
-                    <a href="/2020/05/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/" class="title has-link-black-ter is-size-6 has-text-weight-normal">“数据结构总结</a>
+                    <a href="/2020/05/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/" class="title has-link-black-ter is-size-6 has-text-weight-normal">数据结构总结</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
                     </p>
@@ -1399,7 +1420,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/og_image.png" alt="“数据结构总结" height="28">
+                    <img src="/images/og_image.png" alt="数据结构总结" height="28">
                 
                 </a>
                 <p class="is-size-7">
