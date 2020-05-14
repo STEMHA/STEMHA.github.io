@@ -16,18 +16,23 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>标签: 硬连接 - STEMHA&#39;s Blog</title>
+<title>使用栈实现的队列 - STEMHA&#39;s Blog</title>
 
 
-    <meta name="description" content="STEMHA&#39;s personal blog on github">
-<meta property="og:type" content="website">
-<meta property="og:title" content="STEMHA&#39;s Blog">
-<meta property="og:url" content="https://stemha.github.io/tags/%E7%A1%AC%E8%BF%9E%E6%8E%A5/index.html">
+    <meta name="description" content="算法思想">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用栈实现的队列">
+<meta property="og:url" content="https://stemha.github.io/2020/05/14/%E4%BD%BF%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E7%9A%84%E9%98%9F%E5%88%97/index.html">
 <meta property="og:site_name" content="STEMHA&#39;s Blog">
-<meta property="og:description" content="STEMHA&#39;s personal blog on github">
+<meta property="og:description" content="算法思想">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://stemha.github.io/images/og_image.png">
+<meta property="article:published_time" content="2020-05-14T15:27:32.000Z">
+<meta property="article:modified_time" content="2020-05-14T15:29:46.123Z">
 <meta property="article:author" content="STEMHA">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="队列">
+<meta property="article:tag" content="栈">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://stemha.github.io/images/og_image.png">
 
@@ -89,7 +94,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/og_image.png" alt="STEMHA&#39;s Blog" height="28">
+                <img src="/images/og_image.png" alt="使用栈实现的队列" height="28">
             
             </a>
         </div>
@@ -141,35 +146,24 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">硬连接</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
 <div class="card">
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-05-01T15:00:41.000Z">2020-05-01</time>
+                <time class="level-item has-text-grey" datetime="2020-05-14T15:27:32.000Z">2020-05-14</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+                <a class="has-link-grey -link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    24 分钟 读完 (大约 3538 个字)
+                    1 分钟 读完 (大约 206 个字)
                 </span>
                 
                 
@@ -178,33 +172,88 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2020/05/01/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%EF%BC%881%EF%BC%89/">文件系统（1）</a>
+                使用栈实现的队列
             
         </h1>
         <div class="content">
-            <h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a><strong>基础概念</strong></h2><p><code>文件系统</code>：操作系统中处理文件的部分，有关文件的构造，命名，存取，使用，实现和管理都是操作系统文件系统设计的主要内容</p>
+            <h2 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h2><a id="more"></a>
+<ul>
+<li>其中一个栈A作为队列的入口，用于插入新元素；另一个栈B作为队列的出口，用于移除老元素。</li>
+<li>当B为空的时候需要及时将A中的数据转移进去。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">/*   stack&lt;int&gt;q;</span></span><br><span class="line"><span class="comment">     q.push(1);   //入栈</span></span><br><span class="line"><span class="comment">     q.pop();     //出栈</span></span><br><span class="line"><span class="comment">     q.top();     //返回栈顶成员</span></span><br><span class="line"><span class="comment">     q.size();    //返回栈成员个数</span></span><br><span class="line"><span class="comment">     q.empty();   //判断是否为空栈</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">stackqueue</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; stacka;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; stackb;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">enqueue</span><span class="params">(<span class="keyword">int</span> a)</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">int</span> <span class="title">dequeue</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">transfer</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">stackqueue::dequeue</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(!stackb.empty())</span><br><span class="line">&#123;   </span><br><span class="line">    <span class="keyword">int</span> tmp = stackb.top();</span><br><span class="line">    stackb.pop();</span><br><span class="line">    <span class="keyword">return</span> tmp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(stacka.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    transfer();</span><br><span class="line">    <span class="keyword">int</span> tmp = stackb.top();</span><br><span class="line">    stackb.pop();</span><br><span class="line">    <span class="keyword">return</span> tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">stackqueue::transfer</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(!stacka.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        stackb.push(stacka.top());</span><br><span class="line">        stacka.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">stackqueue::enqueue</span><span class="params">(<span class="keyword">int</span> a)</span></span>&#123;</span><br><span class="line">    stacka.push(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    stackqueue *que = <span class="keyword">new</span> stackqueue();</span><br><span class="line">    que-&gt;enqueue(<span class="number">1</span>);</span><br><span class="line">    que-&gt;enqueue(<span class="number">2</span>);</span><br><span class="line">    que-&gt;enqueue(<span class="number">3</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; que-&gt;dequeue() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; que-&gt;dequeue() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    que-&gt;enqueue(<span class="number">4</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; que-&gt;dequeue() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; que-&gt;dequeue() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/05/01/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%EF%BC%881%EF%BC%89/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/%E6%A0%88/" rel="tag">栈</a>, <a class="has-link-grey -link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>, <a class="has-link-grey -link" href="/tags/%E9%98%9F%E5%88%97/" rel="tag">队列</a>
                 </div>
             </div>
         </div>
         
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
         
     </div>
 </div>
 
 
 
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+        </div>
+    </div>
+</div>
 
 
 
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/05/14/%E6%97%A0%E5%BA%8F%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F%E5%90%8E%E7%9A%84%E6%9C%80%E5%A4%A7%E7%9B%B8%E9%82%BB%E5%B7%AE/">
+                <span class="level-item">无序数组排序后的最大相邻差</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'e79770cfee30db02a856',
+        clientSecret: 'bb958f5fc30797ffc222ca631ec345baa48a0bee',
+        id: 'a87e7012d1c20d25ff5c3c4ad9b92c21',
+        repo: 'STEMHA.github.io',
+        owner: 'STEMHA',
+        admin: "STEMHA",
+        createIssueManually: false,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
 </div>
                 
 
@@ -331,6 +380,22 @@
 </div>
     
         
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#算法思想">
+        <span class="has-mr-6">1</span>
+        <span>算法思想</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
     
         <div class="card widget">
     <div class="card-content">
@@ -1041,7 +1106,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/og_image.png" alt="STEMHA&#39;s Blog" height="28">
+                    <img src="/images/og_image.png" alt="使用栈实现的队列" height="28">
                 
                 </a>
                 <p class="is-size-7">
