@@ -16,18 +16,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>标签: 插件 - STEMHA&#39;s Blog</title>
+<title>vector常用操作 - STEMHA&#39;s Blog</title>
 
 
-    <meta name="description" content="STEMHA&#39;s personal blog on github">
-<meta property="og:type" content="website">
-<meta property="og:title" content="STEMHA&#39;s Blog">
-<meta property="og:url" content="https://stemha.github.io/tags/%E6%8F%92%E4%BB%B6/index.html">
+    <meta name="description" content="vector初始化方法123vector&lt;int&gt; vec;       &#x2F;&#x2F;初始化size为0的vectorvector&lt;int&gt; vec(10);   &#x2F;&#x2F;初始化size为10，默认值都为0的vectorvector&lt;int&gt; vec(10,1); &#x2F;&#x2F;初始化size为10，值都为1的vector">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vector常用操作">
+<meta property="og:url" content="https://stemha.github.io/2020/05/19/vector%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="STEMHA&#39;s Blog">
-<meta property="og:description" content="STEMHA&#39;s personal blog on github">
+<meta property="og:description" content="vector初始化方法123vector&lt;int&gt; vec;       &#x2F;&#x2F;初始化size为0的vectorvector&lt;int&gt; vec(10);   &#x2F;&#x2F;初始化size为10，默认值都为0的vectorvector&lt;int&gt; vec(10,1); &#x2F;&#x2F;初始化size为10，值都为1的vector">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://stemha.github.io/images/og_image.png">
+<meta property="article:published_time" content="2020-05-18T17:30:04.000Z">
+<meta property="article:modified_time" content="2020-05-18T17:43:03.418Z">
 <meta property="article:author" content="STEMHA">
+<meta property="article:tag" content="C++标准库">
+<meta property="article:tag" content="vector">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://stemha.github.io/images/og_image.png">
 
@@ -89,7 +93,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/og_image.png" alt="STEMHA&#39;s Blog" height="28">
+                <img src="/images/og_image.png" alt="vector常用操作" height="28">
             
             </a>
         </div>
@@ -141,41 +145,24 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">插件</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
 <div class="card">
-    
-    <div class="card-image">
-        <a href="/2020/03/29/%E5%A5%BD%E7%94%A8%E7%9A%84chrome%E6%8F%92%E4%BB%B6/" class="image is-7by1">
-            <img class="thumbnail" src="/article_photo/sky.png" alt="好用的chrome插件">
-        </a>
-    </div>
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-29T09:29:48.000Z">2020-03-29</time>
+                <time class="level-item has-text-grey" datetime="2020-05-18T17:30:04.000Z">2020-05-19</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/">效率工具</a>
+                <a class="has-link-grey -link" href="/categories/C/">C++</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 261 个字)
+                    5 分钟 读完 (大约 788 个字)
                 </span>
                 
                 
@@ -184,36 +171,112 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2020/03/29/%E5%A5%BD%E7%94%A8%E7%9A%84chrome%E6%8F%92%E4%BB%B6/">好用的chrome插件</a>
+                vector常用操作
             
         </h1>
         <div class="content">
-            <blockquote>
-<p>深刻体会到工具的好用，有一些问题使用工具真的省力，关键是学会如何找到这些工具和如何描述自己的相关需求。</p>
-</blockquote>
-<h2 id="Awesome-Autocomplete-for-GitHub"><a href="#Awesome-Autocomplete-for-GitHub" class="headerlink" title="Awesome Autocomplete for GitHub"></a>Awesome Autocomplete for GitHub</h2><p>增强github的搜索功能</p>
+            <h2 id="vector初始化方法"><a href="#vector初始化方法" class="headerlink" title="vector初始化方法"></a><strong>vector初始化方法</strong></h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec;       <span class="comment">//初始化size为0的vector</span></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">vec</span><span class="params">(<span class="number">10</span>)</span></span>;   <span class="comment">//初始化size为10，默认值都为0的vector</span></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">vec</span><span class="params">(<span class="number">10</span>,<span class="number">1</span>)</span></span>; <span class="comment">//初始化size为10，值都为1的vector</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<h3 id="通过数组初始化"><a href="#通过数组初始化" class="headerlink" title="通过数组初始化"></a><strong>通过数组初始化</strong></h3><p>通过数组a的地址初始化，注意地址是从0到5（左闭右开区间），类似迭代器</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">5</span>] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">vec</span><span class="params">(a, a+<span class="number">5</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="通过vector初始化"><a href="#通过vector初始化" class="headerlink" title="通过vector初始化"></a><strong>通过vector初始化</strong></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">a</span><span class="params">(<span class="number">5</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">b</span><span class="params">(a)</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="通过insert初始化"><a href="#通过insert初始化" class="headerlink" title="通过insert初始化"></a><strong>通过insert初始化</strong></h3><p>insert初始化方式将同类型的迭代器对应的始末区间（<strong>左闭右开区间</strong>）内的值插入到vector中<br><strong>//助记，插入开始的地方</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">a</span><span class="params">(<span class="number">6</span>,<span class="number">6</span>)</span></span>;</span><br><span class="line">vecot&lt;<span class="keyword">int</span>&gt; b;</span><br><span class="line">b.insert(b.begin(), a.begin(), a.begin() + <span class="number">3</span>); <span class="comment">//将a[0]~a[2]插入到b中，b.size()由0变为3</span></span><br></pre></td></tr></table></figure>
+<p>insert还可以插入m个值为n的元素</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在b开始位置处插入6个6</span></span><br><span class="line">b.insert(b.begin(), <span class="number">6</span>, <span class="number">6</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="通过copy函数赋值"><a href="#通过copy函数赋值" class="headerlink" title="通过copy函数赋值"></a><strong>通过copy函数赋值</strong></h3><p><strong>//助记，拷贝到目标地</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">a</span><span class="params">(<span class="number">5</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line"><span class="keyword">int</span> a1[<span class="number">5</span>] = &#123;<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>&#125;;</span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">b</span><span class="params">(<span class="number">10</span>)</span></span>;</span><br><span class="line"><span class="comment">//将a中元素全部拷贝到b开始的位置中,注意拷贝的区间为a.begin() ~ a.end()的左闭右开的区间</span></span><br><span class="line">copy(a.begin(), a.end(), b.begin());</span><br><span class="line"><span class="comment">//拷贝区间也可以是数组地址构成的区间</span></span><br><span class="line">copy(a1, a1+<span class="number">5</span>, b.begin() + <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a><strong>常用操作</strong></h2><p>注意：<br>std::vector 不支持 push_front，，它的目的是为了O(1)的push_back(),对它来说O(n)次的insert()就能做到push_front。<br>支持push_front()的是deque支持的是deque。</p>
+<h3 id="加入元素"><a href="#加入元素" class="headerlink" title="加入元素"></a><strong>加入元素</strong></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">q.push_back(x); <span class="comment">//尾部加入元素</span></span><br><span class="line">q.insert(iter,x); <span class="comment">//在iter位置插入x，传回新数据位置</span></span><br><span class="line">q.insert(iter,n,x); <span class="comment">//在iter位置插入n个x，无返回值</span></span><br><span class="line">q.insert(iter,l,r); <span class="comment">//在iter位置插入[l,r)区间内的数据，无返回值</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="vector交换"><a href="#vector交换" class="headerlink" title="vector交换"></a><strong>vector交换</strong></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">q.swap(p); <span class="comment">//交换p，q容器内元素</span></span><br><span class="line">q.assign(iter1,iter2); <span class="comment">//将区间[iter1，iter2)内元素赋值给vector，并清空vector容器之前的内容。</span></span><br></pre></td></tr></table></figure>
+<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a><strong>删除元素</strong></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">q.pop_back(); <span class="comment">//删除最后一个元素</span></span><br><span class="line">q.erase(iter1); <span class="comment">//删除iter位置元素，返回值是指向被删元素之后的那个元素(即下一个元素)的迭代器。</span></span><br><span class="line">q.erase(iter1,iter2); <span class="comment">//删除[iter1，iter2)区间内的元素</span></span><br></pre></td></tr></table></figure>
+<h3 id="清空-覆盖"><a href="#清空-覆盖" class="headerlink" title="清空/覆盖"></a><strong>清空/覆盖</strong></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">q.clear(); <span class="comment">//清空Vector</span></span><br><span class="line">q.assign(n,x); <span class="comment">//将n个x赋值到vector中，并清空vector容器之前的内容。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="返回元素"><a href="#返回元素" class="headerlink" title="返回元素"></a><strong>返回元素</strong></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">q.front(); <span class="comment">//返回第一个数据</span></span><br><span class="line">q.back(); <span class="comment">//返回最后一个数据</span></span><br><span class="line">q.at(i); <span class="comment">//返回第i个元素</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="vector元素个数-是否为空"><a href="#vector元素个数-是否为空" class="headerlink" title="vector元素个数/是否为空"></a><strong>vector元素个数/是否为空</strong></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">q.size(); <span class="comment">//返回容器内成员个数</span></span><br><span class="line">q.resize(x); <span class="comment">//重新指定容器大小</span></span><br><span class="line">q.empty(); <span class="comment">//判断Vector是否为空</span></span><br></pre></td></tr></table></figure>
+<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a><strong>迭代器</strong></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">q.begin();  <span class="comment">//返回头位置迭代器</span></span><br><span class="line">q.end();    <span class="comment">//返回尾位置迭代器</span></span><br><span class="line">q.rbegin(); <span class="comment">//返回尾部反向迭代器</span></span><br><span class="line">q.rend();   <span class="comment">//返回头部反向迭代器</span></span><br></pre></td></tr></table></figure>
+<h3 id="vector内存容量"><a href="#vector内存容量" class="headerlink" title="vector内存容量"></a><strong>vector内存容量</strong></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">q.capacity(); <span class="comment">//返回Vector可用空间的大小</span></span><br><span class="line">q.reserve(); <span class="comment">//重新指定空间大小，小于当前capacity时保持为原本的capacity值</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.cnblogs.com/quyc/p/12857054.html">vector的几种初始化及赋值方式</a><br><a href="https://www.cnblogs.com/wangkundentisy/p/9023977.html">STL中erase()的用法</a></p>
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/03/29/%E5%A5%BD%E7%94%A8%E7%9A%84chrome%E6%8F%92%E4%BB%B6/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/C-%E6%A0%87%E5%87%86%E5%BA%93/" rel="tag">C++标准库</a>, <a class="has-link-grey -link" href="/tags/vector/" rel="tag">vector</a>
                 </div>
             </div>
         </div>
         
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
         
     </div>
 </div>
 
 
 
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+        </div>
+    </div>
+</div>
 
 
 
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/05/14/%E4%BD%BF%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E7%9A%84%E9%98%9F%E5%88%97/">
+                <span class="level-item">使用栈实现的队列</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'e79770cfee30db02a856',
+        clientSecret: 'bb958f5fc30797ffc222ca631ec345baa48a0bee',
+        id: '72cf2f864ab9d63121db51b54e1b979a',
+        repo: 'STEMHA.github.io',
+        owner: 'STEMHA',
+        admin: "STEMHA",
+        createIssueManually: false,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
 </div>
                 
 
@@ -340,6 +403,78 @@
 </div>
     
         
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#vector初始化方法">
+        <span class="has-mr-6">1</span>
+        <span>vector初始化方法</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#通过数组初始化">
+        <span class="has-mr-6">1.1</span>
+        <span>通过数组初始化</span>
+        </a></li><li>
+        <a class="is-flex" href="#通过vector初始化">
+        <span class="has-mr-6">1.2</span>
+        <span>通过vector初始化</span>
+        </a></li><li>
+        <a class="is-flex" href="#通过insert初始化">
+        <span class="has-mr-6">1.3</span>
+        <span>通过insert初始化</span>
+        </a></li><li>
+        <a class="is-flex" href="#通过copy函数赋值">
+        <span class="has-mr-6">1.4</span>
+        <span>通过copy函数赋值</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#常用操作">
+        <span class="has-mr-6">2</span>
+        <span>常用操作</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#加入元素">
+        <span class="has-mr-6">2.1</span>
+        <span>加入元素</span>
+        </a></li><li>
+        <a class="is-flex" href="#vector交换">
+        <span class="has-mr-6">2.2</span>
+        <span>vector交换</span>
+        </a></li><li>
+        <a class="is-flex" href="#删除元素">
+        <span class="has-mr-6">2.3</span>
+        <span>删除元素</span>
+        </a></li><li>
+        <a class="is-flex" href="#清空-覆盖">
+        <span class="has-mr-6">2.4</span>
+        <span>清空/覆盖</span>
+        </a></li><li>
+        <a class="is-flex" href="#返回元素">
+        <span class="has-mr-6">2.5</span>
+        <span>返回元素</span>
+        </a></li><li>
+        <a class="is-flex" href="#vector元素个数-是否为空">
+        <span class="has-mr-6">2.6</span>
+        <span>vector元素个数/是否为空</span>
+        </a></li><li>
+        <a class="is-flex" href="#迭代器">
+        <span class="has-mr-6">2.7</span>
+        <span>迭代器</span>
+        </a></li><li>
+        <a class="is-flex" href="#vector内存容量">
+        <span class="has-mr-6">2.8</span>
+        <span>vector内存容量</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#参考资料">
+        <span class="has-mr-6">3</span>
+        <span>参考资料</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
     
         <div class="card widget">
     <div class="card-content">
@@ -1057,7 +1192,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/og_image.png" alt="STEMHA&#39;s Blog" height="28">
+                    <img src="/images/og_image.png" alt="vector常用操作" height="28">
                 
                 </a>
                 <p class="is-size-7">
