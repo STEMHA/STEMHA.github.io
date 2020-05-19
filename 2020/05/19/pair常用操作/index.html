@@ -16,18 +16,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>归档: 2020/3 - STEMHA&#39;s Blog</title>
+<title>pair常用操作 - STEMHA&#39;s Blog</title>
 
 
-    <meta name="description" content="STEMHA&#39;s personal blog on github">
-<meta property="og:type" content="website">
-<meta property="og:title" content="STEMHA&#39;s Blog">
-<meta property="og:url" content="https://stemha.github.io/archives/2020/03/index.html">
+    <meta name="description" content="基本概念pair  pair 是一个比较简单的模板类型，它只有两个 public 数据成员 first 和 second。 pair 对象可以封装任意类型的对象，可以生成任何想生成的 pair&lt;T1,T2&gt; 对象，可以是数组对象或者包含 pair&lt;T1,T2&gt; 的 vector 容器。例如，pair 可以封装两个序列容器或两个序列容器的指针。pair&lt;T1，T2&amp;gt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pair常用操作">
+<meta property="og:url" content="https://stemha.github.io/2020/05/19/pair%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="STEMHA&#39;s Blog">
-<meta property="og:description" content="STEMHA&#39;s personal blog on github">
+<meta property="og:description" content="基本概念pair  pair 是一个比较简单的模板类型，它只有两个 public 数据成员 first 和 second。 pair 对象可以封装任意类型的对象，可以生成任何想生成的 pair&lt;T1,T2&gt; 对象，可以是数组对象或者包含 pair&lt;T1,T2&gt; 的 vector 容器。例如，pair 可以封装两个序列容器或两个序列容器的指针。pair&lt;T1，T2&amp;gt">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://stemha.github.io/images/og_image.png">
+<meta property="article:published_time" content="2020-05-19T08:34:01.000Z">
+<meta property="article:modified_time" content="2020-05-19T08:36:29.124Z">
 <meta property="article:author" content="STEMHA">
+<meta property="article:tag" content="C++标准库">
+<meta property="article:tag" content="pair">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://stemha.github.io/images/og_image.png">
 
@@ -89,7 +93,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/og_image.png" alt="STEMHA&#39;s Blog" height="28">
+                <img src="/images/og_image.png" alt="pair常用操作" height="28">
             
             </a>
         </div>
@@ -142,144 +146,126 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-05-19T08:34:01.000Z">2020-05-19</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/C/">C++</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    4 分钟 读完 (大约 607 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                pair常用操作
+            
+        </h1>
+        <div class="content">
+            <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>pair</p>
+<ul>
+<li>pair 是一个比较简单的模板类型，它只有两个 public 数据成员 first 和 second。</li>
+<li>pair 对象可以封装任意类型的对象，可以生成任何想生成的 pair&lt;T1,T2&gt; 对象，可以是数组对象或者包含 pair&lt;T1,T2&gt; 的 vector 容器。例如，pair 可以封装两个序列容器或两个序列容器的指针。pair&lt;T1，T2&gt; 模板定义在 utility 头文件中，如果不想使用 map 而只想使用 pair 对象，可以包含这个头文件。 </li>
+</ul>
+<h2 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">include</span><span class="meta-string">&lt;utility&gt;</span></span></span><br><span class="line">或者</span><br><span class="line"><span class="meta"># <span class="meta-keyword">include</span><span class="meta-string">&lt;map&gt;</span></span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;const K, T&gt; q;</span><br></pre></td></tr></table></figure>
 
-<div class="card widget">
+<h2 id="pair初始化方法"><a href="#pair初始化方法" class="headerlink" title="pair初始化方法"></a><strong>pair初始化方法</strong></h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;q;       创建一个空对</span><br><span class="line">pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;p(<span class="number">2</span>,<span class="number">3</span>);  创建一个对p，并分别赋值<span class="number">2</span>，<span class="number">3</span></span><br><span class="line">pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;s(p);    创建一个对s，拷贝p给s</span><br><span class="line">pair&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; anon; <span class="comment">// holds two strings</span></span><br><span class="line">pair&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; word_count; <span class="comment">// holds a string and an int</span></span><br><span class="line">pair&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; line; <span class="comment">// holds string and vector&lt;int&gt;</span></span><br><span class="line"></span><br><span class="line">赋值利用make_pair函数</span><br><span class="line">q = make_pair(<span class="number">1</span>,<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<p>如果在创建 pair 对象时不提供初始化式，则调用默认构造函数对其成员采用值初始化。int初始化为0，string初始化为空；</p>
+<h2 id="交换"><a href="#交换" class="headerlink" title="交换"></a>交换</h2><p><code>swap(pair&lt;T1,T2&gt;&amp; other)</code>：和参数的元素进行交换，所包含对象的类型必须相同。：将当前 set 中的元素和参数 set 中的元素交换。它们需要包含相同类型的元素。也可以调用全局函数模板 swap() 来完成同样的操作。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T1</span>, <span class="title">class</span> <span class="title">T2</span>&gt; <span class="title">void</span> <span class="title">swap</span>(<span class="title">pair</span>&lt;T1,T2&gt; &amp;<span class="title">x</span>)　重载1：<span class="title">x</span>.<span class="title">swap</span>(<span class="title">y</span>)</span></span><br><span class="line"><span class="class"><span class="title">template</span> &lt;class T1, class T2&gt; <span class="title">void</span> <span class="title">swap</span> (<span class="title">pair</span>&lt;T1,T2&gt;&amp; <span class="title">x</span>, <span class="title">pair</span>&lt;T1,T2&gt;&amp; <span class="title">y</span>)  重载2:</span> swap(x, y)</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">std::pair&lt;int,char&gt; foo (10,'a');</span><br><span class="line">std::pair&lt;int,char&gt; bar (90,'z');</span><br><span class="line">swap (foo,bar);</span><br></pre></td></tr></table></figure>
+<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a><strong>常用操作</strong></h2><h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">访问pair内元素操作</span><br><span class="line"> q.first;  返回成员第一个数据</span><br><span class="line"> q.second; 返回成员第二个数据</span><br></pre></td></tr></table></figure>
+<h3 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p1 == p2	如果两个 pair 对象的 first 和 second 成员依次相等，则这两个对象相等。该运算使用其元素的 == 操作符</span><br></pre></td></tr></table></figure>
+<p>在<utility>中已经定义了pair上的六个比较运算符：<code>&lt;、&gt;、&lt;=、&gt;=、==、!=</code>，其规则是先比较first，first相等时再比较second，这符合大多数应用的逻辑</utility></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://blog.csdn.net/mlm5678/article/details/82721331">STL之pair类型详细分析</a><br><a href="http://c.biancheng.net/view/537.html">C++ set初始化（STL set初始化）详解</a><br><a href="https://stemha.github.io/2020/05/10/C++%E6%A0%87%E5%87%86%E5%BA%93%E5%AE%B9%E5%99%A8%E7%B1%BB%E6%A6%82%E8%BF%B0/#more">C++标准库容器类概述</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/C-%E6%A0%87%E5%87%86%E5%BA%93/" rel="tag">C++标准库</a>, <a class="has-link-grey -link" href="/tags/pair/" rel="tag">pair</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
     <div class="card-content">
-        <h3 class="tag is-link">
-        三月 2020
-        </h3>
-        <div class="timeline">
-        
-            <article class="media">
-                
-                <a href="/2020/03/29/%E6%88%90%E4%B8%BA%E4%B8%80%E4%B8%AA%E4%B8%8D%E6%83%91%E3%80%81%E4%B8%8D%E5%BF%A7%E3%80%81%E4%B8%8D%E6%83%A7%E7%9A%84%E4%BA%BA/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/article_photo/yeshi-kangrang-iuqxv7kFj64-unsplash.jpg" alt="成为一个不惑、不忧、不惧的人">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2020-03-29T11:48:51.000Z">2020-03-29</time>
-                        <a href="/2020/03/29/%E6%88%90%E4%B8%BA%E4%B8%80%E4%B8%AA%E4%B8%8D%E6%83%91%E3%80%81%E4%B8%8D%E5%BF%A7%E3%80%81%E4%B8%8D%E6%83%A7%E7%9A%84%E4%BA%BA/" class="title has-link-black-ter is-size-6 has-text-weight-normal">成为一个不惑、不忧、不惧的人</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/%E9%86%92%E4%B8%96%E9%80%9A%E8%A8%80/">醒世通言</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2020/03/29/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/article_photo/patrick-robert-doyle-OvXht_wi5Ew-unsplash.jpg" alt="学术论文的基本结构">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2020-03-29T10:14:24.000Z">2020-03-29</time>
-                        <a href="/2020/03/29/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/" class="title has-link-black-ter is-size-6 has-text-weight-normal">学术论文的基本结构</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/">学术论文</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2020/03/29/%E5%A5%BD%E7%94%A8%E7%9A%84chrome%E6%8F%92%E4%BB%B6/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/article_photo/sky.png" alt="好用的chrome插件">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2020-03-29T09:29:48.000Z">2020-03-29</time>
-                        <a href="/2020/03/29/%E5%A5%BD%E7%94%A8%E7%9A%84chrome%E6%8F%92%E4%BB%B6/" class="title has-link-black-ter is-size-6 has-text-weight-normal">好用的chrome插件</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/">效率工具</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2020/03/29/%E3%80%8A%E8%8B%8F%E8%8F%B2%E7%9A%84%E4%B8%96%E7%95%8C%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/article_photo/sufei.jpg" alt="《苏菲的世界》读书笔记">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2020-03-28T16:40:11.000Z">2020-03-29</time>
-                        <a href="/2020/03/29/%E3%80%8A%E8%8B%8F%E8%8F%B2%E7%9A%84%E4%B8%96%E7%95%8C%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="title has-link-black-ter is-size-6 has-text-weight-normal">《苏菲的世界》读书笔记</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2020/03/28/hello-world/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/article_photo/helloworld.jpg" alt="Hello World">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2020-03-27T17:12:36.485Z">2020-03-28</time>
-                        <a href="/2020/03/28/hello-world/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Hello World</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/%E5%8D%9A%E5%AE%A2%E7%BB%B4%E6%8A%A4/">博客维护</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
         </div>
     </div>
 </div>
 
 
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/05/19/set%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
+                <span class="level-item">set常用操作</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'e79770cfee30db02a856',
+        clientSecret: 'bb958f5fc30797ffc222ca631ec345baa48a0bee',
+        id: '3939b360e161e2fe12833b7d14614d4f',
+        repo: 'STEMHA.github.io',
+        owner: 'STEMHA',
+        admin: "STEMHA",
+        createIssueManually: false,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
 </div>
                 
 
@@ -406,6 +392,54 @@
 </div>
     
         
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#基本概念">
+        <span class="has-mr-6">1</span>
+        <span>基本概念</span>
+        </a></li><li>
+        <a class="is-flex" href="#头文件">
+        <span class="has-mr-6">2</span>
+        <span>头文件</span>
+        </a></li><li>
+        <a class="is-flex" href="#模板">
+        <span class="has-mr-6">3</span>
+        <span>模板</span>
+        </a></li><li>
+        <a class="is-flex" href="#pair初始化方法">
+        <span class="has-mr-6">4</span>
+        <span>pair初始化方法</span>
+        </a></li><li>
+        <a class="is-flex" href="#交换">
+        <span class="has-mr-6">5</span>
+        <span>交换</span>
+        </a></li><li>
+        <a class="is-flex" href="#常用操作">
+        <span class="has-mr-6">6</span>
+        <span>常用操作</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#查找">
+        <span class="has-mr-6">6.1</span>
+        <span>查找</span>
+        </a></li><li>
+        <a class="is-flex" href="#比较">
+        <span class="has-mr-6">6.2</span>
+        <span>比较</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#参考资料">
+        <span class="has-mr-6">7</span>
+        <span>参考资料</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
     
         <div class="card widget">
     <div class="card-content">
@@ -1158,7 +1192,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/og_image.png" alt="STEMHA&#39;s Blog" height="28">
+                    <img src="/images/og_image.png" alt="pair常用操作" height="28">
                 
                 </a>
                 <p class="is-size-7">

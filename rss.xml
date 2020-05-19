@@ -6,7 +6,7 @@
   <link href="/rss.xml" rel="self"/>
   
   <link href="https://stemha.github.io/"/>
-  <updated>2020-05-19T07:33:39.260Z</updated>
+  <updated>2020-05-19T08:36:29.124Z</updated>
   <id>https://stemha.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>pair常用操作</title>
+    <link href="https://stemha.github.io/2020/05/19/pair%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/"/>
+    <id>https://stemha.github.io/2020/05/19/pair%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</id>
+    <published>2020-05-19T08:34:01.000Z</published>
+    <updated>2020-05-19T08:36:29.124Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>pair</p><ul><li>pair 是一个比较简单的模板类型，它只有两个 public 数据成员 first 和 second。</li><li>pair 对象可以封装任意类型的对象，可以生成任何想生成的 pair&lt;T1,T2&gt; 对象，可以是数组对象或者包含 pair&lt;T1,T2&gt; 的 vector 容器。例如，pair 可以封装两个序列容器或两个序列容器的指针。pair&lt;T1，T2&gt; 模板定义在 utility 头文件中，如果不想使用 map 而只想使用 pair 对象，可以包含这个头文件。 </li></ul><h2 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">include</span><span class="meta-string">&lt;utility&gt;</span></span></span><br><span class="line">或者</span><br><span class="line"><span class="meta"># <span class="meta-keyword">include</span><span class="meta-string">&lt;map&gt;</span></span></span><br></pre></td></tr></table></figure><a id="more"></a><h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;const K, T&gt; q;</span><br></pre></td></tr></table></figure><h2 id="pair初始化方法"><a href="#pair初始化方法" class="headerlink" title="pair初始化方法"></a><strong>pair初始化方法</strong></h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;q;       创建一个空对</span><br><span class="line">pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;p(<span class="number">2</span>,<span class="number">3</span>);  创建一个对p，并分别赋值<span class="number">2</span>，<span class="number">3</span></span><br><span class="line">pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;s(p);    创建一个对s，拷贝p给s</span><br><span class="line">pair&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; anon; <span class="comment">// holds two strings</span></span><br><span class="line">pair&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; word_count; <span class="comment">// holds a string and an int</span></span><br><span class="line">pair&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; line; <span class="comment">// holds string and vector&lt;int&gt;</span></span><br><span class="line"></span><br><span class="line">赋值利用make_pair函数</span><br><span class="line">q = make_pair(<span class="number">1</span>,<span class="number">2</span>);</span><br></pre></td></tr></table></figure><p>如果在创建 pair 对象时不提供初始化式，则调用默认构造函数对其成员采用值初始化。int初始化为0，string初始化为空；</p><h2 id="交换"><a href="#交换" class="headerlink" title="交换"></a>交换</h2><p><code>swap(pair&lt;T1,T2&gt;&amp; other)</code>：和参数的元素进行交换，所包含对象的类型必须相同。：将当前 set 中的元素和参数 set 中的元素交换。它们需要包含相同类型的元素。也可以调用全局函数模板 swap() 来完成同样的操作。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T1</span>, <span class="title">class</span> <span class="title">T2</span>&gt; <span class="title">void</span> <span class="title">swap</span>(<span class="title">pair</span>&lt;T1,T2&gt; &amp;<span class="title">x</span>)　重载1：<span class="title">x</span>.<span class="title">swap</span>(<span class="title">y</span>)</span></span><br><span class="line"><span class="class"><span class="title">template</span> &lt;class T1, class T2&gt; <span class="title">void</span> <span class="title">swap</span> (<span class="title">pair</span>&lt;T1,T2&gt;&amp; <span class="title">x</span>, <span class="title">pair</span>&lt;T1,T2&gt;&amp; <span class="title">y</span>)  重载2:</span> swap(x, y)</span><br></pre></td></tr></table></figure><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">std::pair&lt;int,char&gt; foo (10,'a');</span><br><span class="line">std::pair&lt;int,char&gt; bar (90,'z');</span><br><span class="line">swap (foo,bar);</span><br></pre></td></tr></table></figure><h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a><strong>常用操作</strong></h2><h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">访问pair内元素操作</span><br><span class="line"> q.first;  返回成员第一个数据</span><br><span class="line"> q.second; 返回成员第二个数据</span><br></pre></td></tr></table></figure><h3 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p1 == p2如果两个 pair 对象的 first 和 second 成员依次相等，则这两个对象相等。该运算使用其元素的 == 操作符</span><br></pre></td></tr></table></figure><p>在<utility>中已经定义了pair上的六个比较运算符：<code>&lt;、&gt;、&lt;=、&gt;=、==、!=</code>，其规则是先比较first，first相等时再比较second，这符合大多数应用的逻辑</utility></p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://blog.csdn.net/mlm5678/article/details/82721331">STL之pair类型详细分析</a><br><a href="http://c.biancheng.net/view/537.html">C++ set初始化（STL set初始化）详解</a><br><a href="https://stemha.github.io/2020/05/10/C++%E6%A0%87%E5%87%86%E5%BA%93%E5%AE%B9%E5%99%A8%E7%B1%BB%E6%A6%82%E8%BF%B0/#more">C++标准库容器类概述</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;基本概念&quot;&gt;&lt;a href=&quot;#基本概念&quot; class=&quot;headerlink&quot; title=&quot;基本概念&quot;&gt;&lt;/a&gt;基本概念&lt;/h2&gt;&lt;p&gt;pair&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;pair 是一个比较简单的模板类型，它只有两个 public 数据成员 first 和 second。&lt;/li&gt;
+&lt;li&gt;pair 对象可以封装任意类型的对象，可以生成任何想生成的 pair&amp;lt;T1,T2&amp;gt; 对象，可以是数组对象或者包含 pair&amp;lt;T1,T2&amp;gt; 的 vector 容器。例如，pair 可以封装两个序列容器或两个序列容器的指针。pair&amp;lt;T1，T2&amp;gt; 模板定义在 utility 头文件中，如果不想使用 map 而只想使用 pair 对象，可以包含这个头文件。 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;头文件&quot;&gt;&lt;a href=&quot;#头文件&quot; class=&quot;headerlink&quot; title=&quot;头文件&quot;&gt;&lt;/a&gt;头文件&lt;/h2&gt;&lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;# &lt;span class=&quot;meta-keyword&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;meta-string&quot;&gt;&amp;lt;utility&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;或者&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;# &lt;span class=&quot;meta-keyword&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;meta-string&quot;&gt;&amp;lt;map&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="C++" scheme="https://stemha.github.io/categories/C/"/>
+    
+    
+      <category term="C++标准库" scheme="https://stemha.github.io/tags/C-%E6%A0%87%E5%87%86%E5%BA%93/"/>
+    
+      <category term="pair" scheme="https://stemha.github.io/tags/pair/"/>
+    
+  </entry>
   
   <entry>
     <title>set常用操作</title>
