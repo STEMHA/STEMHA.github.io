@@ -6,7 +6,7 @@
   <link href="/rss.xml" rel="self"/>
   
   <link href="https://stemha.github.io/"/>
-  <updated>2020-05-19T16:32:41.723Z</updated>
+  <updated>2020-05-19T17:48:12.031Z</updated>
   <id>https://stemha.github.io/</id>
   
   <author>
@@ -15,6 +15,38 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C++运算符重载</title>
+    <link href="https://stemha.github.io/2020/05/20/C-%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/"/>
+    <id>https://stemha.github.io/2020/05/20/C-%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/</id>
+    <published>2020-05-19T17:32:45.000Z</published>
+    <updated>2020-05-19T17:48:12.031Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="运算符重载"><a href="#运算符重载" class="headerlink" title="运算符重载"></a>运算符重载</h2><p><code>重载的运算符</code>是<code>带有特殊名称的函数</code></p><ul><li>函数名是由关键字 operator 和其后要重载的运算符符号构成的。</li><li>与其他函数一样，重载运算符有一个<strong>返回类型</strong>和一个<strong>参数列表</strong>。</li></ul><p>大多数的重载运算符可被定义为普通的非成员函数或者被定义为类成员函数。</p><a id="more"></a><h2 id="保持语义不变"><a href="#保持语义不变" class="headerlink" title="保持语义不变"></a>保持语义不变</h2><ul><li>不改变运算符的优先级</li><li>不改变运算符的结合性</li><li>不改变运算符需要的操作数</li><li>不能创建新的运算符</li></ul><h2 id="定义为类成员函数-令运算符重载函数作为类的成员函数"><a href="#定义为类成员函数-令运算符重载函数作为类的成员函数" class="headerlink" title="定义为类成员函数(令运算符重载函数作为类的成员函数)"></a>定义为类成员函数(令运算符重载函数作为类的成员函数)</h2><p>例子,这里是二元运算符，在类的内部，只需要传入一个外部元素。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Box <span class="keyword">operator</span>+(<span class="keyword">const</span> Box&amp;);</span><br></pre></td></tr></table></figure><p>声明加法运算符用于把两个 Box 对象相加，返回最终的 Box 对象。</p><h2 id="定义为普通的非成员函数-令运算符重载函数作为类的友元函数"><a href="#定义为普通的非成员函数-令运算符重载函数作为类的友元函数" class="headerlink" title="定义为普通的非成员函数(令运算符重载函数作为类的友元函数)"></a>定义为普通的非成员函数(令运算符重载函数作为类的友元函数)</h2><p>例子,这里是二元运算符，不在类里面，需要传入两个元素。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Box <span class="keyword">operator</span>+(<span class="keyword">const</span> Box&amp;, <span class="keyword">const</span> Box&amp;);</span><br></pre></td></tr></table></figure><p>声明加法运算符用于把两个 Box 对象相加，返回最终的 Box 对象。</p><p>这时候，就需要作为友元函数来操作类的对象了；</p><h2 id="两种方式的区别"><a href="#两种方式的区别" class="headerlink" title="两种方式的区别"></a>两种方式的区别</h2><p>区别在于令运算符重载函数作为类的成员函数在调用时只需输入一个被操作数参数即可，另一个操作数参数则不需要输入；令运算符重载函数作为类的友元函数在调用时不仅要求输入被操作数参数，还要求输入被操作数参数。</p><pre><code>产生了这个区别的原因在于令运算符重载函数作为类的成员函数和令运算符重载函数作为类的友元函数有本质区别：(1)调用作为类的成员函数的运算符重载函数时，类对象肯定已经被建立了，这时对象中对应的私有数据成员存在。(2)调用作为类的友元函数的运算符重载函数时，类对象还未被建立，这时对象中对应私有数据成员不存在。</code></pre><h2 id="运算符重载的方法步骤"><a href="#运算符重载的方法步骤" class="headerlink" title="运算符重载的方法步骤"></a>运算符重载的方法步骤</h2><p>运算符重载函数的参数个数 等于 运算符操作数的个数。<br>但要注意，用成员函数重载时，对应于运算符左操作数的参数是默认传递的。</p><p>参数的顺序和左右操作数的顺序是一样的，这一点看看&lt;&lt; 和 &gt;&gt; 的重载就知道了。</p><h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><p>重载一元运算符，在类的内部，不需要传入元素，参数为0。</p><h2 id="重载-和–运算符号"><a href="#重载-和–运算符号" class="headerlink" title="重载++和–运算符号"></a>重载++和–运算符号</h2><p>int类型参数只是用来区别后置++与前置++，此外没有任何其他作用。</p><p>令运算符重载函数作为类的友元函数重载前置运算符和重载后置运算符分别如何实现？<br>答：也是一样的，传入参数多加一个int即可了</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://blog.csdn.net/jacket_/article/details/89714947">C++的运算符重载</a><br><a href="https://www.runoob.com/cplusplus/cpp-overloading.html">C++ 重载运算符和重载函数</a><br><a href="https://blog.csdn.net/baidu_35679960/article/details/79592318">STL 中list的sort()方法使用总结</a><br><a href="https://blog.csdn.net/holdsky/article/details/8880962">STL 如何使用list::remove_if</a><br><a href="https://blog.csdn.net/Dreamer_lsf/article/details/84344174">C++ list.merge()使用方法</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;运算符重载&quot;&gt;&lt;a href=&quot;#运算符重载&quot; class=&quot;headerlink&quot; title=&quot;运算符重载&quot;&gt;&lt;/a&gt;运算符重载&lt;/h2&gt;&lt;p&gt;&lt;code&gt;重载的运算符&lt;/code&gt;是&lt;code&gt;带有特殊名称的函数&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;函数名是由关键字 operator 和其后要重载的运算符符号构成的。&lt;/li&gt;
+&lt;li&gt;与其他函数一样，重载运算符有一个&lt;strong&gt;返回类型&lt;/strong&gt;和一个&lt;strong&gt;参数列表&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;大多数的重载运算符可被定义为普通的非成员函数或者被定义为类成员函数。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="C++" scheme="https://stemha.github.io/categories/C/"/>
+    
+    
+      <category term="C++" scheme="https://stemha.github.io/tags/C/"/>
+    
+      <category term="运算符" scheme="https://stemha.github.io/tags/%E8%BF%90%E7%AE%97%E7%AC%A6/"/>
+    
+      <category term="重载" scheme="https://stemha.github.io/tags/%E9%87%8D%E8%BD%BD/"/>
+    
+  </entry>
   
   <entry>
     <title>list常用操作</title>
