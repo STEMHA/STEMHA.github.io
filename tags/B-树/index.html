@@ -16,23 +16,18 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>《别闹了费曼先生》读书笔记 - STEMHA&#39;s Blog</title>
+<title>标签: B+树 - STEMHA&#39;s Blog</title>
 
 
-    <meta name="description" content="当科学大师碰上菜鸟">
-<meta property="og:type" content="article">
-<meta property="og:title" content="《别闹了费曼先生》读书笔记">
-<meta property="og:url" content="https://stemha.github.io/2020/04/18/%E3%80%8A%E5%88%AB%E9%97%B9%E4%BA%86%E8%B4%B9%E6%9B%BC%E5%85%88%E7%94%9F%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.html">
+    <meta name="description" content="STEMHA&#39;s personal blog on github">
+<meta property="og:type" content="website">
+<meta property="og:title" content="STEMHA&#39;s Blog">
+<meta property="og:url" content="https://stemha.github.io/tags/B-%E6%A0%91/index.html">
 <meta property="og:site_name" content="STEMHA&#39;s Blog">
-<meta property="og:description" content="当科学大师碰上菜鸟">
+<meta property="og:description" content="STEMHA&#39;s personal blog on github">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://stemha.github.io/images/og_image.png">
-<meta property="article:published_time" content="2020-04-18T12:48:23.000Z">
-<meta property="article:modified_time" content="2020-04-18T13:11:18.893Z">
 <meta property="article:author" content="STEMHA">
-<meta property="article:tag" content="费曼">
-<meta property="article:tag" content="诺贝尔奖">
-<meta property="article:tag" content="传记">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://stemha.github.io/images/og_image.png">
 
@@ -94,7 +89,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/og_image.png" alt="《别闹了费曼先生》读书笔记" height="28">
+                <img src="/images/og_image.png" alt="STEMHA&#39;s Blog" height="28">
             
             </a>
         </div>
@@ -146,24 +141,35 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+    <div class="card-content">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/tags">标签</a></li>
+            <li class="is-active"><a href="#" aria-current="page">B+树</a></li>
+        </ul>
+        </nav>
+    </div>
+</div>
+
+    
 <div class="card">
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-04-18T12:48:23.000Z">2020-04-18</time>
+                <time class="level-item has-text-grey" datetime="2020-06-02T17:10:47.000Z">2020-06-03</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+                <a class="has-link-grey -link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    8 分钟 读完 (大约 1261 个字)
+                    29 分钟 读完 (大约 4341 个字)
                 </span>
                 
                 
@@ -172,112 +178,49 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                《别闹了费曼先生》读书笔记
+                <a class="has-link-black-ter" href="/2020/06/03/B%E6%A0%91%E4%B8%8EB+%E6%A0%91%E8%AF%A6%E8%A7%A3/">B树与B+树详解</a>
             
         </h1>
         <div class="content">
-            <h2 id="当科学大师碰上菜鸟"><a href="#当科学大师碰上菜鸟" class="headerlink" title="当科学大师碰上菜鸟"></a>当科学大师碰上菜鸟</h2><a id="more"></a>
-<blockquote>
-<p>报告时间终于到了。我面前坐了这些科学大师，全在等我开口讲话！我生平第一次学术报告，却碰上这样的听众！我的意思是说，他们会问很多难题，我将会大大地出丑了！我还清楚记得，从牛皮纸袋抽出讲稿时，双手不住地发抖。<br>但奇迹出现了——事实上我很幸运，类似的奇迹在我一生中一再发生——只要我开始思考物理、必须全神贯注于要说明的问题上，我的脑袋中就再没有其他杂念，完全不会紧张。因此当我开始报告以后，我根本不知道听众是谁了；我只不过在说明这些物理概念。事情就那么简单！</p>
-</blockquote>
-<h2 id="向数学家挑战"><a href="#向数学家挑战" class="headerlink" title="向数学家挑战"></a>向数学家挑战</h2><blockquote>
-<p>我向他们挑战：“我跟你们打赌，随便你提出一个定理——只要你用我听得懂的方式告诉我，它假设些什么、定理是什么等等——我立刻可以告诉你，它是对的还是错的！”</p>
-</blockquote>
-<blockquote>
-<p>其实，我也并不是随便乱猜的。我有一套方法，甚至到了今天，当别人对我说明一些什么，而我努力要弄明白时，我还在用这些方法：不断地举实例。<br>譬如说，那些念数学的提出一个听起来很了不得的定理，大家都非常兴奋。当他们告诉我这个定理的各项条件时，我便一边构思符合这些条件的情况。当他们说到数学上的“集”时，我便想到一个球，两个不相容的集便是两个球。然后视情况而定，球可能具有不同的颜色、长出头发或发生其他千奇百怪的状况。最后，当他们提出那宝贝定理时，我只要想到那跟我长满头发的绿球不吻合时，便宣布：“不对！”</p>
-</blockquote>
-<blockquote>
-<p>看怎样用些有趣、近代的数学观念来教数学。原先的目的，是要使那些觉得数学枯燥无味的学生提高兴趣。</p>
-</blockquote>
-<h2 id="费曼教授"><a href="#费曼教授" class="headerlink" title="费曼教授"></a>费曼教授</h2><blockquote>
-<p>20 世纪40 年代，我待在普林斯顿的期间，亲眼看到高等研究院内那些卓越心灵的下场。他们都具备了聪明绝顶的头脑，因此特别被选中，来到坐落在森林旁边的漂亮房子里，整天悠哉游哉地闲坐——不用教书，没有任何约束或负担。但等过了一段日子，他们想不出什么新东西来，每个人心里一定开始感到内疚或沮丧，更加担心提不出新想法。可是一切还是如旧，仍然没有灵感。<br>会发生这种情况，完全是因为那里缺乏真正的活动和挑战：他们没有跟做实验的学者接触，也不必思索如何回答学生提出的问题，什么都没有！</p>
-</blockquote>
-<blockquote>
-<p>在任何思考过程中，当一切进行顺利、灵感源源不绝时，教书确实是一种妨碍，十分讨厌。但有更多的时候是脑袋空空的，如果既想不出什么、又没做什么，那真会教人疯狂！你甚至不能说：“我在教书呀！”。</p>
-</blockquote>
-<h2 id="不敢面对问题到弄明白"><a href="#不敢面对问题到弄明白" class="headerlink" title="不敢面对问题到弄明白"></a>不敢面对问题到弄明白</h2><blockquote>
-<p>在罗彻斯特举行了一个会议——一年一度的罗彻斯特研讨会（Rochester Conference）。我还是事事落于人后，而李政道已在发表关于宇称不守恒的论文。他和杨振宁作出宇称并不守恒的结论，现在他正提出解释这现象的理论。<br>会议期间，我住在我位于西瑞桥斯（Syracuse）的妹妹家。我把论文带回家跟她说：“我搞不懂李政道和杨振宁说的东西，这全都那么复杂！”“不，”她说，“你的意思并不是说你无法弄懂它，而是你没有发明它。你没有用你的方法，从听到线索开始做起，把它推演出来。你应该做的是想象自己重新在当学生，把这篇论文带到楼上去，逐字逐句地读，检查每一条方程式。然后你就什么都弄懂了。”<br>我接受了她的建议，把那东西从头看到尾，发现它真的很明显简单。我只是一直害怕去读它，总觉得它太深奥。</p>
-</blockquote>
-
+            <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a><strong>基本概念</strong></h2><p><code>多路搜索树（multi-way search tree）</code>：</p>
+<ul>
+<li>将传统的二叉搜索树，改造为多路搜索树——在中序的遍历下，这也是一种等价变换</li>
+<li>以k层为间隔如此重组，可以将二叉搜索树转化为等价的2^k路搜索树，统称为多路搜索树。</li>
+<li>多路搜索树同样支持查找等操作，而且效果与原来的二叉树完全等同；但是重要的是，其对外存的访问方式已经发生本质变化，是以大节点为单位从外存读取一组（而不是单个）关键码。</li>
+</ul>
+<p><code>B树就是B-树</code>：</p>
+<ul>
+<li>B-树就是B树，中间的横线不是减号，直接读成B树即可。</li>
+<li>有的文章里出现的B-树，即为B树。因为B树的原英文名称为B-tree，而国内很多人喜欢把B-tree译作B-树，而事实上是，B-tree就是指的B树。</li>
+<li>B树是一种多路平衡搜索树，它的每一个节点最多包含K个孩子，k被称为<code>B树的阶</code>。</li>
+<li>k的大小取决于磁盘页的大小</li>
+<li>B树比较矮胖，扁平化，B-树的宽度往往大于其高度</li>
+</ul>
+<p><code>B+树</code>：</p>
+<ul>
+<li>是应文件系统所需而产生的一种B-tree的变形树。</li></ul>
         </div>
         
-        <div class="level is-size-7 is-uppercase">
+        
+        <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/%E4%BC%A0%E8%AE%B0/" rel="tag">传记</a>, <a class="has-link-grey -link" href="/tags/%E8%AF%BA%E8%B4%9D%E5%B0%94%E5%A5%96/" rel="tag">诺贝尔奖</a>, <a class="has-link-grey -link" href="/tags/%E8%B4%B9%E6%9B%BC/" rel="tag">费曼</a>
+                <a class="button is-size-7 is-light" href="/2020/06/03/B%E6%A0%91%E4%B8%8EB+%E6%A0%91%E8%AF%A6%E8%A7%A3/#more">阅读更多</a>
                 </div>
             </div>
         </div>
         
         
-        
-        <div class="social-share"></div>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
-<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
-        
     </div>
 </div>
 
 
 
-<div class="card">
-    <div class="card-content">
-        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
-        <div class="buttons is-centered">
-            
-        </div>
-    </div>
-</div>
 
 
 
-<div class="card card-transparent">
-    <div class="level post-navigation is-flex-wrap is-mobile">
-        
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/04/19/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86%EF%BC%881%EF%BC%89/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">Linux常用命令整理（1）</span>
-            </a>
-        </div>
-        
-        
-        <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2020/04/14/%E5%93%88%E5%B8%8C%E8%A1%A8%EF%BC%88%E6%95%A3%E5%88%97%E8%A1%A8%EF%BC%89%E8%AF%A6%E8%A7%A3/">
-                <span class="level-item">哈希表（散列表）详解</span>
-                <i class="level-item fas fa-chevron-right"></i>
-            </a>
-        </div>
-        
-    </div>
-</div>
 
 
-
-<div class="card">
-    <div class="card-content">
-        <h3 class="title is-5 has-text-weight-normal">评论</h3>
-        
-<div id="comment-container"></div>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
-<script>
-    var gitalk = new Gitalk({
-        clientID: 'e79770cfee30db02a856',
-        clientSecret: 'bb958f5fc30797ffc222ca631ec345baa48a0bee',
-        id: '395293739491d87c47dfddfea227f43f',
-        repo: 'STEMHA.github.io',
-        owner: 'STEMHA',
-        admin: "STEMHA",
-        createIssueManually: false,
-        distractionFreeMode: false
-    })
-    gitalk.render('comment-container')
-</script>
-
-    </div>
-</div>
 </div>
                 
 
@@ -404,34 +347,6 @@
 </div>
     
         
-
-    <div class="card widget" id="toc">
-        <div class="card-content">
-            <div class="menu">
-                <h3 class="menu-label">
-                    目录
-                </h3>
-                <ul class="menu-list"><li>
-        <a class="is-flex" href="#当科学大师碰上菜鸟">
-        <span class="has-mr-6">1</span>
-        <span>当科学大师碰上菜鸟</span>
-        </a></li><li>
-        <a class="is-flex" href="#向数学家挑战">
-        <span class="has-mr-6">2</span>
-        <span>向数学家挑战</span>
-        </a></li><li>
-        <a class="is-flex" href="#费曼教授">
-        <span class="has-mr-6">3</span>
-        <span>费曼教授</span>
-        </a></li><li>
-        <a class="is-flex" href="#不敢面对问题到弄明白">
-        <span class="has-mr-6">4</span>
-        <span>不敢面对问题到弄明白</span>
-        </a></li></ul>
-            </div>
-        </div>
-    </div>
-
     
         <div class="card widget">
     <div class="card-content">
@@ -1308,7 +1223,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/og_image.png" alt="《别闹了费曼先生》读书笔记" height="28">
+                    <img src="/images/og_image.png" alt="STEMHA&#39;s Blog" height="28">
                 
                 </a>
                 <p class="is-size-7">
