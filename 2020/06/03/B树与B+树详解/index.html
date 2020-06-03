@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://stemha.github.io/images/og_image.png">
 <meta property="article:published_time" content="2020-06-02T17:10:47.000Z">
-<meta property="article:modified_time" content="2020-06-03T12:58:50.549Z">
+<meta property="article:modified_time" content="2020-06-03T14:37:46.568Z">
 <meta property="article:author" content="STEMHA">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://stemha.github.io/images/og_image.png">
@@ -156,7 +156,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    29 分钟 读完 (大约 4313 个字)
+                    29 分钟 读完 (大约 4314 个字)
                 </span>
                 
                 
@@ -185,7 +185,9 @@
 </ul>
 <p><code>B+树</code>：</p>
 <ul>
-<li>是应文件系统所需而产生的一种B-tree的变形树。</li>
+<li>是应文件系统所需而产生的一种B-tree的变形树。<a id="more"></a>
+
+</li>
 </ul>
 <h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a><strong>应用</strong></h2><p><strong>数据库索引主要基于什么数据结构？</strong><br>hash表和B+树</p>
 <p><strong>数据库索引为什么要用B+树结构来存储呢？</strong><br>树的查询效率高。而且可以保持有序。但是为什么不用二叉查找树呢？主要是因为磁盘I/O的影响，数据库索引是存储在磁盘上的，当数据量比较大的时候，索引的大小可能有几个G甚至更多。当我们利用索引查询时候，能把整个索引全部加载到内存吗？很显然不可能的，我们能做的是逐一加载每一个磁盘页，这里的磁盘页面对应着索引树的节点。这样的话，每遍历到一个节点就需要进行一次I/O操作。<br>磁盘这种外部存储器适合批量式的访问，为了减少I/O，我们需要把原本<strong>瘦高</strong>的树结构变得<strong>矮胖</strong>，这就是B-树的特征之一。</p>
