@@ -6,7 +6,7 @@
   <link href="/rss.xml" rel="self"/>
   
   <link href="https://stemha.github.io/"/>
-  <updated>2020-06-03T16:23:58.017Z</updated>
+  <updated>2020-06-06T15:05:43.050Z</updated>
   <id>https://stemha.github.io/</id>
   
   <author>
@@ -15,6 +15,47 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《复杂》阅读笔记</title>
+    <link href="https://stemha.github.io/2020/06/06/%E3%80%8A%E5%A4%8D%E6%9D%82%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
+    <id>https://stemha.github.io/2020/06/06/%E3%80%8A%E5%A4%8D%E6%9D%82%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</id>
+    <published>2020-06-06T14:55:35.000Z</published>
+    <updated>2020-06-06T15:05:43.050Z</updated>
+    
+    <content type="html"><![CDATA[<p>《复杂》简单讲述了复杂系统科学尝试去回答的迷人与令人费解的问题的一部分。</p><h3 id="度量一个事物或过程的复杂性的三个维度"><a href="#度量一个事物或过程的复杂性的三个维度" class="headerlink" title="度量一个事物或过程的复杂性的三个维度"></a>度量一个事物或过程的复杂性的三个维度</h3><pre><code>描述它有多困难产生它有多困难其组织程度如何</code></pre><a id="more"></a><p>物理学家克劳德</p><h3 id="模型是什么？"><a href="#模型是什么？" class="headerlink" title="模型是什么？"></a>模型是什么？</h3><p>科学中是某种实在现象的简化表述<br>模型是我们的思维方式 是用我们熟悉的思维概念解释观察到的现象；</p><h3 id="无尺度特性"><a href="#无尺度特性" class="headerlink" title="无尺度特性"></a>无尺度特性</h3><p>《复杂性》这本书详细解释了什么是无尺度；改变图的尺度，图的形状是不变化的；<br>例子：给定一个大型的样例网络，使用直方图来观察度的分布<br>入度作为横轴，频率作为纵轴<br>1000-10000<br>10000-100000<br>100000-1000000<br>然上面几个图的分布情况曲线的形状几乎一样。<br>这样的分布是自相似的，因为不管在哪种尺度下进行绘制，形状都是一样的——也就是在不同的尺度下具有不变性——就是无尺度一词的由来（无标度）<br>无尺度网络对节点的随机删除具有稳健性，但是如果中心节点失效或是受到攻击就会非常脆弱。</p><p>如果你发现某种量遵循幂律分布，你就可以猜想这是某种自相似或分形系统导致的；<br>尽可能填充空间的几何对象其实就是分形分支结构——在所有尺度上的自相似意味着空间在所有尺度上都被同等填充。</p><h3 id="偏好依附（Preferential-attachment）"><a href="#偏好依附（Preferential-attachment）" class="headerlink" title="偏好依附（Preferential attachment）"></a>偏好依附（Preferential attachment）</h3><p>接下来一个很重要的概念是偏好依附。<br>偏好依附（Preferential attachment）//一种网络生长机制<br>巴拉巴西和艾伯特提出了一种他们称之为“偏好依附”的生成机制，用来解释幂律分布；<br>其中的思想是：网络在生长的时候。连接度高的节点比连接度低的节点更有可能得到新的连接；//直观上说，朋友越多的人，越可能认识新的朋友。网页的入度越高，就越容易被找到；</p><h3 id="连锁失效"><a href="#连锁失效" class="headerlink" title="连锁失效"></a>连锁失效</h3><p>如果某个节点失效了，它的工作就会转移到其他节点，这有可能使得其他节点因为负荷过重而失效，它的工作就会转移到未失效的顶点~</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;《复杂》简单讲述了复杂系统科学尝试去回答的迷人与令人费解的问题的一部分。&lt;/p&gt;
+&lt;h3 id=&quot;度量一个事物或过程的复杂性的三个维度&quot;&gt;&lt;a href=&quot;#度量一个事物或过程的复杂性的三个维度&quot; class=&quot;headerlink&quot; title=&quot;度量一个事物或过程的复杂性的三个维度&quot;&gt;&lt;/a&gt;度量一个事物或过程的复杂性的三个维度&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;描述它有多困难
+产生它有多困难
+其组织程度如何&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="读书笔记" scheme="https://stemha.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="网络" scheme="https://stemha.github.io/tags/%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>string常用操作</title>
+    <link href="https://stemha.github.io/2020/06/06/string%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/"/>
+    <id>https://stemha.github.io/2020/06/06/string%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</id>
+    <published>2020-06-06T14:46:38.000Z</published>
+    <updated>2020-06-06T14:46:38.621Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>B树与B+树详解</title>
