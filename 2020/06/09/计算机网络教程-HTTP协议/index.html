@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://stemha.github.io/images/og_image.png">
 <meta property="article:published_time" content="2020-06-09T12:23:53.000Z">
-<meta property="article:modified_time" content="2020-06-09T14:28:50.151Z">
+<meta property="article:modified_time" content="2020-06-09T14:45:28.081Z">
 <meta property="article:author" content="STEMHA">
 <meta property="article:tag" content="HTTP">
 <meta property="article:tag" content="应用层">
@@ -162,7 +162,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    26 分钟 读完 (大约 3826 个字)
+                    26 分钟 读完 (大约 3849 个字)
                 </span>
                 
                 
@@ -212,7 +212,7 @@
 <li>其他三部分在请求报文和响应报文中有相同的名称。然而，这三部分只是名称相似，它们可能含有不同的内容。</li>
 </ul>
 <p><img src="/2020/06/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%95%99%E7%A8%8B-HTTP%E5%8D%8F%E8%AE%AE/%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87%E5%92%8C%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87%E6%A0%BC%E5%BC%8F.JPG" alt="图3，请求报文和响应报文格式"></p>
-<h3 id="请求报文"><a href="#请求报文" class="headerlink" title="请求报文"></a>请求报文</h3><ul>
+<h3 id="请求报文"><a href="#请求报文" class="headerlink" title="请求报文"></a><strong>请求报文</strong></h3><ul>
 <li>请求报文的第一行称为请求行。如图所示，这一行有三部分由空格分隔开并且被两个字符（回车和换行）终止。这些字段称为方法、URL 和版本。</li>
 <li>第一个字段：方法字段定义了请求类型。如下所示，在HTTP1.1 版中定义了若干种方法。</li>
 <li>第二个字段：URL，在本章的前面部分已经讨论过了。它定义了相关网页的地址和名称。</li>
@@ -230,7 +230,7 @@
 <li>主体可以出现在请求报文中。通常，当使用POST 或PUT 方法时，它包含要发送的评论或要发布到网站上的文档。</li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">请求头部名称</span><br><span class="line">-----------------------------------------------------------</span><br><span class="line">User-agent            标识客户端程序 </span><br><span class="line">Accept                给出客户端能够接受的媒体格式 </span><br><span class="line">Accept-charset        给出客户端可以处理的字符集 </span><br><span class="line">Accept-encoding       给出客户端可以处理的编码方案 </span><br><span class="line">Accept-language       给出客户端可以接受的语言</span><br><span class="line">Authorization         给出客户端有哪些许可 </span><br><span class="line">Host                  给出主机及客户端的端口号</span><br><span class="line">Date                  给出当前日期</span><br><span class="line">Upgrade               确定首选的通信协议</span><br><span class="line">Cookie                返回cookie 给服务器（稍后解释）</span><br><span class="line">If-Modified-Since     如果文档在指定的日期之后被更新，则发送文档</span><br></pre></td></tr></table></figure>
-<h3 id="响应报文"><a href="#响应报文" class="headerlink" title="响应报文"></a>响应报文</h3><p>图3给出了响应报文的格式。响应报文包含<code>状态行</code>、<code>头部行</code>并且有时包含<code>主体</code>。</p>
+<h3 id="响应报文"><a href="#响应报文" class="headerlink" title="响应报文"></a><strong>响应报文</strong></h3><p>图3给出了响应报文的格式。响应报文包含<code>状态行</code>、<code>头部行</code>并且有时包含<code>主体</code>。</p>
 <ul>
 <li>响应报文的第一行称为<code>状态行</code>。这一行有三个字段，它们由空格分隔开并且被两个字符（回车和换行）终止。</li>
 <li>第一个字段：<code>版本字段</code>，定义了HTTP 协议的版本，通常为1.1。</li>
@@ -247,20 +247,20 @@
 <p>在状态行之后，我们可以有一个或多个<code>响应头部行</code>。每一个头部行都从服务器向客户端发送额外的信息。例如，发送方可以发送关于文档的额外信息。<br>每个头部行都有一个头部名称、一个冒号、一个空格和一个头部值。<br>下面列出了一些常用的头部名称。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">响应头部名称</span><br><span class="line">------------------------------------------------------</span><br><span class="line">Date                 给出当前日期 </span><br><span class="line">Upgrade              确定首选的通信协议 </span><br><span class="line">Server               给出服务器信息 </span><br><span class="line">Set-Cookie           服务器要求客户存储</span><br><span class="line">Content-Encoding     指定编码方案 </span><br><span class="line">Content-Language     指定语言</span><br><span class="line">Content-Length       给出文档长度</span><br><span class="line">Content-Type         指定媒体类型</span><br><span class="line">Location             指明新建或移动后文档的位置</span><br><span class="line">cookie Accept-Ranges 服务器将会接收的被请求的字节范围</span><br><span class="line">Last-modified        给出上次改变的日期和时间</span><br></pre></td></tr></table></figure>
 <p>主体包含了从服务器发送给客户的文档。除非响应是一个错误报文，否则主体是存在的。</p>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><h3 id="客户要向服务器发送一个网页"><a href="#客户要向服务器发送一个网页" class="headerlink" title="客户要向服务器发送一个网页"></a>客户要向服务器发送一个网页</h3><p>在这个例子中，客户要向服务器发送一个网页。我们使用PUT 方法。</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><h3 id="客户要向服务器发送一个网页"><a href="#客户要向服务器发送一个网页" class="headerlink" title="客户要向服务器发送一个网页"></a><strong>客户要向服务器发送一个网页</strong></h3><p>在这个例子中，客户要向服务器发送一个网页。我们使用PUT 方法。</p>
 <ul>
 <li>请求行给出方法（PUT）、URL 以及HTTP 版本（1.1）。其头部有四行。请求主体包含要发送的网页。</li>
 <li>响应报文包含状态行和四个头部行。被创建的文档是一个CGI 文档，它包含在响应报文的主体中</li>
 </ul>
 <p><img src="/2020/06/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%95%99%E7%A8%8B-HTTP%E5%8D%8F%E8%AE%AE/%E5%AE%A2%E6%88%B7%E8%A6%81%E5%90%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%91%E9%80%81%E4%B8%80%E4%B8%AA%E7%BD%91%E9%A1%B5.JPG" alt="客户要向服务器发送一个网页"></p>
-<h3 id="客户要向服务器获取一个文档"><a href="#客户要向服务器获取一个文档" class="headerlink" title="客户要向服务器获取一个文档"></a>客户要向服务器获取一个文档</h3><p>使用GET 方法来获取一个路径为/usr/bin/image1 的图片。</p>
+<h3 id="客户要向服务器获取一个文档"><a href="#客户要向服务器获取一个文档" class="headerlink" title="客户要向服务器获取一个文档"></a><strong>客户要向服务器获取一个文档</strong></h3><p>使用GET 方法来获取一个路径为/usr/bin/image1 的图片。</p>
 <ul>
 <li>请求行给出了使用的方法（GET）、URL 以及HTTP 版本（1.1）。</li>
 <li>头部有两行，它们表示客户可以接收GIF 或JPEG 格式的图片。<strong>请求是没有主体的。</strong></li>
 <li>响应报文包含了状态行以及四个头部行。头部行定义了日期、服务器、内容编码（MIME 版本，在电子邮件部分将会描述）以及文档长度。文档主体在头部之后。</li>
 </ul>
 <p><img src="/2020/06/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%95%99%E7%A8%8B-HTTP%E5%8D%8F%E8%AE%AE/%E5%AE%A2%E6%88%B7%E8%A6%81%E5%90%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%8E%B7%E5%8F%96%E4%B8%80%E4%B8%AA%E6%96%87%E6%A1%A3.JPG" alt="客户要向服务器获取一个文档"></p>
-<h3 id="条件请求"><a href="#条件请求" class="headerlink" title="条件请求"></a>条件请求</h3><p>客户可以在请求中加入条件。在这种情况下，如果条件满足，服务器将会发送被请求的网页或者通知用户。</p>
+<h3 id="条件请求"><a href="#条件请求" class="headerlink" title="条件请求"></a><strong>条件请求</strong></h3><p>客户可以在请求中加入条件。在这种情况下，如果条件满足，服务器将会发送被请求的网页或者通知用户。</p>
 <ul>
 <li>客户加入的最常见的一种条件是网页被修改的时间和日期。</li>
 <li>客户可以在发送请求时附带头部行If-Modified-Since，这样来告知服务器客户只需要在指定日期之后更新的页面。</li>
@@ -270,15 +270,15 @@
 <p>响应中的状态行表示在指定日期之后文档没有修改。所以响应报文的主体是空的。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP&#x2F;1.1 304 Not Modified                                  状态行</span><br><span class="line">Date: Sat, Sept 06 08 16:22:46 GMT                         头部第一行</span><br><span class="line">Server: commonServer.com                                   头部第二行</span><br><span class="line">                                                           空行</span><br><span class="line">(Empty Body)                                               空主体</span><br></pre></td></tr></table></figure>
 
-<h2 id="HTTP-安全"><a href="#HTTP-安全" class="headerlink" title="HTTP 安全"></a>HTTP 安全</h2><p>HTTP 本质上并不提供安全。然而，，HTTP 可以在安全套接层（SSL）上运行。在这种情况下，HTTP 称为HTTPS。<br>HTTPS 提供保密性、客户和服务器鉴别，以及数据完整性。<br>HTTPS 端口号443</p>
-<h2 id="状态码（Status-Code）"><a href="#状态码（Status-Code）" class="headerlink" title="状态码（Status-Code）"></a>状态码（Status-Code）</h2><p>1xx：表示通知信息，如请求收到了或正在进行处理</p>
+<h2 id="HTTP-安全"><a href="#HTTP-安全" class="headerlink" title="HTTP 安全"></a><strong>HTTP 安全</strong></h2><p>HTTP 本质上并不提供安全。然而，，HTTP 可以在安全套接层（SSL）上运行。在这种情况下，HTTP 称为HTTPS。<br>HTTPS 提供保密性、客户和服务器鉴别，以及数据完整性。<br>HTTPS 端口号443</p>
+<h2 id="状态码（Status-Code）"><a href="#状态码（Status-Code）" class="headerlink" title="状态码（Status-Code）"></a><strong>状态码（Status-Code）</strong></h2><p>1xx：表示通知信息，如请求收到了或正在进行处理</p>
 <ul>
-<li>100 Continue：继续，客户端应继续其请求</li>
+<li><strong>100 Continue：继续，客户端应继续其请求</strong></li>
 <li>101 Switching Protocols 切换协议。服务器根据客户端的请求切换协议。只能切换到更高级的协议，例如，切换到 HTTP 的新版本协议</li>
 </ul>
 <p>2xx：表示成功，如接收或知道了</p>
 <ul>
-<li>200 OK: 请求成功</li>
+<li><strong>200 OK: 请求成功</strong></li>
 </ul>
 <p>3xx：表示重定向，如要完成请求还必须采取进一步的行动</p>
 <ul>
@@ -286,19 +286,19 @@
 </ul>
 <p>4xx：表示客户的差错，如请求中有错误的语法或不能完成</p>
 <ul>
-<li>400 Bad Request: 客户端请求的语法错误，服务器无法理解</li>
-<li>401 Unauthorized: 请求要求用户的身份认证</li>
-<li>403 Forbidden: 服务器理解请求客户端的请求，但是拒绝执行此请求（权限不够）</li>
+<li><strong>400 Bad Request: 客户端请求的语法错误，服务器无法理解</strong></li>
+<li><strong>401 Unauthorized: 请求要求用户的身份认证</strong></li>
+<li><strong>403 Forbidden</strong>: 服务器理解请求客户端的请求，但是拒绝执行此请求（权限不够）</li>
 <li>404 Not Found: 服务器无法根据客户端的请求找到资源（网页）。通过此代码，网站设计人员可设置 “您所请求的资源无法找到” 的个性页面</li>
-<li>408 Request Timeout: 服务器等待客户端发送的请求时间过长，超时</li>
+<li><strong>408 Request Timeout:</strong> 服务器等待客户端发送的请求时间过长，超时</li>
 </ul>
 <p>5xx：表示服务器的差错，如服务器失效无法完成请求</p>
 <ul>
-<li>500 Internal Server Error: 服务器内部错误，无法完成请求</li>
+<li><strong>500 Internal Server Error</strong>: 服务器内部错误，无法完成请求</li>
 <li>503 Service Unavailable: 由于超载或系统维护，服务器暂时的无法处理客户端的请求。延时的长度可包含在服务器的 Retry-After 头信息中</li>
 <li>504 Gateway Timeout: 充当网关或代理的服务器，未及时从远端服务器获取请求</li>
 </ul>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.runoob.com/http/http-status-codes.html">HTTP状态码-菜鸟教程</a><br><a href="https://www.runoob.com/http/http-tutorial.html">HTTP 教程-菜鸟教程</a><br>计算机网络教程-自顶向下方法</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.runoob.com/http/http-status-codes.html">HTTP状态码-菜鸟教程</a><br><a href="https://www.runoob.com/http/http-tutorial.html">HTTP 教程-菜鸟教程</a><br><a href="https://www.cnblogs.com/williamjie/p/9099940.html">浅谈HTTP中GET、POST用法以及它们的区别 </a><br>计算机网络教程-自顶向下方法</p>
 
         </div>
         
