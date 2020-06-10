@@ -16,21 +16,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>音标发音 - STEMHA&#39;s Blog</title>
+<title>计算机网络教程-TCP状态转换 - STEMHA&#39;s Blog</title>
 
 
-    <meta name="description" content="清辅音与浊辅音">
+    <meta name="description" content="TCP状态表   状态 说明 状态 说明    CLOSED 没有连接存在 FIN-WAIT-2 首个FIN 的ACK 已被接收；等待第二个FIN   LISTEN 接收到被动打开；等待SYN CLOSE-WAIT 首个FIN 被接收，ACK 被发送；等待应用关闭   SYN-SENT SYN已被发送；等待ACK TIME-WAIT 第二个FIN 被接收，ACK 被发送；等待2MSL 超时   S">
 <meta property="og:type" content="article">
-<meta property="og:title" content="音标发音">
-<meta property="og:url" content="https://stemha.github.io/2020/05/24/%E9%9F%B3%E6%A0%87%E5%8F%91%E9%9F%B3/index.html">
+<meta property="og:title" content="计算机网络教程-TCP状态转换">
+<meta property="og:url" content="https://stemha.github.io/2020/06/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%95%99%E7%A8%8B-TCP%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2/index.html">
 <meta property="og:site_name" content="STEMHA&#39;s Blog">
-<meta property="og:description" content="清辅音与浊辅音">
+<meta property="og:description" content="TCP状态表   状态 说明 状态 说明    CLOSED 没有连接存在 FIN-WAIT-2 首个FIN 的ACK 已被接收；等待第二个FIN   LISTEN 接收到被动打开；等待SYN CLOSE-WAIT 首个FIN 被接收，ACK 被发送；等待应用关闭   SYN-SENT SYN已被发送；等待ACK TIME-WAIT 第二个FIN 被接收，ACK 被发送；等待2MSL 超时   S">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://stemha.github.io/images/og_image.png">
-<meta property="article:published_time" content="2020-05-24T12:49:11.000Z">
-<meta property="article:modified_time" content="2020-05-24T12:59:01.869Z">
+<meta property="article:published_time" content="2020-06-10T15:24:02.000Z">
+<meta property="article:modified_time" content="2020-06-10T15:43:08.081Z">
 <meta property="article:author" content="STEMHA">
-<meta property="article:tag" content="音标">
+<meta property="article:tag" content="传输层">
+<meta property="article:tag" content="TCP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://stemha.github.io/images/og_image.png">
 
@@ -92,7 +93,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/og_image.png" alt="音标发音" height="28">
+                <img src="/images/og_image.png" alt="计算机网络教程-TCP状态转换" height="28">
             
             </a>
         </div>
@@ -151,17 +152,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-05-24T12:49:11.000Z">2020-05-24</time>
+                <time class="level-item has-text-grey" datetime="2020-06-10T15:24:02.000Z">2020-06-10</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0/">英语学习</a>
+                <a class="has-link-grey -link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 507 个字)
+                    5 分钟 读完 (大约 675 个字)
                 </span>
                 
                 
@@ -170,48 +171,89 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                音标发音
+                计算机网络教程-TCP状态转换
             
         </h1>
         <div class="content">
-            <h2 id="清辅音与浊辅音"><a href="#清辅音与浊辅音" class="headerlink" title="清辅音与浊辅音"></a>清辅音与浊辅音</h2><a id="more"></a>
-<table>
+            <h2 id="TCP状态表"><a href="#TCP状态表" class="headerlink" title="TCP状态表"></a>TCP状态表</h2><table>
 <thead>
 <tr>
-<th align="left">分类</th>
-<th align="left">音标</th>
+<th align="left">状态</th>
+<th align="left">说明</th>
+<th align="left">状态</th>
+<th align="left">说明</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">清辅音</td>
-<td align="left">发音时声带不振动的辅音，有/p/ /t/ /k/ /f/ /θ/ /s/ /ʃ/ /h/ /tʃ/ /ts/ /tr/</td>
+<td align="left">CLOSED</td>
+<td align="left">没有连接存在</td>
+<td align="left">FIN-WAIT-2</td>
+<td align="left">首个FIN 的ACK 已被接收；等待第二个FIN</td>
 </tr>
 <tr>
-<td align="left">浊辅音</td>
-<td align="left">发音时声带振动的辅音，有/b/ /d/ /g/ /v/ /ð/ /z/ /ʒ/ /r/ /dʒ/ /dz/ /dr/ /j/ /w/ /m/ /n/ /ŋ/ /l/</td>
+<td align="left">LISTEN</td>
+<td align="left">接收到被动打开；等待SYN</td>
+<td align="left"><code>CLOSE-WAIT</code></td>
+<td align="left">首个FIN 被接收，ACK 被发送；等待应用关闭</td>
 </tr>
 <tr>
-<td align="left">二者区别</td>
-<td align="left">读一下/v/和/f/感受一下就知道了</td>
+<td align="left">SYN-SENT</td>
+<td align="left">SYN已被发送；等待ACK</td>
+<td align="left"><code>TIME-WAIT</code></td>
+<td align="left">第二个FIN 被接收，ACK 被发送；等待2MSL 超时</td>
+</tr>
+<tr>
+<td align="left">SYN-RCVD</td>
+<td align="left">SYN + ACK 已被发送；等待ACK</td>
+<td align="left">LAST-ACK</td>
+<td align="left">第二个FIN 被发送；等待ACK</td>
+</tr>
+<tr>
+<td align="left"><code>ESTABLISHED</code></td>
+<td align="left">连接建立；数据传输正在进行</td>
+<td align="left">CLOSING</td>
+<td align="left">双端决定同时关闭</td>
+</tr>
+<tr>
+<td align="left">FIN-WAIT-1</td>
+<td align="left">首个FIN 已被发送；等待ACK</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a id="more"></a></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 </tbody></table>
-<h3 id="ts"><a href="#ts" class="headerlink" title="/ts/"></a>/ts/</h3><ul>
-<li>清辅音  声带不震动 发<strong>“次”</strong>的音   牙齿轻咬，舌端贴住齿龈，堵住气流。然后舌尖略微下降，气流泄出。</li>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><img src="/2020/06/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%95%99%E7%A8%8B-TCP%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2/TCP%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2.JPG" alt="TCP状态转换"><br>客户进程向它的TCP 发出主动打开命令来请求连接到特定套接字地址。</p>
+<ul>
+<li>TCP 发送一个SYN 段并转移到<code>SYN-SENT</code> 状态。</li>
+<li>在收到SYN + ACK 段后，TCP 发送了一个ACK 段并且进入<code>ESTABLISHED</code>状态。</li>
+<li>数据被传输，可能是双向的，并且被确认。</li>
 </ul>
-<h3 id="ð"><a href="#ð" class="headerlink" title="/ð/"></a>/ð/</h3><ul>
-<li>浊辅音，发音时声带要稍微振动，发出声来，但不要送气。</li>
-<li>口型助记： 外形则像舌头顶在上下牙齿之间。</li>
-<li>英语中只有字母组合“th”会发这个音。</li>
-<li>容易把它发成舌尖齿龈摩擦音/z/；还有些人误把它发成舌端齿龈破擦音/dz/，其实只要记住轻轻舌头顶住，就不会错。</li>
+<p>当客户进程没有数据要发送了，它发出称为主动关闭的命令。</p>
+<ul>
+<li>TCP 发送FIN 段并进入<code>FIN-WAIT-1</code>状态。</li>
+<li>当它接收到ACK 段，它进入<code>FIN-WAIT-2</code>状态。</li>
+<li>当客户接收到FIN 段时，它发送一个ACK 段并进入<code>TIME-WAIT</code>状态。</li>
+<li>客户保持这种状态2MSL秒（TCP 计时器）。</li>
+<li>当相应计时器超时，客户进入<code>CLOSED</code>状态。</li>
 </ul>
-<h3 id="θ"><a href="#θ" class="headerlink" title="/θ/"></a>/θ/</h3><ul>
-<li>清辅音，发音时把舌尖放在上下齿之间，舌尖轻触上齿，略略露出齿外，气流由舌齿间泻出，摩擦成音</li>
-<li>口型助记：外形像上下牙齿咬着舌头。</li>
-<li>英语中只有字母组合“th”发这个音。</li>
-<li>容易把它发成“舌尖齿龈摩擦音”/s/，其实只要记住轻轻咬住舌尖，就不会错。</li>
+<p>服务器进程发出被动打开命令。</p>
+<ul>
+<li>服务器TCP 进入<code>LISTEN</code> 状态并且保持这种状态直到它接收到一个SYN 段。</li>
+<li>TCP 之后发送一个SYN + ACK 段并且进入<code>SYN-RCVD</code> 状态，等待客户发送ACK段。</li>
+<li>在接收到ACK 段后，TCP 进入<code>ESTABLISHED</code> 状态，这就开始了数据传输。</li>
 </ul>
-<p>音标中辅音并不难，发音基本和汉语一样，需要注意的是[θ]和[ð]这两个，因为这两个发音在汉语里是没有的。可以毫不客气地说，在中国，80%以上学英语的人这两个发音都是发成[s]和[z]的</p>
-<h2 id="相关资源"><a href="#相关资源" class="headerlink" title="相关资源"></a>相关资源</h2><p><a href="https://en-yinbiao.xiao84.com/yinbiaofayin/ts.html">清辅音/ts/的发音方法</a><br><a href="https://en-yinbiao.xiao84.com/yinbiaofayin/qq.html">浊辅音/ð/的发音方法</a><br><a href="https://www.bkw.cn/zszbks/ask/2590576.html">如何用英语48个音标发音用中文谐音标示</a></p>
+<p>TCP 保持这种状态直到它接收到一个来自客户的FIN 段，这表示没有其他数据要被交换且连接可以被关闭。</p>
+<ul>
+<li>一旦服务器接收到FIN 段，那么它就向客户发送带有虚拟EOF 标记的排队中所有的数据，这意味连接必须被关闭。</li>
+<li>它发送一个ACK 段且进入<code>CLOSE-WAIT</code>状态，但是推迟确认来自客户的FIN 段，直到它接收到来自进程的被动关闭命令。</li>
+<li>在接收到被动关闭命令后，服务器向客户发送FIN 段并进入<code>LAST-ACK</code>状态，等待最终ACK。</li>
+<li>当ACK 段从客户发送后被服务器接收，服务器进入<code>CLOSE</code> 状态。</li>
+</ul>
 
         </div>
         
@@ -219,7 +261,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/%E9%9F%B3%E6%A0%87/" rel="tag">音标</a>
+                    <a class="has-link-grey -link" href="/tags/TCP/" rel="tag">TCP</a>, <a class="has-link-grey -link" href="/tags/%E4%BC%A0%E8%BE%93%E5%B1%82/" rel="tag">传输层</a>
                 </div>
             </div>
         </div>
@@ -249,17 +291,10 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/05/24/STL%E6%8E%92%E5%BA%8F%E7%9B%B8%E5%85%B3%E5%BA%93/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">STL排序相关库</span>
-            </a>
-        </div>
-        
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2020/05/21/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8FC-%E5%AE%9E%E7%8E%B0/">
-                <span class="level-item">单例模式C++实现</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/06/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%95%99%E7%A8%8B-HTTP%E5%8D%8F%E8%AE%AE/">
+                <span class="level-item">计算机网络教程-HTTP协议</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -280,7 +315,7 @@
     var gitalk = new Gitalk({
         clientID: 'e79770cfee30db02a856',
         clientSecret: 'bb958f5fc30797ffc222ca631ec345baa48a0bee',
-        id: '620c0c09e0068c9ca9671e649a717ef0',
+        id: 'bb0756a42a0ddd90906111713eb651a3',
         repo: 'STEMHA.github.io',
         owner: 'STEMHA',
         admin: "STEMHA",
@@ -426,25 +461,13 @@
                     目录
                 </h3>
                 <ul class="menu-list"><li>
-        <a class="is-flex" href="#清辅音与浊辅音">
+        <a class="is-flex" href="#TCP状态表">
         <span class="has-mr-6">1</span>
-        <span>清辅音与浊辅音</span>
-        </a><ul class="menu-list"><li>
-        <a class="is-flex" href="#ts">
-        <span class="has-mr-6">1.1</span>
-        <span>/ts/</span>
+        <span>TCP状态表</span>
         </a></li><li>
-        <a class="is-flex" href="#ð">
-        <span class="has-mr-6">1.2</span>
-        <span>/ð/</span>
-        </a></li><li>
-        <a class="is-flex" href="#θ">
-        <span class="has-mr-6">1.3</span>
-        <span>/θ/</span>
-        </a></li></ul></li><li>
-        <a class="is-flex" href="#相关资源">
+        <a class="is-flex" href="#示例">
         <span class="has-mr-6">2</span>
-        <span>相关资源</span>
+        <span>示例</span>
         </a></li></ul>
             </div>
         </div>
@@ -1397,7 +1420,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/og_image.png" alt="音标发音" height="28">
+                    <img src="/images/og_image.png" alt="计算机网络教程-TCP状态转换" height="28">
                 
                 </a>
                 <p class="is-size-7">

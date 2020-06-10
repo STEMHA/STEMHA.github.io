@@ -6,7 +6,7 @@
   <link href="/rss.xml" rel="self"/>
   
   <link href="https://stemha.github.io/"/>
-  <updated>2020-06-09T14:45:28.081Z</updated>
+  <updated>2020-06-10T15:43:08.081Z</updated>
   <id>https://stemha.github.io/</id>
   
   <author>
@@ -15,6 +15,77 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>计算机网络教程-TCP状态转换</title>
+    <link href="https://stemha.github.io/2020/06/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%95%99%E7%A8%8B-TCP%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2/"/>
+    <id>https://stemha.github.io/2020/06/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%95%99%E7%A8%8B-TCP%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2/</id>
+    <published>2020-06-10T15:24:02.000Z</published>
+    <updated>2020-06-10T15:43:08.081Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="TCP状态表"><a href="#TCP状态表" class="headerlink" title="TCP状态表"></a>TCP状态表</h2><table><thead><tr><th align="left">状态</th><th align="left">说明</th><th align="left">状态</th><th align="left">说明</th></tr></thead><tbody><tr><td align="left">CLOSED</td><td align="left">没有连接存在</td><td align="left">FIN-WAIT-2</td><td align="left">首个FIN 的ACK 已被接收；等待第二个FIN</td></tr><tr><td align="left">LISTEN</td><td align="left">接收到被动打开；等待SYN</td><td align="left"><code>CLOSE-WAIT</code></td><td align="left">首个FIN 被接收，ACK 被发送；等待应用关闭</td></tr><tr><td align="left">SYN-SENT</td><td align="left">SYN已被发送；等待ACK</td><td align="left"><code>TIME-WAIT</code></td><td align="left">第二个FIN 被接收，ACK 被发送；等待2MSL 超时</td></tr><tr><td align="left">SYN-RCVD</td><td align="left">SYN + ACK 已被发送；等待ACK</td><td align="left">LAST-ACK</td><td align="left">第二个FIN 被发送；等待ACK</td></tr><tr><td align="left"><code>ESTABLISHED</code></td><td align="left">连接建立；数据传输正在进行</td><td align="left">CLOSING</td><td align="left">双端决定同时关闭</td></tr><tr><td align="left">FIN-WAIT-1</td><td align="left">首个FIN 已被发送；等待ACK</td><td align="left"></td><td align="left"></td></tr><tr><td align="left"><a id="more"></a></td><td align="left"></td><td align="left"></td><td align="left"></td></tr></tbody></table><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><img src="/2020/06/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%95%99%E7%A8%8B-TCP%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2/TCP%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2.JPG" alt="TCP状态转换"><br>客户进程向它的TCP 发出主动打开命令来请求连接到特定套接字地址。</p><ul><li>TCP 发送一个SYN 段并转移到<code>SYN-SENT</code> 状态。</li><li>在收到SYN + ACK 段后，TCP 发送了一个ACK 段并且进入<code>ESTABLISHED</code>状态。</li><li>数据被传输，可能是双向的，并且被确认。</li></ul><p>当客户进程没有数据要发送了，它发出称为主动关闭的命令。</p><ul><li>TCP 发送FIN 段并进入<code>FIN-WAIT-1</code>状态。</li><li>当它接收到ACK 段，它进入<code>FIN-WAIT-2</code>状态。</li><li>当客户接收到FIN 段时，它发送一个ACK 段并进入<code>TIME-WAIT</code>状态。</li><li>客户保持这种状态2MSL秒（TCP 计时器）。</li><li>当相应计时器超时，客户进入<code>CLOSED</code>状态。</li></ul><p>服务器进程发出被动打开命令。</p><ul><li>服务器TCP 进入<code>LISTEN</code> 状态并且保持这种状态直到它接收到一个SYN 段。</li><li>TCP 之后发送一个SYN + ACK 段并且进入<code>SYN-RCVD</code> 状态，等待客户发送ACK段。</li><li>在接收到ACK 段后，TCP 进入<code>ESTABLISHED</code> 状态，这就开始了数据传输。</li></ul><p>TCP 保持这种状态直到它接收到一个来自客户的FIN 段，这表示没有其他数据要被交换且连接可以被关闭。</p><ul><li>一旦服务器接收到FIN 段，那么它就向客户发送带有虚拟EOF 标记的排队中所有的数据，这意味连接必须被关闭。</li><li>它发送一个ACK 段且进入<code>CLOSE-WAIT</code>状态，但是推迟确认来自客户的FIN 段，直到它接收到来自进程的被动关闭命令。</li><li>在接收到被动关闭命令后，服务器向客户发送FIN 段并进入<code>LAST-ACK</code>状态，等待最终ACK。</li><li>当ACK 段从客户发送后被服务器接收，服务器进入<code>CLOSE</code> 状态。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;TCP状态表&quot;&gt;&lt;a href=&quot;#TCP状态表&quot; class=&quot;headerlink&quot; title=&quot;TCP状态表&quot;&gt;&lt;/a&gt;TCP状态表&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&quot;left&quot;&gt;状态&lt;/th&gt;
+&lt;th align=&quot;left&quot;&gt;说明&lt;/th&gt;
+&lt;th align=&quot;left&quot;&gt;状态&lt;/th&gt;
+&lt;th align=&quot;left&quot;&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;CLOSED&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;没有连接存在&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;FIN-WAIT-2&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;首个FIN 的ACK 已被接收；等待第二个FIN&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;LISTEN&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;接收到被动打开；等待SYN&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;&lt;code&gt;CLOSE-WAIT&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;首个FIN 被接收，ACK 被发送；等待应用关闭&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;SYN-SENT&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;SYN已被发送；等待ACK&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;&lt;code&gt;TIME-WAIT&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;第二个FIN 被接收，ACK 被发送；等待2MSL 超时&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;SYN-RCVD&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;SYN + ACK 已被发送；等待ACK&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;LAST-ACK&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;第二个FIN 被发送；等待ACK&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;&lt;code&gt;ESTABLISHED&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;连接建立；数据传输正在进行&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;CLOSING&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;双端决定同时关闭&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;FIN-WAIT-1&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;首个FIN 已被发送；等待ACK&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+    
+    </summary>
+    
+    
+      <category term="计算机网络" scheme="https://stemha.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="传输层" scheme="https://stemha.github.io/tags/%E4%BC%A0%E8%BE%93%E5%B1%82/"/>
+    
+      <category term="TCP" scheme="https://stemha.github.io/tags/TCP/"/>
+    
+  </entry>
   
   <entry>
     <title>计算机网络教程-HTTP协议</title>
