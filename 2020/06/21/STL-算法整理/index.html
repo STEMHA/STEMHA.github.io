@@ -16,18 +16,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>标签: 诺贝尔奖 - STEMHA&#39;s Blog</title>
+<title>STL 算法整理 - STEMHA&#39;s Blog</title>
 
 
-    <meta name="description" content="STEMHA&#39;s personal blog on github">
-<meta property="og:type" content="website">
-<meta property="og:title" content="STEMHA&#39;s Blog">
-<meta property="og:url" content="https://stemha.github.io/tags/%E8%AF%BA%E8%B4%9D%E5%B0%94%E5%A5%96/index.html">
+    <meta name="description" content="标准库中常见的函数与头文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STL 算法整理">
+<meta property="og:url" content="https://stemha.github.io/2020/06/21/STL-%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/index.html">
 <meta property="og:site_name" content="STEMHA&#39;s Blog">
-<meta property="og:description" content="STEMHA&#39;s personal blog on github">
+<meta property="og:description" content="标准库中常见的函数与头文件">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://stemha.github.io/images/og_image.png">
+<meta property="article:published_time" content="2020-06-21T14:18:24.000Z">
+<meta property="article:modified_time" content="2020-06-21T15:48:20.682Z">
 <meta property="article:author" content="STEMHA">
+<meta property="article:tag" content="C++标准库">
+<meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://stemha.github.io/images/og_image.png">
 
@@ -89,7 +93,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/og_image.png" alt="STEMHA&#39;s Blog" height="28">
+                <img src="/images/og_image.png" alt="STL 算法整理" height="28">
             
             </a>
         </div>
@@ -141,35 +145,24 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">诺贝尔奖</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
 <div class="card">
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-04-18T12:48:23.000Z">2020-04-18</time>
+                <time class="level-item has-text-grey" datetime="2020-06-21T14:18:24.000Z">2020-06-21</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+                <a class="has-link-grey -link" href="/categories/C/">C++</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    8 分钟 读完 (大约 1261 个字)
+                    15 分钟 读完 (大约 2287 个字)
                 </span>
                 
                 
@@ -178,33 +171,138 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2020/04/18/%E3%80%8A%E5%88%AB%E9%97%B9%E4%BA%86%E8%B4%B9%E6%9B%BC%E5%85%88%E7%94%9F%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">《别闹了费曼先生》读书笔记</a>
+                STL 算法整理
             
         </h1>
         <div class="content">
-            <h2 id="当科学大师碰上菜鸟"><a href="#当科学大师碰上菜鸟" class="headerlink" title="当科学大师碰上菜鸟"></a>当科学大师碰上菜鸟</h2>
+            <h2 id="标准库中常见的函数与头文件"><a href="#标准库中常见的函数与头文件" class="headerlink" title="标准库中常见的函数与头文件"></a>标准库中常见的函数与头文件</h2><a id="more"></a>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;cstdlib&gt;: <span class="built_in">abort</span>,</span><br><span class="line">&lt;numeric&gt;: accumulate, inner_product,</span><br><span class="line">&lt;memory&gt;: allocator, <span class="built_in">auto_ptr</span>, uninitialized_copy,</span><br><span class="line">&lt;iterator&gt;: back_inserter, front_inserter, inserter, istream_iterator, ostream_iterator, reverse_iterator,</span><br><span class="line">&lt;<span class="keyword">new</span>&gt;: bad_alloc,</span><br><span class="line">&lt;typeinfo&gt;: bad_cast, type_info,</span><br><span class="line">&lt;functional&gt;: bind2nd, less_equal, negate, not1, plus,</span><br><span class="line">&lt;<span class="built_in">bitset</span>&gt;: <span class="built_in">bitset</span>,</span><br><span class="line">&lt;iostream&gt;: boolalpha, <span class="built_in">cerr</span>, <span class="built_in">cin</span>, <span class="built_in">cout</span>, dec, <span class="built_in">endl</span>, ends, fixed, flush, hex, internal, istream, left, noboolalpha, noshowbase, noskipws, nounitbuf, nouppercase, oct, ostream, right, scientific, showbase, sowpoint, skippws, unitbuf, uppercase</span><br><span class="line">&lt;algorithm&gt;: copy, count, count_if, equal_range, fill, fill_n, find, find_end, find_first_of, for_each, max, main, nth_element, partial_sort, replace, replace_copy, set_difference, set_intersection, set_union, sort, stable_sort, unique, unique_copy, upper_bound,</span><br><span class="line">&lt;<span class="built_in">deque</span>&gt;: <span class="built_in">deque</span>,</span><br><span class="line">&lt;exception&gt;: exception, unexpected,</span><br><span class="line">&lt;fstream&gt;: fstream, ifstream, ofstream,</span><br><span class="line">&lt;<span class="built_in">string</span>&gt;: getline, <span class="built_in">string</span>,</span><br><span class="line">&lt;ios_base&gt;: ios_base,</span><br><span class="line">&lt;cctype&gt;: <span class="built_in">isalpha</span>, <span class="built_in">islower</span>, <span class="built_in">ispunct</span>, <span class="built_in">isspace</span>, <span class="built_in">isupper</span>,</span><br><span class="line">&lt;sstream&gt;: <span class="built_in">istringstream</span>, <span class="built_in">ostringstream</span>, <span class="built_in">stringstream</span>,</span><br><span class="line">&lt;<span class="built_in">list</span>&gt;: <span class="built_in">list</span>,</span><br><span class="line">&lt;stdexcept&gt;: logic_error, out_of_range, range_error, runtime_error,</span><br><span class="line">&lt;utility&gt;: make_pair, pair,</span><br><span class="line">&lt;<span class="built_in">map</span>&gt;: <span class="built_in">map</span>, <span class="built_in">multimap</span></span><br><span class="line">&lt;<span class="built_in">set</span>&gt;: <span class="built_in">multiset</span>, <span class="built_in">set</span></span><br><span class="line">&lt;<span class="built_in">queue</span>&gt;: priority_queue, <span class="built_in">queue</span></span><br><span class="line">&lt;cstddef&gt;: <span class="keyword">ptrdiff_t</span>, <span class="keyword">size_t</span>,</span><br><span class="line">&lt;iomanip&gt;: setfill, setprecision, setw,</span><br><span class="line">&lt;cmath&gt;: <span class="built_in">sqrt</span>,</span><br><span class="line">&lt;<span class="built_in">stack</span>&gt;: <span class="built_in">stack</span>,</span><br><span class="line">&lt;cstring&gt;: <span class="built_in">strcmp</span>, <span class="built_in">strcpy</span>, <span class="built_in">strlen</span>, <span class="built_in">strncpy</span>,</span><br><span class="line">&lt;<span class="built_in">vector</span>&gt;: <span class="built_in">vector</span></span><br></pre></td></tr></table></figure>
+
+
+<p>标准库定义了 100多个算法，要学习如何使用它们，需要理解它们的结构，而不是记住每个算法的细节。</p>
+<ul>
+<li>beg和end表示元素范围的迭代器</li>
+<li>beg2表示第二个序列开始位置迭代器，end2表示第二个序列末尾迭代器(如果有)。如没有则假定系列2至少与beg end表示的范围一样大。beg和beg2类型不必匹配，但必须保证两个序列中的元素可以执行特性操作或调用给定的可调用对象。</li>
+<li>des表示目的序列的迭代器，目的序列保证有足够的空间存放算法生成的元素。</li>
+<li>unaryPred和binaryPred是一元和二元谓词，分别接受来自输入序列的元素，两个谓词都返回可用作条件的类型。</li>
+<li>comp是一个二元谓词，满足关联容器中对关键字序的要求</li>
+<li>unaryOp和binaryOp是可调用对象，分别使用来自输入序列的一个和两个实参来调用。</li>
+</ul>
+<h3 id="查找对象的算法："><a href="#查找对象的算法：" class="headerlink" title="查找对象的算法："></a><strong>查找对象的算法：</strong></h3><h4 id="find"><a href="#find" class="headerlink" title="find"></a><strong>find</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">find(beg,end,val);           在迭代区间[begin,end)内查找等于val的元素，找到返回相应的迭代器，否则返回end。</span><br><span class="line">find_if(beg,end,unaryPred);  函数find的带一个函数参数的_if版本，条件：使函数unaryPred返回<span class="literal">true</span>。</span><br></pre></td></tr></table></figure>
+
+<h4 id="find-first-of-find-end"><a href="#find-first-of-find-end" class="headerlink" title="find_first_of/find_end"></a><strong>find_first_of/find_end</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find_first_of(beg1,end1,beg2,end2);</span><br><span class="line">find_first_of(beg1,end1,beg2,end2,binaryPred); </span><br><span class="line">依次遍历元素,在[beg1, end1)中查找首次出现[beg2, end2)中的任一元素,使用==或unarypred相匹配。<span class="comment">//注意是任意一个匹配即可。</span></span><br></pre></td></tr></table></figure>
+<p>例：vec1 –{1,2,3,4,5}, vec2{3,2,4}, vec3{8,6,7}<br>在vec1中查找vec2，则返回元素2在vec1中的迭代器。<br>在vec1中查找vec3，则返回vec1.end()迭代器。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">find_end(beg1,end1,beg2,end2);</span><br><span class="line">find_end(beg1,end1,beg2,end2,binaryPred);</span><br><span class="line">在[beg1,end1)范围内查找[beg2,end2)最后一次出现。找到则返回最后一对的第一个ForwardIterator，否则返回end1。</span><br><span class="line">依次遍历元素，在[beg1, end1）中查找最后一个匹配的子序列[beg2, end2），若存在，则返回beg2在[beg1, end1）中对应的迭代器，否则返回end1。[beg2, end2)中序列必须完全匹配。</span><br></pre></td></tr></table></figure>
+<p>例：vec1 –{1,2,3,4,5}, vec2{2,3,4}, vec3{3,2,4}<br>在vec1中查找vec2，则返回元素2在vec1中的迭代器。<br>在vec1中查找vec3，则返回vec1.end()迭代器。</p>
+<h4 id="adjacent-find"><a href="#adjacent-find" class="headerlink" title="adjacent_find"></a><strong>adjacent_find</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adjacent_find(beg,end);</span><br><span class="line">adjacent_find(beg,end,binaryPred);</span><br></pre></td></tr></table></figure>
+<p>依次遍历元素，查范围内相邻元素，使用==或unarypred相匹配，若存在，返回第一个元素对应的迭代器，否则返回end.</p>
+<h4 id="search"><a href="#search" class="headerlink" title="search"></a><strong>search</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">search(beg1,end1,beg2,end2);</span><br><span class="line">search(beg1,end1,beg2,end2,binaryPred);</span><br><span class="line">依次遍历元素，在[beg1, end1）中查找第一个匹配的子序列[beg2, end2）。若存在，则返回beg2在[beg1, end1）中对应的迭代器，否则返回end1。[beg2, end2)中序列必须完全匹配。</span><br><span class="line"></span><br><span class="line">search_n(beg,end,count,val);  <span class="comment">//找第n个匹配的</span></span><br><span class="line">search_n(beg,end,count,val,binaryPred);</span><br><span class="line">依次遍历元素，在[beg1, end1）中查找匹配val的元素，使用==或unarypred匹配。若存在，返回count指定的第count个元素所对应的迭代器，否则返回end1。若count指定值为负数或<span class="number">0</span>，则返回beg1。</span><br></pre></td></tr></table></figure>
+
+<h4 id="count"><a href="#count" class="headerlink" title="count"></a><strong>count</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">count(beg,end,val);</span><br><span class="line">count_if(beg,end,unaryPred);</span><br><span class="line">依次遍历元素，查找范围内与val相匹配或使unarypred为真的元素个数。</span><br></pre></td></tr></table></figure>
+<h3 id="其他只读算法："><a href="#其他只读算法：" class="headerlink" title="其他只读算法："></a><strong>其他只读算法：</strong></h3><h4 id="for-each"><a href="#for-each" class="headerlink" title="for_each"></a><strong>for_each</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for_each(beg,end,f); 	     </span><br><span class="line">将[beg,end)范围内所有元素依次调用函数func，返回func。不修改序列中的元素。</span><br></pre></td></tr></table></figure>
+<h4 id="mismatch"><a href="#mismatch" class="headerlink" title="mismatch"></a><strong>mismatch</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mismatch(beg1,end1,beg2);</span><br><span class="line">mismatch(beg1,end1,beg2,binaryPred);</span><br><span class="line">并行比较[beg1,end1)与[beg2,end2)，指出第一个不匹配的位置，返回一对iterator，标志第一个不匹配元素位置。</span><br><span class="line">如果都匹配，返回每个容器的end。</span><br></pre></td></tr></table></figure>
+<h4 id="equal"><a href="#equal" class="headerlink" title="equal"></a><strong>equal</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">判断[beg1,end1)与[beg2,end2)内元素都相等</span><br><span class="line">equal(beg1,end1,beg2); </span><br><span class="line">equal(beg1,end1,beg2,binaryPred);</span><br></pre></td></tr></table></figure>
+<h3 id="二分查找算法："><a href="#二分查找算法：" class="headerlink" title="二分查找算法："></a><strong>二分查找算法：</strong></h3><h4 id="lower-bound-upper-bound"><a href="#lower-bound-upper-bound" class="headerlink" title="lower_bound/upper_bound"></a><strong>lower_bound/upper_bound</strong></h4><p>lower_bound( )和upper_bound( )都是利用<code>二分查找</code>的方法在一个<strong>排好序的数组</strong>中进行查找的。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">lower_bound(beg,end,val);</span><br><span class="line">lower_bound(beg,end,val,comp);</span><br><span class="line">从[beg,end)位置二分查找第一个大于或等于val的数字，找到返回该数字的地址，不存在则返回end。</span><br><span class="line">通过返回的地址减去起始地址begin,得到找到数字在数组中的下标。</span><br><span class="line"></span><br><span class="line">upper_bound(beg,end,val);</span><br><span class="line">upper_bound(beg,end,val,comp);</span><br><span class="line">从[beg,end)位置二分查找第一个大于num的数字，找到返回该数字的地址，不存在则返回end。</span><br><span class="line">通过返回的地址减去起始地址begin,得到找到数字在数组中的下标。</span><br></pre></td></tr></table></figure>
+<h4 id="equal-range"><a href="#equal-range" class="headerlink" title="equal_range"></a><strong>equal_range</strong></h4><p>返回一对iterator，第一个表示lower_bound，第二个表示upper_bound。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">equal_range(beg,end,val);</span><br><span class="line">equal_range(beg,end,val,comp);</span><br></pre></td></tr></table></figure>
+<h4 id="binary-search"><a href="#binary-search" class="headerlink" title="binary_search"></a><strong>binary_search</strong></h4><p>在[beg,end)中查找val，找到返回true。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">binary_search(beg,end,val);</span><br><span class="line">binary_search(beg,end,val,comp);</span><br></pre></td></tr></table></figure>
+
+<h3 id="写容器元素的算法："><a href="#写容器元素的算法：" class="headerlink" title="写容器元素的算法："></a><strong>写容器元素的算法：</strong></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">fill_n(dest,cnt,val);</span><br><span class="line"></span><br><span class="line">generate_n(dest,cnt,Gen);</span><br><span class="line"></span><br><span class="line">copy(beg,end,dest);</span><br><span class="line"></span><br><span class="line">transform(beg,end,dest,unaryOp);</span><br><span class="line">transform(beg,end,beg2,dest,binaryOp);</span><br><span class="line"></span><br><span class="line">replace_copy(beg,end,dest,old_val,new_val);</span><br><span class="line">replace_copy_if(beg,<span class="keyword">and</span>,dest,unaryPred,new_val);</span><br><span class="line"></span><br><span class="line">merge(beg1,end1,beg2,end2,dest);</span><br><span class="line">merge(beg1,end1,beg2,end2,dest,comp);</span><br><span class="line"></span><br><span class="line">swap(elem1,elem2);</span><br><span class="line"></span><br><span class="line">iter_swap(iter1,iter2);</span><br><span class="line"></span><br><span class="line">swap_ranges(beg1,end1,beg2);</span><br><span class="line"></span><br><span class="line">fill(beg,end,val);</span><br><span class="line"></span><br><span class="line">generate(beg,end,Gen);</span><br><span class="line"></span><br><span class="line">replace(beg,end,old_val,new_val);</span><br><span class="line">replace_if(beg,end,unaryPred,new_val);</span><br><span class="line"></span><br><span class="line">copy_backward(beg,end,dest);</span><br><span class="line"></span><br><span class="line">inplace_merge(beg,mid,end);</span><br><span class="line">inplace_merge(beg,mid,end,comp);</span><br></pre></td></tr></table></figure>
+<h3 id="划分与排序算法："><a href="#划分与排序算法：" class="headerlink" title="划分与排序算法："></a><strong>划分与排序算法：</strong></h3><h4 id="partition"><a href="#partition" class="headerlink" title="partition"></a><strong>partition</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stable_partition(beg,end,unaryPred);</span><br><span class="line">partition(beg,end,unaryPred);</span><br></pre></td></tr></table></figure>
+<h4 id="sort-stable-sort"><a href="#sort-stable-sort" class="headerlink" title="sort/stable_sort"></a><strong>sort/stable_sort</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sort(beg,end);</span><br><span class="line">sort(beg,end,comp);</span><br><span class="line">stable_sort(beg,end);</span><br><span class="line">stable_sort(beg,end,comp);</span><br></pre></td></tr></table></figure>
+<h4 id="partial-sort-partial-sort-copy"><a href="#partial-sort-partial-sort-copy" class="headerlink" title="partial_sort/partial_sort_copy"></a><strong>partial_sort/partial_sort_copy</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">partial_sort(beg,mid,end);</span><br><span class="line">partial_sort(beg,mid,end,comp);</span><br><span class="line">partial_sort_copy(beg,end,destBeg,destEnd);</span><br><span class="line">partial_sort_copy(beg,end,destBeg,destEnd,comp);</span><br><span class="line">#### **nth_element**</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nth_element(beg,nth,end);</span><br><span class="line">nth_element(beg,nth,end,comp);</span><br></pre></td></tr></table></figure>
+<h3 id="通用重新排序算法："><a href="#通用重新排序算法：" class="headerlink" title="通用重新排序算法："></a><strong>通用重新排序算法：</strong></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">remove(beg,end,val);</span><br><span class="line">remove_if(beg,end,unaryPred);</span><br><span class="line"></span><br><span class="line">unique(beg,end);</span><br><span class="line">unique(beg,end,binaryPred);</span><br><span class="line"></span><br><span class="line">rotate(beg,mid,end);</span><br><span class="line"></span><br><span class="line">reverse(beg,end);</span><br><span class="line">reverse_copy(beg,end,dest);</span><br><span class="line">remove_copy(beg,end,dest,val);</span><br><span class="line">remove_copy_if(beg,end,dest,unaryPred);</span><br><span class="line"></span><br><span class="line">unique_copy(beg,end,dest);</span><br><span class="line">unique_copy(beg,end,dest,binaryPred);</span><br><span class="line"></span><br><span class="line">rotate_copy(beg,mid,end,dest);</span><br><span class="line"></span><br><span class="line">random_shuffle(beg,end);</span><br><span class="line">random_shuffle(beg,end,rand);</span><br></pre></td></tr></table></figure>
+<h3 id="排列算法："><a href="#排列算法：" class="headerlink" title="排列算法："></a><strong>排列算法：</strong></h3><h4 id="next-permutation"><a href="#next-permutation" class="headerlink" title="next_permutation"></a><strong>next_permutation</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">next_permutation(beg,end);</span><br><span class="line">next_permutation(beg,end,comp);</span><br></pre></td></tr></table></figure>
+<h4 id="prev-permutation"><a href="#prev-permutation" class="headerlink" title="prev_permutation"></a><strong>prev_permutation</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">prev_permutation(beg,end);</span><br><span class="line">prev_permutation(beg,end,comp);</span><br></pre></td></tr></table></figure>
+<h3 id="有序序列的集合算法："><a href="#有序序列的集合算法：" class="headerlink" title="有序序列的集合算法："></a><strong>有序序列的集合算法：</strong></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">includes(beg,end,beg2,end2);</span><br><span class="line">includes(beg,end,beg2,end2,comp);</span><br><span class="line"></span><br><span class="line">set_union(beg,end,beg2,end2,dest);</span><br><span class="line">set_union(beg,end,beg2,end2,dest,comp);</span><br><span class="line"></span><br><span class="line">set_intersection(beg,end,beg2,end2,dest);</span><br><span class="line">set_intersection(beg,end,beg2,end2,dest,comp);</span><br><span class="line"></span><br><span class="line">set_difference(beg,end,beg2,end2,dest);</span><br><span class="line">set_difference(beg,end,beg2,end2,dest,comp);</span><br><span class="line"></span><br><span class="line">set_symmetric_difference(beg,end,beg2,end2,dest);</span><br><span class="line">set_symmetric_difference(beg,end,beg2,end2,dest,comp);</span><br></pre></td></tr></table></figure>
+<h3 id="最大值和最小值算法："><a href="#最大值和最小值算法：" class="headerlink" title="最大值和最小值算法："></a><strong>最大值和最小值算法：</strong></h3><h4 id="min-max"><a href="#min-max" class="headerlink" title="min/max"></a><strong>min/max</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">min(va1,va2);            返回两个元素中较小一个。</span><br><span class="line">min(val1,val2,comp);</span><br><span class="line">max(val1,val2);</span><br><span class="line">max(val1,val2,comp);     返回两个元素中较大一个。</span><br></pre></td></tr></table></figure>
+<h4 id="min-element-max-element"><a href="#min-element-max-element" class="headerlink" title="min_element/max_element"></a><strong>min_element/max_element</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">min_element(beg,end);    返回一个ForwardIterator，指出[beg,end)中最大的元素。</span><br><span class="line">min_element(beg,end,comp);</span><br><span class="line">max_element(beg,end);    返回一个ForwardIterator，指出[beg,end)中最小的元素。</span><br><span class="line">max_element(beg,end,comp);</span><br></pre></td></tr></table></figure>
+<h4 id="lexicographical-compare"><a href="#lexicographical-compare" class="headerlink" title="lexicographical_compare"></a><strong>lexicographical_compare</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lexicographical_compare(beg1,end1,beg2,end2);      按字典序判断[beg1,end1)是否小于[beg2,end2)</span><br><span class="line">lexicographical_compare(beg1,end1,beg2,end2,comp); 将函数comp代替&lt;操作符</span><br></pre></td></tr></table></figure>
+<h3 id="算术算法：-lt-numeric-gt"><a href="#算术算法：-lt-numeric-gt" class="headerlink" title="算术算法：&lt; numeric &gt;"></a><strong>算术算法：&lt; numeric &gt;</strong></h3><h4 id="accumulate"><a href="#accumulate" class="headerlink" title="accumulate"></a><strong>accumulate</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">对[beg,end)内元素之和，加到初始值val上。</span><br><span class="line">accumulate(beg,end,init);</span><br><span class="line">accumulate(beg,end,init,BinaryOp);</span><br><span class="line">将函数BinaryOp代替加法运算，执行accumulate()。</span><br></pre></td></tr></table></figure>
+<h4 id="partial-sum"><a href="#partial-sum" class="headerlink" title="partial_sum"></a><strong>partial_sum</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">将[beg,end)内该位置前所有元素之和放进dest中。</span><br><span class="line">partial_sum(beg,end,dest);</span><br><span class="line">partial_sum(beg,end,dest,BinaryOp);</span><br></pre></td></tr></table></figure>
+<h4 id="inner-product"><a href="#inner-product" class="headerlink" title="inner_product"></a><strong>inner_product</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">对两个序列做内积(对应元素相乘，再求和)并将内积加到初始值init上。</span><br><span class="line">inner_product(beg1,end1,beg2,init);</span><br><span class="line">inner_product(beg1,end1,beg2,init,BinOp1,BinOp2);</span><br></pre></td></tr></table></figure>
+<h4 id="adjacent-difference"><a href="#adjacent-difference" class="headerlink" title="adjacent_difference"></a><strong>adjacent_difference</strong></h4><p>将新序列写入dest，每个新元素(<strong>除了首元素</strong>)的值都为输入范围中当前位置和前一个位置元素之差。第一个版本使用-，第二个版本使用binaryOp。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adjacent_difference(beg,end,dest);</span><br><span class="line">adjacent_difference(beg,end,dest,BinaryOp);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>C++ primer 附录<br><a href="https://blog.csdn.net/xyqqwer/article/details/81263060">C++ STL 常见算法(比较详细)</a><br><a href="https://www.jianshu.com/p/eb554b0943ab">C++进阶：STL算法总结</a><br><a href="https://www.cnblogs.com/logchen/p/10188354.html">C/C++基础—算法概览</a><br><a href="https://blog.csdn.net/qq_40160605/article/details/80150252">关于lower_bound( )和upper_bound( )的常见用法</a></p>
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/04/18/%E3%80%8A%E5%88%AB%E9%97%B9%E4%BA%86%E8%B4%B9%E6%9B%BC%E5%85%88%E7%94%9F%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/C-%E6%A0%87%E5%87%86%E5%BA%93/" rel="tag">C++标准库</a>, <a class="has-link-grey -link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
                 </div>
             </div>
         </div>
         
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
         
     </div>
 </div>
 
 
 
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+        </div>
+    </div>
+</div>
 
 
 
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/06/21/STL-%E5%A0%86%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
+                <span class="level-item">STL 堆常用操作</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'e79770cfee30db02a856',
+        clientSecret: 'bb958f5fc30797ffc222ca631ec345baa48a0bee',
+        id: '876d21cf324c37b5eda93a63542cfbe4',
+        repo: 'STEMHA.github.io',
+        owner: 'STEMHA',
+        admin: "STEMHA",
+        createIssueManually: false,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
 </div>
                 
 
@@ -331,6 +429,158 @@
 </div>
     
         
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#标准库中常见的函数与头文件">
+        <span class="has-mr-6">1</span>
+        <span>标准库中常见的函数与头文件</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#查找对象的算法：">
+        <span class="has-mr-6">1.1</span>
+        <span>查找对象的算法：</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#find">
+        <span class="has-mr-6">1.1.1</span>
+        <span>find</span>
+        </a></li><li>
+        <a class="is-flex" href="#find-first-of-find-end">
+        <span class="has-mr-6">1.1.2</span>
+        <span>find_first_of/find_end</span>
+        </a></li><li>
+        <a class="is-flex" href="#adjacent-find">
+        <span class="has-mr-6">1.1.3</span>
+        <span>adjacent_find</span>
+        </a></li><li>
+        <a class="is-flex" href="#search">
+        <span class="has-mr-6">1.1.4</span>
+        <span>search</span>
+        </a></li><li>
+        <a class="is-flex" href="#count">
+        <span class="has-mr-6">1.1.5</span>
+        <span>count</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#其他只读算法：">
+        <span class="has-mr-6">1.2</span>
+        <span>其他只读算法：</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#for-each">
+        <span class="has-mr-6">1.2.1</span>
+        <span>for_each</span>
+        </a></li><li>
+        <a class="is-flex" href="#mismatch">
+        <span class="has-mr-6">1.2.2</span>
+        <span>mismatch</span>
+        </a></li><li>
+        <a class="is-flex" href="#equal">
+        <span class="has-mr-6">1.2.3</span>
+        <span>equal</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#二分查找算法：">
+        <span class="has-mr-6">1.3</span>
+        <span>二分查找算法：</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#lower-bound-upper-bound">
+        <span class="has-mr-6">1.3.1</span>
+        <span>lower_bound/upper_bound</span>
+        </a></li><li>
+        <a class="is-flex" href="#equal-range">
+        <span class="has-mr-6">1.3.2</span>
+        <span>equal_range</span>
+        </a></li><li>
+        <a class="is-flex" href="#binary-search">
+        <span class="has-mr-6">1.3.3</span>
+        <span>binary_search</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#写容器元素的算法：">
+        <span class="has-mr-6">1.4</span>
+        <span>写容器元素的算法：</span>
+        </a></li><li>
+        <a class="is-flex" href="#划分与排序算法：">
+        <span class="has-mr-6">1.5</span>
+        <span>划分与排序算法：</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#partition">
+        <span class="has-mr-6">1.5.1</span>
+        <span>partition</span>
+        </a></li><li>
+        <a class="is-flex" href="#sort-stable-sort">
+        <span class="has-mr-6">1.5.2</span>
+        <span>sort/stable_sort</span>
+        </a></li><li>
+        <a class="is-flex" href="#partial-sort-partial-sort-copy">
+        <span class="has-mr-6">1.5.3</span>
+        <span>partial_sort/partial_sort_copy</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#通用重新排序算法：">
+        <span class="has-mr-6">1.6</span>
+        <span>通用重新排序算法：</span>
+        </a></li><li>
+        <a class="is-flex" href="#排列算法：">
+        <span class="has-mr-6">1.7</span>
+        <span>排列算法：</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#next-permutation">
+        <span class="has-mr-6">1.7.1</span>
+        <span>next_permutation</span>
+        </a></li><li>
+        <a class="is-flex" href="#prev-permutation">
+        <span class="has-mr-6">1.7.2</span>
+        <span>prev_permutation</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#有序序列的集合算法：">
+        <span class="has-mr-6">1.8</span>
+        <span>有序序列的集合算法：</span>
+        </a></li><li>
+        <a class="is-flex" href="#最大值和最小值算法：">
+        <span class="has-mr-6">1.9</span>
+        <span>最大值和最小值算法：</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#min-max">
+        <span class="has-mr-6">1.9.1</span>
+        <span>min/max</span>
+        </a></li><li>
+        <a class="is-flex" href="#min-element-max-element">
+        <span class="has-mr-6">1.9.2</span>
+        <span>min_element/max_element</span>
+        </a></li><li>
+        <a class="is-flex" href="#lexicographical-compare">
+        <span class="has-mr-6">1.9.3</span>
+        <span>lexicographical_compare</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#算术算法：-lt-numeric-gt">
+        <span class="has-mr-6">1.10</span>
+        <span>算术算法：< numeric ></span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#accumulate">
+        <span class="has-mr-6">1.10.1</span>
+        <span>accumulate</span>
+        </a></li><li>
+        <a class="is-flex" href="#partial-sum">
+        <span class="has-mr-6">1.10.2</span>
+        <span>partial_sum</span>
+        </a></li><li>
+        <a class="is-flex" href="#inner-product">
+        <span class="has-mr-6">1.10.3</span>
+        <span>inner_product</span>
+        </a></li><li>
+        <a class="is-flex" href="#adjacent-difference">
+        <span class="has-mr-6">1.10.4</span>
+        <span>adjacent_difference</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#参考资料">
+        <span class="has-mr-6">2</span>
+        <span>参考资料</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
     
         <div class="card widget">
     <div class="card-content">
@@ -1292,7 +1542,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/og_image.png" alt="STEMHA&#39;s Blog" height="28">
+                    <img src="/images/og_image.png" alt="STL 算法整理" height="28">
                 
                 </a>
                 <p class="is-size-7">

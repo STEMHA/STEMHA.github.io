@@ -16,13 +16,13 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>标签: 诺贝尔奖 - STEMHA&#39;s Blog</title>
+<title>标签: heap - STEMHA&#39;s Blog</title>
 
 
     <meta name="description" content="STEMHA&#39;s personal blog on github">
 <meta property="og:type" content="website">
 <meta property="og:title" content="STEMHA&#39;s Blog">
-<meta property="og:url" content="https://stemha.github.io/tags/%E8%AF%BA%E8%B4%9D%E5%B0%94%E5%A5%96/index.html">
+<meta property="og:url" content="https://stemha.github.io/tags/heap/index.html">
 <meta property="og:site_name" content="STEMHA&#39;s Blog">
 <meta property="og:description" content="STEMHA&#39;s personal blog on github">
 <meta property="og:locale" content="zh_CN">
@@ -146,7 +146,7 @@
         <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
             <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">诺贝尔奖</a></li>
+            <li class="is-active"><a href="#" aria-current="page">heap</a></li>
         </ul>
         </nav>
     </div>
@@ -159,17 +159,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-04-18T12:48:23.000Z">2020-04-18</time>
+                <time class="level-item has-text-grey" datetime="2020-06-20T16:51:55.000Z">2020-06-21</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+                <a class="has-link-grey -link" href="/categories/C/">C++</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    8 分钟 读完 (大约 1261 个字)
+                    7 分钟 读完 (大约 1079 个字)
                 </span>
                 
                 
@@ -178,18 +178,25 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2020/04/18/%E3%80%8A%E5%88%AB%E9%97%B9%E4%BA%86%E8%B4%B9%E6%9B%BC%E5%85%88%E7%94%9F%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">《别闹了费曼先生》读书笔记</a>
+                <a class="has-link-black-ter" href="/2020/06/21/STL-%E5%A0%86%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">STL 堆常用操作</a>
             
         </h1>
         <div class="content">
-            <h2 id="当科学大师碰上菜鸟"><a href="#当科学大师碰上菜鸟" class="headerlink" title="当科学大师碰上菜鸟"></a>当科学大师碰上菜鸟</h2>
+            <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
+<li><p>STL中并没有把heap作为一种容器组件，heap的实现亦需要更低一层的容器组件（诸如list,array,vector）作为其底层机制。</p>
+</li>
+<li><p>Heap是一个类属算法，包含在&lt; algorithm &gt;中。</p>
+</li>
+<li><p>STL中关于heap默认调整成的是大顶堆，可以用自定义的compare_fuction函数实现大顶堆或小顶堆。</p>
+</li>
+<li><p>heap的低层机制vector本身就是一个类模板，heap基于vector便实现了对各种数据类型（无论基本数据类型还是用户自定义的数据类型）的堆排（前提是用户自定义的数据类型要提供比较机制compare_fuction函数）。</p></li></ul>
         </div>
         
         
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/04/18/%E3%80%8A%E5%88%AB%E9%97%B9%E4%BA%86%E8%B4%B9%E6%9B%BC%E5%85%88%E7%94%9F%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/#more">阅读更多</a>
+                <a class="button is-size-7 is-light" href="/2020/06/21/STL-%E5%A0%86%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/#more">阅读更多</a>
                 </div>
             </div>
         </div>
