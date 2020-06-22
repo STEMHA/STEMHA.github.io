@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://stemha.github.io/images/og_image.png">
 <meta property="article:published_time" content="2020-06-21T14:18:24.000Z">
-<meta property="article:modified_time" content="2020-06-21T15:48:20.682Z">
+<meta property="article:modified_time" content="2020-06-22T15:57:22.864Z">
 <meta property="article:author" content="STEMHA">
 <meta property="article:tag" content="C++标准库">
 <meta property="article:tag" content="算法">
@@ -162,7 +162,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    15 分钟 读完 (大约 2287 个字)
+                    21 分钟 读完 (大约 3168 个字)
                 </span>
                 
                 
@@ -209,15 +209,53 @@
 <h4 id="binary-search"><a href="#binary-search" class="headerlink" title="binary_search"></a><strong>binary_search</strong></h4><p>在[beg,end)中查找val，找到返回true。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">binary_search(beg,end,val);</span><br><span class="line">binary_search(beg,end,val,comp);</span><br></pre></td></tr></table></figure>
 
-<h3 id="写容器元素的算法："><a href="#写容器元素的算法：" class="headerlink" title="写容器元素的算法："></a><strong>写容器元素的算法：</strong></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">fill_n(dest,cnt,val);</span><br><span class="line"></span><br><span class="line">generate_n(dest,cnt,Gen);</span><br><span class="line"></span><br><span class="line">copy(beg,end,dest);</span><br><span class="line"></span><br><span class="line">transform(beg,end,dest,unaryOp);</span><br><span class="line">transform(beg,end,beg2,dest,binaryOp);</span><br><span class="line"></span><br><span class="line">replace_copy(beg,end,dest,old_val,new_val);</span><br><span class="line">replace_copy_if(beg,<span class="keyword">and</span>,dest,unaryPred,new_val);</span><br><span class="line"></span><br><span class="line">merge(beg1,end1,beg2,end2,dest);</span><br><span class="line">merge(beg1,end1,beg2,end2,dest,comp);</span><br><span class="line"></span><br><span class="line">swap(elem1,elem2);</span><br><span class="line"></span><br><span class="line">iter_swap(iter1,iter2);</span><br><span class="line"></span><br><span class="line">swap_ranges(beg1,end1,beg2);</span><br><span class="line"></span><br><span class="line">fill(beg,end,val);</span><br><span class="line"></span><br><span class="line">generate(beg,end,Gen);</span><br><span class="line"></span><br><span class="line">replace(beg,end,old_val,new_val);</span><br><span class="line">replace_if(beg,end,unaryPred,new_val);</span><br><span class="line"></span><br><span class="line">copy_backward(beg,end,dest);</span><br><span class="line"></span><br><span class="line">inplace_merge(beg,mid,end);</span><br><span class="line">inplace_merge(beg,mid,end,comp);</span><br></pre></td></tr></table></figure>
-<h3 id="划分与排序算法："><a href="#划分与排序算法：" class="headerlink" title="划分与排序算法："></a><strong>划分与排序算法：</strong></h3><h4 id="partition"><a href="#partition" class="headerlink" title="partition"></a><strong>partition</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stable_partition(beg,end,unaryPred);</span><br><span class="line">partition(beg,end,unaryPred);</span><br></pre></td></tr></table></figure>
-<h4 id="sort-stable-sort"><a href="#sort-stable-sort" class="headerlink" title="sort/stable_sort"></a><strong>sort/stable_sort</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sort(beg,end);</span><br><span class="line">sort(beg,end,comp);</span><br><span class="line">stable_sort(beg,end);</span><br><span class="line">stable_sort(beg,end,comp);</span><br></pre></td></tr></table></figure>
-<h4 id="partial-sort-partial-sort-copy"><a href="#partial-sort-partial-sort-copy" class="headerlink" title="partial_sort/partial_sort_copy"></a><strong>partial_sort/partial_sort_copy</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">partial_sort(beg,mid,end);</span><br><span class="line">partial_sort(beg,mid,end,comp);</span><br><span class="line">partial_sort_copy(beg,end,destBeg,destEnd);</span><br><span class="line">partial_sort_copy(beg,end,destBeg,destEnd,comp);</span><br><span class="line">#### **nth_element**</span><br></pre></td></tr></table></figure>
+<h3 id="写容器元素的算法："><a href="#写容器元素的算法：" class="headerlink" title="写容器元素的算法："></a><strong>写容器元素的算法：</strong></h3><h4 id="fill-n-fill"><a href="#fill-n-fill" class="headerlink" title="fill_n/fill"></a>fill_n/fill</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fill_n(dest,cnt,val); 将值val赋给[beg,beg+n)范围内的所有元素。</span><br><span class="line">fill(beg,end,val); 将值val赋给[beg,end)范围内的所有元素。</span><br></pre></td></tr></table></figure>
+<h4 id="generate-n-generate"><a href="#generate-n-generate" class="headerlink" title="generate_n/generate"></a>generate_n/generate</h4><p>连续调用函数func填充[beg,end)范围内的所有元素。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">generate_n(dest,cnt,Gen);</span><br><span class="line">generate(beg,end,Gen);</span><br></pre></td></tr></table></figure>
+<h4 id="copy-copy-n"><a href="#copy-copy-n" class="headerlink" title="copy/copy_n"></a>copy/copy_n</h4><p>复制[beg,end)到res</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">copy(beg,end,dest);</span><br><span class="line">copy_backward(beg,end,dest);</span><br><span class="line">dest是输出序列的尾后迭代器。输入范围内的元素被拷贝或移动到目的序列的尾元素，然后是倒数第二个，类推。返回从beg拷贝或移动的元素的位置。如范围为空则返回dest</span><br></pre></td></tr></table></figure>
+<h4 id="transform"><a href="#transform" class="headerlink" title="transform"></a>transform</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">将[beg,end)范围内所有元素依次调用函数unary，结果放入res中。</span><br><span class="line">transform(beg,end,dest,unaryOp); </span><br><span class="line">transform(beg,end,beg2,dest,binaryOp);</span><br><span class="line">将[beg,end)范围内所有元素与[beg2,beg2+end-beg)中所有元素依次调用函数unary，结果放入res中。</span><br></pre></td></tr></table></figure>
+<h4 id="replace-copy"><a href="#replace-copy" class="headerlink" title="replace_copy"></a>replace_copy</h4><p>将[beg,end)内所有等于oval的元素都用nval代替.将结果写入res。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">replace_copy(beg,end,dest,old_val,new_val);</span><br><span class="line">replace_copy_if(beg,<span class="keyword">and</span>,dest,unaryPred,new_val);</span><br></pre></td></tr></table></figure>
+<h4 id="replace-if-replace"><a href="#replace-if-replace" class="headerlink" title="replace_if/replace"></a>replace_if/replace</h4><p>将[beg,end)内所有等于old_val的元素都用nval代替</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">replace(beg,end,old_val,new_val);</span><br><span class="line">replace_if(beg,end,unaryPred,new_val);</span><br></pre></td></tr></table></figure>
+<h4 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">merge(beg1,end1,beg2,end2,dest); 合并[beg1,end1)与[beg2,end2)存放到res。</span><br><span class="line">merge(beg1,end1,beg2,end2,dest,comp);</span><br></pre></td></tr></table></figure>
+<h4 id="swap-swap-ranges"><a href="#swap-swap-ranges" class="headerlink" title="swap/swap_ranges"></a>swap/swap_ranges</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">swap(elem1,elem2);</span><br><span class="line">swap_ranges(beg1,end1,beg2);</span><br><span class="line">iter_swap(iter1,iter2);</span><br></pre></td></tr></table></figure>
+
+<h4 id="inplace-merge"><a href="#inplace-merge" class="headerlink" title="inplace_merge"></a>inplace_merge</h4><p>合并[beg,mid)与[mid,end)，结果覆盖[beg,end)。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">inplace_merge(beg,mid,end);</span><br><span class="line">inplace_merge(beg,mid,end,comp);</span><br></pre></td></tr></table></figure>
+<h3 id="划分与排序算法："><a href="#划分与排序算法：" class="headerlink" title="划分与排序算法："></a><strong>划分与排序算法：</strong></h3><p>partial_sort和nth_element只进行部分排序，速度比整体排序算法更快。</p>
+<h4 id="partition"><a href="#partition" class="headerlink" title="partition"></a><strong>partition</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stable_partition(beg,end,unaryPred); 与partition()类似，保留容器中的相对顺序。</span><br><span class="line">partition(beg,end,unaryPred); 元素重新排序，使用pred函数，把结果为<span class="literal">true</span>的元素放在结果为<span class="literal">false</span>的元素之前。</span><br></pre></td></tr></table></figure>
+<h4 id="sort-stable-sort"><a href="#sort-stable-sort" class="headerlink" title="sort/stable_sort"></a><strong>sort/stable_sort</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sort(beg,end); 默认升序重新排列元素</span><br><span class="line">sort(beg,end,comp);</span><br><span class="line">stable_sort(beg,end); 与sort()类似，保留相等元素之间的顺序关系。</span><br><span class="line">stable_sort(beg,end,comp);</span><br></pre></td></tr></table></figure>
+<h4 id="partial-sort-partial-sort-copy"><a href="#partial-sort-partial-sort-copy" class="headerlink" title="partial_sort/partial_sort_copy"></a><strong>partial_sort/partial_sort_copy</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">partial_sort(beg,mid,end); 排序mid-beg个元素。排序后，从beg到mid中的元素都是有序的，mid到end中的元素顺序未指定。</span><br><span class="line">partial_sort(beg,mid,end,comp);</span><br><span class="line">partial_sort_copy(beg,end,destBeg,destEnd);</span><br><span class="line">partial_sort_copy(beg,end,destBeg,destEnd,comp);</span><br><span class="line">排序输入范围内的元素，并将足够多的元素拷贝到destBeg和destEnd所指示的序列中。如果目的序列大于等于输入范围则排序整个输入序列并存入输出序列，若目的序列小于输入范围，则拷贝输入序列中与目的范围一样多的元素。</span><br><span class="line">返回一个迭代器，指向目的范围中已排序部分的尾后迭代器。如目的序列小于等于输入范围，则返回destEnd(此时是否整个输入序列排序？？？)。</span><br></pre></td></tr></table></figure>
+<h4 id="nth-element"><a href="#nth-element" class="headerlink" title="nth_element"></a><strong>nth_element</strong></h4><p>单个元素序列重新排序，使所有小于第n个元素的元素都出现在它前面，而大于它的都出现在后面。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nth_element(beg,nth,end);</span><br><span class="line">nth_element(beg,nth,end,comp);</span><br></pre></td></tr></table></figure>
-<h3 id="通用重新排序算法："><a href="#通用重新排序算法：" class="headerlink" title="通用重新排序算法："></a><strong>通用重新排序算法：</strong></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">remove(beg,end,val);</span><br><span class="line">remove_if(beg,end,unaryPred);</span><br><span class="line"></span><br><span class="line">unique(beg,end);</span><br><span class="line">unique(beg,end,binaryPred);</span><br><span class="line"></span><br><span class="line">rotate(beg,mid,end);</span><br><span class="line"></span><br><span class="line">reverse(beg,end);</span><br><span class="line">reverse_copy(beg,end,dest);</span><br><span class="line">remove_copy(beg,end,dest,val);</span><br><span class="line">remove_copy_if(beg,end,dest,unaryPred);</span><br><span class="line"></span><br><span class="line">unique_copy(beg,end,dest);</span><br><span class="line">unique_copy(beg,end,dest,binaryPred);</span><br><span class="line"></span><br><span class="line">rotate_copy(beg,mid,end,dest);</span><br><span class="line"></span><br><span class="line">random_shuffle(beg,end);</span><br><span class="line">random_shuffle(beg,end,rand);</span><br></pre></td></tr></table></figure>
-<h3 id="排列算法："><a href="#排列算法：" class="headerlink" title="排列算法："></a><strong>排列算法：</strong></h3><h4 id="next-permutation"><a href="#next-permutation" class="headerlink" title="next_permutation"></a><strong>next_permutation</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">next_permutation(beg,end);</span><br><span class="line">next_permutation(beg,end,comp);</span><br></pre></td></tr></table></figure>
-<h4 id="prev-permutation"><a href="#prev-permutation" class="headerlink" title="prev_permutation"></a><strong>prev_permutation</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">prev_permutation(beg,end);</span><br><span class="line">prev_permutation(beg,end,comp);</span><br></pre></td></tr></table></figure>
-<h3 id="有序序列的集合算法："><a href="#有序序列的集合算法：" class="headerlink" title="有序序列的集合算法："></a><strong>有序序列的集合算法：</strong></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">includes(beg,end,beg2,end2);</span><br><span class="line">includes(beg,end,beg2,end2,comp);</span><br><span class="line"></span><br><span class="line">set_union(beg,end,beg2,end2,dest);</span><br><span class="line">set_union(beg,end,beg2,end2,dest,comp);</span><br><span class="line"></span><br><span class="line">set_intersection(beg,end,beg2,end2,dest);</span><br><span class="line">set_intersection(beg,end,beg2,end2,dest,comp);</span><br><span class="line"></span><br><span class="line">set_difference(beg,end,beg2,end2,dest);</span><br><span class="line">set_difference(beg,end,beg2,end2,dest,comp);</span><br><span class="line"></span><br><span class="line">set_symmetric_difference(beg,end,beg2,end2,dest);</span><br><span class="line">set_symmetric_difference(beg,end,beg2,end2,dest,comp);</span><br></pre></td></tr></table></figure>
+<h3 id="通用重新排序算法："><a href="#通用重新排序算法：" class="headerlink" title="通用重新排序算法："></a><strong>通用重新排序算法：</strong></h3><h4 id="remove-remove-copy"><a href="#remove-remove-copy" class="headerlink" title="remove/remove_copy"></a><strong>remove/remove_copy</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">删除[beg,end)内所有等于val的元素。注意，该函数不是真正删除函数。</span><br><span class="line">采用的办法是:用保留的元素覆盖要删除的元素。算法返回一个迭代器，指向最后一个保留元素的尾后位置。</span><br><span class="line">remove(beg,end,val); </span><br><span class="line">remove_if(beg,end,unaryPred);</span><br><span class="line">remove_copy(beg,end,dest,val);</span><br><span class="line">remove_copy_if(beg,end,dest,unaryPred);</span><br><span class="line">将所有不等于val元素复制到res，返回OutputIterator指向被拷贝的末元素的下一个位置。</span><br></pre></td></tr></table></figure>
+<h4 id="unique"><a href="#unique" class="headerlink" title="unique"></a><strong>unique</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">重排序列，对于相邻的满足条件的元素，通过覆盖来进行删除，返回一个迭代器，指向最后一个保留元素的尾后位置。</span><br><span class="line">unique(beg,end);</span><br><span class="line">unique(beg,end,binaryPred);</span><br><span class="line">unique_copy(beg,end,dest);</span><br><span class="line">unique_copy(beg,end,dest,binaryPred);</span><br><span class="line">与unique类似，不过把结果输出到dest。</span><br></pre></td></tr></table></figure>
+<h4 id="rotate"><a href="#rotate" class="headerlink" title="rotate"></a><strong>rotate</strong></h4><p>围绕mid指向的元素进行元素转动。元素mid成为首元素，随后是mid+1-&gt;end之间的之前的元素，再接着是beg到mid之前的元素。返回一个迭代器，指向原来beg位置的元素。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rotate(beg,mid,end);</span><br><span class="line">rotate_copy(beg,mid,end,dest);</span><br></pre></td></tr></table></figure>
+<h4 id="reverse"><a href="#reverse" class="headerlink" title="reverse"></a><strong>reverse</strong></h4><p>翻转序列中的元素。reverse返回void，reverse_copy返回一个迭代器，指向拷贝到目的序列的元素的尾后位置。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">reverse(beg,end);</span><br><span class="line">reverse_copy(beg,end,dest);</span><br></pre></td></tr></table></figure>
+<h4 id="random-shuffle"><a href="#random-shuffle" class="headerlink" title="random_shuffle"></a><strong>random_shuffle</strong></h4><p>使用随机访问迭代器的重排算法</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">random_shuffle(beg,end); 元素随机调整次序。</span><br><span class="line">random_shuffle(beg,end,rand); 使用函数gen代替随机生成函数执行random_shuffle()。</span><br></pre></td></tr></table></figure>
+<h3 id="排列算法："><a href="#排列算法：" class="headerlink" title="排列算法："></a><strong>排列算法：</strong></h3><p>这些算法假定序列中的元素都是唯一的。要求双向迭代器。</p>
+<h4 id="is-permutation"><a href="#is-permutation" class="headerlink" title="is_permutation"></a><strong>is_permutation</strong></h4><p>判断两个序列是否为同一元素集的不同排列</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">is_permutation(beg1, end1, beg2)</span><br><span class="line">is_permutation(beg1, end1, beg2, binaryPred)</span><br></pre></td></tr></table></figure>
+<h4 id="next-permutation"><a href="#next-permutation" class="headerlink" title="next_permutation"></a><strong>next_permutation</strong></h4><p>生成序列的字典序排列中的下一个,返回要给bool指出是否还有下一个<br>如果序列已经是最后一个排序，则本函数将序列重排为最小的序列，返回false。否则将输入序列转为字典序的下一个排列，返回true。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">next_permutation(beg,end);</span><br><span class="line">next_permutation(beg,end,comp);</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">6</span>]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;;</span><br><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">6</span>;i++)</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;a[i]&lt;&lt;<span class="string">' '</span>;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;<span class="keyword">while</span>(next_permutation(a,a+<span class="number">6</span>));</span><br></pre></td></tr></table></figure>
+<h4 id="prev-permutation"><a href="#prev-permutation" class="headerlink" title="prev_permutation"></a><strong>prev_permutation</strong></h4><p>生成序列的字典序排列中的前一个,返回要给bool指出是否还有前一个。<br>若序列已经是第一个排序，则本函数将序列重排为最大的序列，返回false。否则将序列转为字典序的上一个排序，返回true。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">prev_permutation(beg,end);</span><br><span class="line">prev_permutation(beg,end,comp);</span><br></pre></td></tr></table></figure>
+<h3 id="有序序列的集合算法："><a href="#有序序列的集合算法：" class="headerlink" title="有序序列的集合算法："></a><strong>有序序列的集合算法：</strong></h3><h4 id="includes"><a href="#includes" class="headerlink" title="includes"></a><strong>includes</strong></h4><p>判断[beg1,end1)是否包含[beg2,end2)，使用底层元素的&lt;操作符，成功返回true。重载版本使用用户输入的函数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">includes(beg,end,beg2,end2);</span><br><span class="line">includes(beg,end,beg2,end2,comp);</span><br></pre></td></tr></table></figure>
+<h4 id="set-union"><a href="#set-union" class="headerlink" title="set_union"></a><strong>set_union</strong></h4><p>取[beg1,end1)与[beg2,end2)元素并集存放到dest。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set_union(beg,end,beg2,end2,dest);</span><br><span class="line">set_union(beg,end,beg2,end2,dest,comp); 将函数comp代替&lt;操作符，执行set_union()</span><br></pre></td></tr></table></figure>
+<h4 id="set-intersection"><a href="#set-intersection" class="headerlink" title="set_intersection"></a><strong>set_intersection</strong></h4><p>取[beg1,end1)与[beg2,end2)元素交集存放到res。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set_intersection(beg,end,beg2,end2,dest);</span><br><span class="line">set_intersection(beg,end,beg2,end2,dest,comp); 将函数comp代替&lt;操作符</span><br></pre></td></tr></table></figure>
+<h4 id="set-difference"><a href="#set-difference" class="headerlink" title="set_difference"></a><strong>set_difference</strong></h4><p>取[beg1,end1)与[beg2,end2)元素内差集存放到res。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set_difference(beg,end,beg2,end2,dest);</span><br><span class="line">set_difference(beg,end,beg2,end2,dest,comp); 将函数comp代替&lt;操作符</span><br></pre></td></tr></table></figure>
+<h4 id="set-symmetric-difference"><a href="#set-symmetric-difference" class="headerlink" title="set_symmetric_difference"></a><strong>set_symmetric_difference</strong></h4><p>取[beg1,end1)与[beg2,end2)元素外差集存放到res。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set_symmetric_difference(beg,end,beg2,end2,dest);</span><br><span class="line">set_symmetric_difference(beg,end,beg2,end2,dest,comp);</span><br></pre></td></tr></table></figure>
 <h3 id="最大值和最小值算法："><a href="#最大值和最小值算法：" class="headerlink" title="最大值和最小值算法："></a><strong>最大值和最小值算法：</strong></h3><h4 id="min-max"><a href="#min-max" class="headerlink" title="min/max"></a><strong>min/max</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">min(va1,va2);            返回两个元素中较小一个。</span><br><span class="line">min(val1,val2,comp);</span><br><span class="line">max(val1,val2);</span><br><span class="line">max(val1,val2,comp);     返回两个元素中较大一个。</span><br></pre></td></tr></table></figure>
 <h4 id="min-element-max-element"><a href="#min-element-max-element" class="headerlink" title="min_element/max_element"></a><strong>min_element/max_element</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">min_element(beg,end);    返回一个ForwardIterator，指出[beg,end)中最大的元素。</span><br><span class="line">min_element(beg,end,comp);</span><br><span class="line">max_element(beg,end);    返回一个ForwardIterator，指出[beg,end)中最小的元素。</span><br><span class="line">max_element(beg,end,comp);</span><br></pre></td></tr></table></figure>
 <h4 id="lexicographical-compare"><a href="#lexicographical-compare" class="headerlink" title="lexicographical_compare"></a><strong>lexicographical_compare</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lexicographical_compare(beg1,end1,beg2,end2);      按字典序判断[beg1,end1)是否小于[beg2,end2)</span><br><span class="line">lexicographical_compare(beg1,end1,beg2,end2,comp); 将函数comp代替&lt;操作符</span><br></pre></td></tr></table></figure>
@@ -500,7 +538,43 @@
         <a class="is-flex" href="#写容器元素的算法：">
         <span class="has-mr-6">1.4</span>
         <span>写容器元素的算法：</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#fill-n-fill">
+        <span class="has-mr-6">1.4.1</span>
+        <span>fill_n/fill</span>
         </a></li><li>
+        <a class="is-flex" href="#generate-n-generate">
+        <span class="has-mr-6">1.4.2</span>
+        <span>generate_n/generate</span>
+        </a></li><li>
+        <a class="is-flex" href="#copy-copy-n">
+        <span class="has-mr-6">1.4.3</span>
+        <span>copy/copy_n</span>
+        </a></li><li>
+        <a class="is-flex" href="#transform">
+        <span class="has-mr-6">1.4.4</span>
+        <span>transform</span>
+        </a></li><li>
+        <a class="is-flex" href="#replace-copy">
+        <span class="has-mr-6">1.4.5</span>
+        <span>replace_copy</span>
+        </a></li><li>
+        <a class="is-flex" href="#replace-if-replace">
+        <span class="has-mr-6">1.4.6</span>
+        <span>replace_if/replace</span>
+        </a></li><li>
+        <a class="is-flex" href="#merge">
+        <span class="has-mr-6">1.4.7</span>
+        <span>merge</span>
+        </a></li><li>
+        <a class="is-flex" href="#swap-swap-ranges">
+        <span class="has-mr-6">1.4.8</span>
+        <span>swap/swap_ranges</span>
+        </a></li><li>
+        <a class="is-flex" href="#inplace-merge">
+        <span class="has-mr-6">1.4.9</span>
+        <span>inplace_merge</span>
+        </a></li></ul></li><li>
         <a class="is-flex" href="#划分与排序算法：">
         <span class="has-mr-6">1.5</span>
         <span>划分与排序算法：</span>
@@ -516,27 +590,75 @@
         <a class="is-flex" href="#partial-sort-partial-sort-copy">
         <span class="has-mr-6">1.5.3</span>
         <span>partial_sort/partial_sort_copy</span>
+        </a></li><li>
+        <a class="is-flex" href="#nth-element">
+        <span class="has-mr-6">1.5.4</span>
+        <span>nth_element</span>
         </a></li></ul></li><li>
         <a class="is-flex" href="#通用重新排序算法：">
         <span class="has-mr-6">1.6</span>
         <span>通用重新排序算法：</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#remove-remove-copy">
+        <span class="has-mr-6">1.6.1</span>
+        <span>remove/remove_copy</span>
         </a></li><li>
+        <a class="is-flex" href="#unique">
+        <span class="has-mr-6">1.6.2</span>
+        <span>unique</span>
+        </a></li><li>
+        <a class="is-flex" href="#rotate">
+        <span class="has-mr-6">1.6.3</span>
+        <span>rotate</span>
+        </a></li><li>
+        <a class="is-flex" href="#reverse">
+        <span class="has-mr-6">1.6.4</span>
+        <span>reverse</span>
+        </a></li><li>
+        <a class="is-flex" href="#random-shuffle">
+        <span class="has-mr-6">1.6.5</span>
+        <span>random_shuffle</span>
+        </a></li></ul></li><li>
         <a class="is-flex" href="#排列算法：">
         <span class="has-mr-6">1.7</span>
         <span>排列算法：</span>
         </a><ul class="menu-list"><li>
-        <a class="is-flex" href="#next-permutation">
+        <a class="is-flex" href="#is-permutation">
         <span class="has-mr-6">1.7.1</span>
+        <span>is_permutation</span>
+        </a></li><li>
+        <a class="is-flex" href="#next-permutation">
+        <span class="has-mr-6">1.7.2</span>
         <span>next_permutation</span>
         </a></li><li>
         <a class="is-flex" href="#prev-permutation">
-        <span class="has-mr-6">1.7.2</span>
+        <span class="has-mr-6">1.7.3</span>
         <span>prev_permutation</span>
         </a></li></ul></li><li>
         <a class="is-flex" href="#有序序列的集合算法：">
         <span class="has-mr-6">1.8</span>
         <span>有序序列的集合算法：</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#includes">
+        <span class="has-mr-6">1.8.1</span>
+        <span>includes</span>
         </a></li><li>
+        <a class="is-flex" href="#set-union">
+        <span class="has-mr-6">1.8.2</span>
+        <span>set_union</span>
+        </a></li><li>
+        <a class="is-flex" href="#set-intersection">
+        <span class="has-mr-6">1.8.3</span>
+        <span>set_intersection</span>
+        </a></li><li>
+        <a class="is-flex" href="#set-difference">
+        <span class="has-mr-6">1.8.4</span>
+        <span>set_difference</span>
+        </a></li><li>
+        <a class="is-flex" href="#set-symmetric-difference">
+        <span class="has-mr-6">1.8.5</span>
+        <span>set_symmetric_difference</span>
+        </a></li></ul></li><li>
         <a class="is-flex" href="#最大值和最小值算法：">
         <span class="has-mr-6">1.9</span>
         <span>最大值和最小值算法：</span>
