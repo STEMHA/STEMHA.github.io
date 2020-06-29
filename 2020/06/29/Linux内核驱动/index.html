@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<script type="text/javascript" src="/js/src/click.js"></script>
+<script type="text/javascript" src="/live2d-widget/autolload.js"></script>
+
+<!-- 数字雨
+<canvas id="canvas" width="1440" height="900" ></canvas>
+  <script type="text/javascript" src="/js/src/DigitalRain.js"></script> -->
+
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Linux内核驱动 - STEMHA&#39;s Blog</title>
+
+
+    <meta name="description" content="设备文件类Unix操作系统都是基于文件概念的。  可以直接把I&#x2F;O设备当作设备文件（device file）来处理。 操作普通文件的系统调用也可以直接用于I&#x2F;O设备。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux内核驱动">
+<meta property="og:url" content="https://stemha.github.io/2020/06/29/Linux%E5%86%85%E6%A0%B8%E9%A9%B1%E5%8A%A8/index.html">
+<meta property="og:site_name" content="STEMHA&#39;s Blog">
+<meta property="og:description" content="设备文件类Unix操作系统都是基于文件概念的。  可以直接把I&#x2F;O设备当作设备文件（device file）来处理。 操作普通文件的系统调用也可以直接用于I&#x2F;O设备。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://stemha.github.io/images/og_image.png">
+<meta property="article:published_time" content="2020-06-29T14:36:18.000Z">
+<meta property="article:modified_time" content="2020-06-29T14:42:33.816Z">
+<meta property="article:author" content="STEMHA">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="内核">
+<meta property="article:tag" content="驱动程序">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://stemha.github.io/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/pojoaque.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="alternate" href="/rss.xml" title="STEMHA's Blog" type="application/atom+xml">
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/og_image.png" alt="Linux内核驱动" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">首页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+                <a class="navbar-item"
+                href="/rss.xml">RSS</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-06-29T14:36:18.000Z">2020-06-29</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Linux/">Linux</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    40 分钟 读完 (大约 6035 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Linux内核驱动
+            
+        </h1>
+        <div class="content">
+            <h2 id="设备文件"><a href="#设备文件" class="headerlink" title="设备文件"></a><strong>设备文件</strong></h2><p>类Unix操作系统都是基于文件概念的。</p>
+<ul>
+<li>可以直接把I/O设备当作设备文件（device file）来处理。</li>
+<li>操作普通文件的系统调用也可以直接用于I/O设备。<a id="more"></a>
+
+</li>
+</ul>
+<h3 id="设备文件划分"><a href="#设备文件划分" class="headerlink" title="设备文件划分"></a><strong>设备文件划分</strong></h3><p>根据设备驱动程序的基本特性划分</p>
+<ul>
+<li><code>块设备</code>：块设备的数据可以被随机访问。</li>
+<li><code>字符设备</code>：字符设备的数据不可以随机访问（声卡）。或者可以随机访问但是随机访问数据时间很大程度上依赖于数据在设备内的位置（磁带）。</li>
+<li>网卡是例外，网卡是不直接与设备文件相对应的硬件设备。</li>
+</ul>
+<h3 id="设备文件属性"><a href="#设备文件属性" class="headerlink" title="设备文件属性"></a><strong>设备文件属性</strong></h3><p><code>设备文件的索引节点</code>：</p>
+<ul>
+<li>设备文件是存放在文件系统中的实际文件。它的索引节点并不包含指向磁盘数据块的指针，因为它们是空的。</li>
+<li>它的索引节点必须包含硬件设备的一个标识符，它对应字符或者块设备文件。</li>
+</ul>
+<p><code>设备标识符</code>:</p>
+<ul>
+<li>由设备文件的类型（字符或者块）和一对参数组成（主设备号，从设备号）。<ul>
+<li>主设备号：标识了设备的类型。通常，具有相同主设备号和类型的所有设备文件共享相同的文件操作集合，因为它们是由同一个设备驱动程序处理的。</li>
+<li>从设备号：标识了主设备号相同的设备组中的一个特定设备。例如相同磁盘控制器下的一组磁盘，有相同的主设备号，但是拥有不同的从设备号码。</li>
+</ul>
+</li>
+</ul>
+<p><code>创建设备文件</code>:<br>mknod()系统调用用来创建设备文件。参数有设备文件名，设备类型，主设备号以及次设备号。</p>
+<ul>
+<li>设备文件通常在/dev下。</li>
+<li>设备文件通常与硬件设备（比如硬盘/dev/hda）,或者硬件设备的某一个物理或者逻辑分区（比如磁盘分区/dev/hda2）对应。</li>
+<li>有些情况下，设备文件不会和任何的实际硬件对应，而仅仅标识一个虚拟的逻辑设备。<ul>
+<li>比如 /dev/null 。 黑洞</li>
+</ul>
+</li>
+<li>注意块设备的编号（3，0）不等同与字符设备的（3，0）</li>
+</ul>
+<h3 id="设备文件的用户态处理"><a href="#设备文件的用户态处理" class="headerlink" title="设备文件的用户态处理"></a><strong>设备文件的用户态处理</strong></h3><p>早期的Unix系统中，设备的主设备号和次设备号是8位长，并不够用。</p>
+<p>真正的问题是设备文件被分配一次并且永远保留在/dev中；系统中的每个逻辑设备都应该有一个与其相对应的，明确定义了设备号的设备文件。</p>
+<ul>
+<li>Documentation/devices.txt 存放了官方注册的已经分配的设备号和/dev目录节节点</li>
+<li>include/linux/major.h 文件也可能包含了设备的主设备号对应的宏。</li>
+</ul>
+<p>为了解决上述问题：<br>从linux2.6开始，增加了设备号码的大小；</p>
+<ul>
+<li>主设备号为12位</li>
+<li>从设备号为20位</li>
+<li>通常把两个参数合并为一个32位的dev_t变量；</li>
+<li>MAJOR宏和 MINOR宏 可以从dev_t中分别提取主设备号和次设备号</li>
+<li>MKDEV宏把主设备号和次设备号合并称为一个dev_t值</li>
+</ul>
+<h3 id="动态分配设备号"><a href="#动态分配设备号" class="headerlink" title="动态分配设备号"></a><strong>动态分配设备号</strong></h3><p>分配设备号和创建设备文件来说，倾向做法是高度动态地处理设备文件。</p>
+<p>每个设备驱动程序在注册阶段都会指定它将要处理的设备号范围，驱动程序可以只指定设备号的分配范围，无需指定精确值，在这种情况下，内核会分配一个合适的设备号范围给驱动程序。因此，新的硬件设备驱动程序不再需要从官方注册表中分配的一个设备号；它们可以仅仅使用当前系统中空闲的设备号。<br>然而这种情形下，就不能永久的创建设备文件，它只在设备驱动程序初始化一个主设备号和次设备号时才创建。<br>因此，这就需要一个标准的方法将每个驱动程序所使用的设备号输出到用户态应用程序中，为此，设备驱动程序模型提供了一个非常好的解决办法：把主设备号和次设备号存放在/sys/class子目录下的dev属性中。</p>
+<h3 id="动态创建设备文件"><a href="#动态创建设备文件" class="headerlink" title="动态创建设备文件"></a><strong>动态创建设备文件</strong></h3><p>Linux内核可以动态地创建设备文件：它无需把每一个可能想到的硬件设备的设备文件都填充到/dev目录下，因为设备文件可以按照需要来创建。<br>由于设备驱动程序模型的存在，在Linux2.6内核提供了一个简单的方法来处理：系统中必须安装一组udev工具集的用户态程序。</p>
+<ol>
+<li>统启动时，/dev目录是清空的，这时udev程序将扫描/sys/class子目录来寻找dev文件。</li>
+<li>对每一个这样的文件（主设备号和次设备号的组合表示一个内核所支持的逻辑设备文件），udev程序都会在/dev目录下为它创建一个相应的设备文件。udev程序也会根据配置文件为其分配一个文件名并创建一个符号链接，该方法类似于Unix设备文件的传统命名模式。</li>
+<li>最后，/dev目录里只存放了系统中内核所支持的所有设备的设备文件，而没有任何其他的文件。</li>
+</ol>
+<p>通常在系统初始化后才创建设备文件。它要么发生在加载设备驱动程序所在的模块时，要么发生在一个热插拔的设备加入系统中时。udev工具集可以自动地创建相应的设备文件，因为设备驱动程序模型支持设备的热插拔。当发现一个新的设备时，内核会产生一个新的进程来执行用户态shell脚本文件/sbin/hotplug，并将新设备上的有用信息作为环境变量传递给shell脚本，用户态脚本文件读取配置文件信息并关注完成新设备初始化所必需的任何操作。如果安装了udev工具集，脚本文件也会在/dev目录下创建适当的设备文件。</p>
+<h2 id="设备文件的-VFS处理"><a href="#设备文件的-VFS处理" class="headerlink" title="设备文件的 VFS处理"></a><strong>设备文件的 VFS处理</strong></h2><p>虽然设备文件也在系统的目录树中，但是它们和普通文件及目录文件有根本的不同:</p>
+<ul>
+<li>进程访问普通文件时，它会通过文件系统访问磁盘分区中的一些数据块。</li>
+<li>进程访问设备文件时，它只要驱动硬件设备就可以了。</li>
+</ul>
+<p>隐藏设备文件和普通文件之间的差异就是vfs的责任：<br>为了做到这点，VFS在设备文件打开时改变其缺省文件操作；因此，可把设备文件的每个系统调用都转换成与设备相关的函数的调用，而不是对主文件系统相应函数的调用。<br>与设备相关的函数对硬件设备进行操作以完成进程所请求的操作。（注意：在路径名查找中，指向设备文件的符号链接与设备文件的作用相同）。</p>
+<p>例子：<br>假定open()一个设备文件，从本质上来说，相应的服务例程解析到设备文件的路径名，并建立相应的索引节点对象、目录项对象和文件对象。<br>通过适当的文件系统函数（通常为ext2_read_inode()或ext3_read_inode()）读取磁盘上的相应的索引节点来对索引节点对象进行初始化。<br>当这个函数确定磁盘索引节点与设备文件对应时，则调用init_special_inode()，该函数把索引节点对象的i_rdev字段初始化为设备文件的主设备号和次设备号，而把索引节点对象的i_fop字段设置为def_blk_fops或者def_chr_fops文件操作表的地址。<br>因此，open()系统调用的服务例程也调用dentry_open()函数，后者分配一个新的文件对象并把其f_op字段设置为i_fop中存放的地址，即再一次指向def_blk_fops或者def_chr_fops的地址。正是这两个表的引入，才使得在设备文件上所发出的任何系统调用都将激活设备驱动程序的函数而不是基本文件系统的函数。</p>
+<h2 id="设备驱动程序"><a href="#设备驱动程序" class="headerlink" title="设备驱动程序"></a><strong>设备驱动程序</strong></h2><p><code>设备驱动程序</code>是内核例程的集合，它使硬件设备响应控制设备的编程接口。<br>该编程接口是一组规范的VFS函数集合（open read lseek ioctl）。这些函数的实际实现由设备驱动程序全权负责。<br>每一个设备都有自己的I/O控制器，因此就有唯一的命令和唯一的状态信息，所以大部分I/O设备都有自己的驱动程序。</p>
+<p>设备驱动程序的组成？</p>
+<p>使用驱动设备有几个活动肯定是要发生的。</p>
+<ol>
+<li>注册设备驱动程序</li>
+<li>初始化设备驱动程序</li>
+<li>监控I/O操作</li>
+<li>访问I/O共享存储器</li>
+</ol>
+<h3 id="注册设备驱动程序"><a href="#注册设备驱动程序" class="headerlink" title="注册设备驱动程序"></a><strong>注册设备驱动程序</strong></h3><p>在设备文件上发出的系统调用都由内核转化为相应设备驱动程序的对应函数的调用。<br>为了完成这个操作，设备驱动程序必须注册自己。</p>
+<h4 id="注册的过程"><a href="#注册的过程" class="headerlink" title="注册的过程"></a><strong>注册的过程</strong></h4><p>注册一个设备驱动程序意味着分配一个新的device_driver描述符，将其插入到设备驱动程序模型的数据结构中，并把它对应的设备文件（可能多个）连接起来。<br>如果设备文件对应的驱动程序以前没有注册，则对该设备文件的访问会返回错误码-ENODEV。</p>
+<p>如果设备驱动程序是静态编译到内核的，则它的注册在内核初始化阶段进行。<br>如果是作为一个内核模块来编译的，则它的注册在模块装入的时候进行，而且在模块卸载的时候也会注销自己。</p>
+<p>通用<code>PCI设备的注册示例</code>：<br>该设备必须分配一个pci_driver类型的描述符，pci内核层使用该描述符来处理设备。<br>初始化描述符的一些字段，设备驱动程序调用pci_regester_driver()函数。</p>
+<ul>
+<li>pci_driver描述符包括一个内嵌的device_driver描述符</li>
+<li>pci_regester_driver()函数仅仅初始化内嵌的驱动程序描述符中的字段，然后调用device_register()函数把驱动程序插入设备驱动程序模型的数据结构中。、</li>
+</ul>
+<p>注册设备驱动程序的时候 内核会寻找可能由该驱动程序处理但是尚未获得支持的硬件设备。<br>主要依靠bus_type的match方法以及device_driver对象的probe方法。如果探测到可被驱动程序处理的硬件设备，内核会分配一个设备对象，然后调用device_register()函数把设备插入设备驱动模型中。</p>
+<h3 id="初始化设备驱动程序"><a href="#初始化设备驱动程序" class="headerlink" title="初始化设备驱动程序"></a><strong>初始化设备驱动程序</strong></h3><p>设备驱动程序的注册和初始化是不同的。<br>设备驱动程序应该尽快被注册，以便用户态应用程序能够通过相应的设备文件来使用它。<br>设备驱动程序在最后可能的时刻才会被初始化。因为，初始化驱动程序意味着分配宝贵的系统资源，这些资源因此就对其他驱动程序不可用了。</p>
+<h3 id="监控I-O操作"><a href="#监控I-O操作" class="headerlink" title="监控I/O操作"></a><strong>监控I/O操作</strong></h3><p>I/O操作的持续时间通常不可预知。在任何情况下，启动I/O操作的设备驱动程序都必须依靠一种监控技术在I/O操作终止或超时时候发出信号。</p>
+<ul>
+<li>终止操作的情况下：设备驱动程序读取I/O接口状态寄存器的内容来确定I/O操作是否成功执行。</li>
+<li>超时的情况下：时间过了，驱动程序就知道出了什么问题了。</li>
+</ul>
+<h4 id="轮询模式"><a href="#轮询模式" class="headerlink" title="轮询模式"></a><strong>轮询模式</strong></h4><p>CPU依靠这种技术重复检查（轮询）设备的状态寄存器，直到寄存器的值表明I/O操作完成。有点类似于自旋锁。</p>
+<blockquote>
+<p>如果完成I/O操作需要的时间相对较多，比如说毫秒级别，那么这种模式就变得低效，因为CPU花费宝贵的机器周期去等待I/O操作的完成。</p>
+</blockquote>
+<p>轮询的简单例子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(;;)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(read_status(device)&amp;DEVICE_END_OPERATION) </span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">if</span>(--count==<span class="number">0</span>)  <span class="comment">//粗略的超时机制，精确的可以使用jiffies</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="中断模式"><a href="#中断模式" class="headerlink" title="中断模式"></a><strong>中断模式</strong></h4><p>如果I/O控制器能够控制IRQ总线发出I/O操作结束的信号，那么中断模式才能被使用。</p>
+<p>例子：实现一个简单的输入字符设备的驱动程序。</p>
+<ul>
+<li>用户在相应的设备文件上发出read()系统调用，一条输入命令被发往设备的控制寄存器。</li>
+<li>在一个不可预知的长时间间隔后，设备把一个字节的数据放进控制寄存器。</li>
+<li>设备驱动程序然后将这个字节作为read()系统调用的结果返回。</li>
+</ul>
+<p>驱动程序包含两个函数：</p>
+<ol>
+<li>实现文件对象read方法的foo_read()函数。</li>
+<li>处理中断的foo_interrupt()函数。</li>
+</ol>
+<p>用户读设备文件，foo_read()函数就触发，foo_read()函数主要操作如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//参数filp是设备文件，buf是输入数据缓存，count是输入数据长度，ppos当前位置</span></span><br><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">foo_read</span><span class="params">(struct file *filp, <span class="keyword">char</span> *buf, <span class="keyword">size_t</span> count, <span class="keyword">loff_t</span> *ppos)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	  <span class="keyword">foo_dev_t</span> * foo_dev = filp-&gt;private_data; <span class="comment">//foo_dev_t 自定义描述符</span></span><br><span class="line">      <span class="keyword">if</span> (down_interruptible(&amp;foo_dev-&gt;sem)     <span class="comment">//获取foo_dev-&gt;sem信号量</span></span><br><span class="line">          <span class="keyword">return</span> -ERESTARTSYS;</span><br><span class="line">      foo_dev-&gt;intr = <span class="number">0</span>;                        <span class="comment">//清intr标志</span></span><br><span class="line">      outb(DEV_FOO_READ, DEV_FOO_CONTROL_PORT); <span class="comment">//对I/O设备发出读命令</span></span><br><span class="line">      wait_event_interruptible(foo_dev-&gt;wait, (foo_dev-&gt;intr = =<span class="number">1</span>)); <span class="comment">//执行wait_event_interruptible以挂起进程，直到intr标志变为1</span></span><br><span class="line">      <span class="keyword">if</span> (put_user(foo_dev-&gt;data, buf))         </span><br><span class="line">          <span class="keyword">return</span> -EFAULT;</span><br><span class="line">      up(&amp;foo_dev-&gt;sem);</span><br><span class="line">      <span class="keyword">return</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>设备驱动程序依赖类型为<code>foo_dev_t</code>的自定义描述符；</p>
+<ul>
+<li>包含信号量sem（保护硬件设备免受并发访问）</li>
+<li>等待队列wait</li>
+<li>标志intr（当设备发出一个中断时设置）</li>
+<li>单个字节缓冲区data（由中断处理程序写入且由read方法读取）。</li>
+</ul>
+<p>一般而言，所有使用中断的I/O驱动程序都依赖中断处理程序及read和write方法均访问的数据结构。<br><code>foo_dev_t描述符</code>的地址通常存放在设备文件的文件对象的<code>private_data字段</code>中或一个全局变量中。</p>
+<p>foo_read()函数的主要操作如下：</p>
+<ol>
+<li>获取foo_dev-&gt;sem信号量，因此确保没有其他进程访问该设备。</li>
+<li>清intr标志。</li>
+<li>对I/O设备发出读命令。</li>
+<li>执行wait_event_interruptible以挂起进程，直到intr标志变为1。</li>
+</ol>
+<p>一定时间后，我们的设备发出中断信号以通知I/O操作已经完成，数据已经放在适当的DEV_FOO_DATA_PORT数据端口。中断处理程序置intr标志并唤醒进程。<br>当调度程序决定重新执行这个进程时，foo_read()的第二部分被执行，步骤如下：</p>
+<ol>
+<li><p>把准备在foo_dev-&gt;data变量中的字符拷贝到用户地址空间。</p>
+</li>
+<li><p>释放foo_dev-&gt;sem信号量后终止。</p>
+<p>为了简单起见，没有包含任何超时控制。一般来说，超时控制是通过静态或动态定时器实现的；定时器必须设置为启动I/O操作后正确的时间，并在操作结束时删除。</p>
+</li>
+</ol>
+<p>foo_interrupt()函数的代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">irqreturn_t</span> <span class="title">foo_interrupt</span><span class="params">(<span class="keyword">int</span> irq, <span class="keyword">void</span> *dev_id, struct pt_regs *regs)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    foo-&gt;data = inb(DEV_FOO_DATA_PORT);<span class="comment">//从设备的输入寄存器中读字符</span></span><br><span class="line">    foo-&gt;intr = <span class="number">1</span>;                     <span class="comment">//设置intr标志</span></span><br><span class="line">    wake_up_interruptible(&amp;foo-&gt;wait); <span class="comment">//调用`wake_up_interruptible()函数`唤醒在`foo-&gt;wait等待队列上`阻塞的进程。</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>中断处理程序从<code>设备的输入寄存器</code>中读字符，并把它存放在<code>foo全局变量</code>指向的<code>驱动程序描述符foo_dev_t</code>的<code>data字段</code>中。<br>然后设置intr标志，并调用<code>wake_up_interruptible()函数</code>唤醒在<code>foo-&gt;wait等待队列上</code>阻塞的进程。<br>注意：三个参数中没有一个被中断处理程序使用，这是其实是相当普遍的情况。</p>
+<h3 id="访问I-O共享存储器（内存映射）"><a href="#访问I-O共享存储器（内存映射）" class="headerlink" title="访问I/O共享存储器（内存映射）"></a><strong>访问I/O共享存储器（内存映射）</strong></h3><p><strong>根据设备和总线的类型，现代PC体系结构里的I/O共享存储器可以被映射到不同的物理地址范围</strong>。主要有：</p>
+<ul>
+<li>对于连接到ISA总线上的大多数设备<ul>
+<li>I/O共享存储器通常被映射到Oxa0000一Oxfffff的16位物理地址范围；这就在640 KB和1 MB之间留出了一段空间。</li>
+</ul>
+</li>
+<li>对连接到PCI总线上的设备<ul>
+<li>I/O共享存储器被映射到接近4GB的32位物理地址范围。这种类型的设备更加容易处理。</li>
+</ul>
+</li>
+</ul>
+<p><code>I/O共享存储器机制</code>是极其重要的，因为建立好这些映射以后，访问设备接口中的存储器如同访问内存一样简单，就不需要那么多纷繁复杂的I/O交换了，大大提升了系统I/O处理的效率。</p>
+<p>设备驱动程序如何访问一个I/O共享存储器单元？让我们从比较简单的PC体系结构开始人手，之后再扩展到其他体系结构。</p>
+<p>不要忘了内核程序作用于线性地址，因此I/O共享存储器单元必须表示成大于<code>PAGE_OFFSET</code>的地址（？？？），这样，才有利于对I/O共享存储器单元的物理地址进行映射。<br>我们假设PAGE_OFFSET等于Oxc0000000（在x86的32为体系中，实际上也是这样干的），也就是说，内核线性地址是在第4个GB。</p>
+<p>设备驱动程序必须把<code>I/O共享存储器单元的物理地址</code>转换成<code>内核空间的线性地址</code>:</p>
+<ul>
+<li>在PC体系结构中，这可以简单地把32位的物理地址和Oxc0000000常量进行或运算得到。</li>
+</ul>
+<p>例如，假设内核需要把物理地址为Ox<code>000b0fe4</code>的I/O单元的值存放在t1中，把物理地址为Ox<code>fc000000</code>的I/O单元的值存放在t2中。你可能认为使用下面的表达式就可以完成这项工作：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">    t1 = *((<span class="keyword">unsigned</span> <span class="keyword">char</span> *)(<span class="number">0xc00b0fe4</span>));   <span class="comment">//括号里面的是线性地址</span></span><br><span class="line">    t2 = *((<span class="keyword">unsigned</span> <span class="keyword">char</span> *)(<span class="number">0xfc000000</span>));   <span class="comment">//强制转换为指针类型，也就是地址，然后再进行取地址所存的值</span></span><br></pre></td></tr></table></figure>
+
+<p>在初始化阶段，内核已经把可用的RAM物理地址映射到线性地址空间第4个GB的开始部分。<br>因此，分页单元把出现在第一个语句中的线性地址OXCOObOfe4映射回到原来的I/O物理地址OXOOObOfe4，这正好落在从640KB到IMB的这段“ISA洞”中。这工作得很好。</p>
+<p>但是，对于第二个语句来说，这里有一个问题，因为其I/O物理地址超过了系统RAM的最大物理地址（加上Oxc0000000常量会超过32位）。因此，线性地址Oxfc000000就不需要与物理地址Oxfc000000相对应。在这种情况下，为了在内核页表中包括对这个I/O物理地址进行映射的线性地址，必须对页表进行修改。这可以通过调用ioremap()或ioremap_nocache()函数来实现，第一个函数与vmalloc()函数类似，都调用get_vm_area()为所请求的I/O共享存储区的大小建立一个新的vm_struct描述符。然后，这两个函数适当地更新常规内核页表中的对应页表项。ioremap_nocache()不同于ioremap()，因为前者在适当地引用再映射的线性地址时还使硬件高速缓存内容失效。</p>
+<p>因此，第二个语句的正确形式应该为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">    io_mem = ioremap(<span class="number">0xfb000000</span>, <span class="number">0x200000</span>);</span><br><span class="line">    t2 = *((<span class="keyword">unsigned</span> <span class="keyword">char</span> *)(io_mem + <span class="number">0x100000</span>));</span><br></pre></td></tr></table></figure>
+<p>第一条语句建立一个2MB的新的线性地址区间，该区间映射了从Oxfb000000开始的物理地址，第二条语句读取地址为Oxfc000000的内存单元。设备驱动程序以后要取消这种映射，就必须使用iounmap()函数。</p>
+<p>在其他体系结构（PC之外的体系结构）上，简单地间接引用物理内存单元的线性地址并不能正确访问I/O共享存储器。<br>因此，Linux定义了下列依赖于体系结构的函数，当访问I/O共享存储器时来使用它们：</p>
+<p><code>readb(), readw(), readl()</code>：分别从一个I/O共享存储器单元读取1、2或者4个字节<br><code>writeb(), writew(), writel()</code>：分别向一个I/O共享存储器单元写入1、2或者4个字节<br><code>memcpy_fromio(), memcpy_toio()</code>：把一个数据块从一个I/O共享存储器单元拷贝到动态内存中，另一个函数正好相反<br><code>memset_io()</code>：用一个固定的值填充一个I/O共享存储器区域</p>
+<p>最后，对于Oxfc000000 I/O单元的访问推荐使用这样的方法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">    io_mem = ioremap(<span class="number">0xfb000000</span>, <span class="number">0x200000</span>);</span><br><span class="line">    t2 = readb(io_mem + <span class="number">0x100000</span>);</span><br></pre></td></tr></table></figure>
+<p>正是由于这些函数，就可以隐藏不同平台访问I/O共享存储器所用方法的差异。</p>
+<p>//上面这一段话实在是太复杂了，现在总结一下；</p>
+<h2 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h2><p><code>IO空间与内存空间</code><br>在X86处理器才存在IO空间，是相对于内存空间的概念。目前大多数嵌入式处理器（如ARM、PowerPC等）并不提供IO空间。所以内存空间是必须的，IO空间是可选的。嵌入式开发只关心内存空间即可。<br>IO空间和内存空间是彼此独立的地址空间，在32位的X86处理器中，IO空间大小为64K ，内存空间为4G。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>深入理解LINUX内核<br><a href="https://blog.csdn.net/Linuxxulin/article/details/100175789">Linux下对IO内存的访问</a> //一些概念的介绍<br><a href="https://blog.csdn.net/changexhao/article/details/78120233">Linux内核开发之内存与I/O访问(一)</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="has-link-grey -link" href="/tags/%E5%86%85%E6%A0%B8/" rel="tag">内核</a>, <a class="has-link-grey -link" href="/tags/%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F/" rel="tag">驱动程序</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/06/21/STL-%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/">
+                <span class="level-item">STL 算法整理</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'e79770cfee30db02a856',
+        clientSecret: 'bb958f5fc30797ffc222ca631ec345baa48a0bee',
+        id: '03e29aa4312c016be4f07cd596acf721',
+        repo: 'STEMHA.github.io',
+        owner: 'STEMHA',
+        admin: "STEMHA",
+        createIssueManually: false,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/avatar.png" alt="STEMHA">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        STEMHA
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            55
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            13
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            87
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/STEMHA" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/STEMHA">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Twitter" href="https://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Dribbble" href="https://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/rss.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#设备文件">
+        <span class="has-mr-6">1</span>
+        <span>设备文件</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#设备文件划分">
+        <span class="has-mr-6">1.1</span>
+        <span>设备文件划分</span>
+        </a></li><li>
+        <a class="is-flex" href="#设备文件属性">
+        <span class="has-mr-6">1.2</span>
+        <span>设备文件属性</span>
+        </a></li><li>
+        <a class="is-flex" href="#设备文件的用户态处理">
+        <span class="has-mr-6">1.3</span>
+        <span>设备文件的用户态处理</span>
+        </a></li><li>
+        <a class="is-flex" href="#动态分配设备号">
+        <span class="has-mr-6">1.4</span>
+        <span>动态分配设备号</span>
+        </a></li><li>
+        <a class="is-flex" href="#动态创建设备文件">
+        <span class="has-mr-6">1.5</span>
+        <span>动态创建设备文件</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#设备文件的-VFS处理">
+        <span class="has-mr-6">2</span>
+        <span>设备文件的 VFS处理</span>
+        </a></li><li>
+        <a class="is-flex" href="#设备驱动程序">
+        <span class="has-mr-6">3</span>
+        <span>设备驱动程序</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#注册设备驱动程序">
+        <span class="has-mr-6">3.1</span>
+        <span>注册设备驱动程序</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#注册的过程">
+        <span class="has-mr-6">3.1.1</span>
+        <span>注册的过程</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#初始化设备驱动程序">
+        <span class="has-mr-6">3.2</span>
+        <span>初始化设备驱动程序</span>
+        </a></li><li>
+        <a class="is-flex" href="#监控I-O操作">
+        <span class="has-mr-6">3.3</span>
+        <span>监控I/O操作</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#轮询模式">
+        <span class="has-mr-6">3.3.1</span>
+        <span>轮询模式</span>
+        </a></li><li>
+        <a class="is-flex" href="#中断模式">
+        <span class="has-mr-6">3.3.2</span>
+        <span>中断模式</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#访问I-O共享存储器（内存映射）">
+        <span class="has-mr-6">3.4</span>
+        <span>访问I/O共享存储器（内存映射）</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#一些概念">
+        <span class="has-mr-6">4</span>
+        <span>一些概念</span>
+        </a></li><li>
+        <a class="is-flex" href="#参考资料">
+        <span class="has-mr-6">5</span>
+        <span>参考资料</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/STEMHA" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">GitHub - STEMHA</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/C/">
+            <span class="level-start">
+                <span class="level-item">C++</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">18</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Linux/">
+            <span class="level-start">
+                <span class="level-item">Linux</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E5%8D%9A%E5%AE%A2%E7%BB%B4%E6%8A%A4/">
+            <span class="level-start">
+                <span class="level-item">博客维护</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/">
+            <span class="level-start">
+                <span class="level-item">学术论文</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+            <span class="level-start">
+                <span class="level-item">操作系统</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/">
+            <span class="level-start">
+                <span class="level-item">效率工具</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+            <span class="level-start">
+                <span class="level-item">数据结构</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E7%AE%97%E6%B3%95/">
+            <span class="level-start">
+                <span class="level-item">算法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0/">
+            <span class="level-start">
+                <span class="level-item">英语学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+            <span class="level-start">
+                <span class="level-item">计算机网络</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+            <span class="level-start">
+                <span class="level-item">读书笔记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">
+            <span class="level-start">
+                <span class="level-item">软件工程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E9%86%92%E4%B8%96%E9%80%9A%E8%A8%80/">
+            <span class="level-start">
+                <span class="level-item">醒世通言</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/B-%E6%A0%91/" style="font-size: 10px;">B+树</a> <a href="/tags/B-%E6%A0%91/" style="font-size: 10px;">B-树</a> <a href="/tags/C/" style="font-size: 18px;">C++</a> <a href="/tags/C-%E6%A0%87%E5%87%86%E5%BA%93/" style="font-size: 20px;">C++标准库</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Linux/" style="font-size: 16px;">Linux</a> <a href="/tags/Linux%E6%A6%82%E8%BF%B0/" style="font-size: 10px;">Linux概述</a> <a href="/tags/TCP/" style="font-size: 14px;">TCP</a> <a href="/tags/UDP/" style="font-size: 10px;">UDP</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/deque/" style="font-size: 10px;">deque</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/pair/" style="font-size: 10px;">pair</a> <a href="/tags/priority-queue/" style="font-size: 10px;">priority_queue</a> <a href="/tags/queue/" style="font-size: 10px;">queue</a> <a href="/tags/set/" style="font-size: 10px;">set</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/%E4%BA%92%E6%96%A5%E9%94%81/" style="font-size: 10px;">互斥锁</a> <a href="/tags/%E4%BA%BA%E7%94%9F/" style="font-size: 10px;">人生</a> <a href="/tags/%E4%BC%A0%E8%AE%B0/" style="font-size: 10px;">传记</a> <a href="/tags/%E4%BC%A0%E8%BE%93%E5%B1%82/" style="font-size: 16px;">传输层</a> <a href="/tags/%E4%BF%A1%E5%8F%B7%E9%87%8F/" style="font-size: 10px;">信号量</a> <a href="/tags/%E5%85%B3%E8%81%94%E5%AE%B9%E5%99%A8/" style="font-size: 10px;">关联容器</a> <a href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA/" style="font-size: 10px;">内存分区</a> <a href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" style="font-size: 10px;">内存分配</a> <a href="/tags/%E5%86%85%E6%A0%B8/" style="font-size: 10px;">内核</a> <a href="/tags/%E5%88%9D%E5%A7%8B%E5%8C%96/" style="font-size: 10px;">初始化</a> <a href="/tags/%E5%8A%A8%E6%80%81%E5%A4%9A%E6%80%81/" style="font-size: 10px;">动态多态</a> <a href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">单例模式</a> <a href="/tags/%E5%90%8D%E8%91%97/" style="font-size: 10px;">名著</a> <a href="/tags/%E5%91%BD%E4%BB%A4/" style="font-size: 12px;">命令</a> <a href="/tags/%E5%93%B2%E5%AD%A6/" style="font-size: 10px;">哲学</a> <a href="/tags/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/" style="font-size: 10px;">基本结构</a> <a href="/tags/%E5%A4%9A%E6%80%81/" style="font-size: 10px;">多态</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 10px;">多线程</a> <a href="/tags/%E5%A5%97%E6%8E%A5%E5%AD%97/" style="font-size: 10px;">套接字</a> <a href="/tags/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/" style="font-size: 10px;">学术论文</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E7%B1%BB/" style="font-size: 10px;">容器类</a> <a href="/tags/%E5%B0%81%E8%A3%85/" style="font-size: 10px;">封装</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">工具</a> <a href="/tags/%E5%BA%94%E7%94%A8%E5%B1%82/" style="font-size: 10px;">应用层</a> <a href="/tags/%E5%BF%83%E6%80%81/" style="font-size: 10px;">心态</a> <a href="/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/" style="font-size: 10px;">性能分析</a> <a href="/tags/%E6%8F%92%E4%BB%B6/" style="font-size: 10px;">插件</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">操作系统</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%A3%E5%88%97%E8%A1%A8/" style="font-size: 10px;">散列表</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 12px;">数据结构</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95/" style="font-size: 10px;">文件与目录</a> <a href="/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">文件系统</a> <a href="/tags/%E6%96%87%E6%A1%A3%E5%92%8C%E6%B3%A8%E9%87%8A/" style="font-size: 10px;">文档和注释</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">桶排序</a> <a href="/tags/%E6%B5%85%E6%8B%B7%E8%B4%9D/" style="font-size: 10px;">浅拷贝</a> <a href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D/" style="font-size: 10px;">深拷贝</a> <a href="/tags/%E6%BC%94%E8%AE%B2/" style="font-size: 10px;">演讲</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">版本控制</a> <a href="/tags/%E7%94%9F%E4%BA%A7%E5%8A%9B/" style="font-size: 10px;">生产力</a> <a href="/tags/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/" style="font-size: 10px;">目录结构</a> <a href="/tags/%E7%A1%AC%E8%BF%9E%E6%8E%A5/" style="font-size: 10px;">硬连接</a> <a href="/tags/%E7%AE%80%E8%BF%B0/" style="font-size: 10px;">简述</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a> <a href="/tags/%E7%BA%A2%E9%BB%91%E6%A0%91/" style="font-size: 10px;">红黑树</a> <a href="/tags/%E7%BB%83%E4%B9%A0/" style="font-size: 10px;">练习</a> <a href="/tags/%E7%BB%A7%E6%89%BF/" style="font-size: 10px;">继承</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">计算机网络</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/" style="font-size: 10px;">设计方法</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">设计模式</a> <a href="/tags/%E8%AF%BA%E8%B4%9D%E5%B0%94%E5%A5%96/" style="font-size: 10px;">诺贝尔奖</a> <a href="/tags/%E8%B4%B9%E6%9B%BC/" style="font-size: 10px;">费曼</a> <a href="/tags/%E8%BD%AF%E8%BF%9E%E6%8E%A5/" style="font-size: 10px;">软连接</a> <a href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6/" style="font-size: 10px;">运算符</a> <a href="/tags/%E9%87%8D%E8%BD%BD/" style="font-size: 10px;">重载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9D%99%E6%80%81%E5%A4%9A%E6%80%81/" style="font-size: 10px;">静态多态</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 12px;">面向对象</a> <a href="/tags/%E9%9F%B3%E6%A0%87/" style="font-size: 10px;">音标</a> <a href="/tags/%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/" style="font-size: 10px;">顺序容器</a> <a href="/tags/%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">驱动程序</a>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/29/Linux%E5%86%85%E6%A0%B8%E9%A9%B1%E5%8A%A8/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Linux内核驱动">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-29T14:36:18.000Z">2020-06-29</time></div>
+                    <a href="/2020/06/29/Linux%E5%86%85%E6%A0%B8%E9%A9%B1%E5%8A%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux内核驱动</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Linux/">Linux</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/21/STL-%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="STL 算法整理">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-21T14:18:24.000Z">2020-06-21</time></div>
+                    <a href="/2020/06/21/STL-%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/" class="title has-link-black-ter is-size-6 has-text-weight-normal">STL 算法整理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/C/">C++</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/21/STL-%E5%A0%86%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="STL 堆常用操作">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-20T16:51:55.000Z">2020-06-21</time></div>
+                    <a href="/2020/06/21/STL-%E5%A0%86%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" class="title has-link-black-ter is-size-6 has-text-weight-normal">STL 堆常用操作</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/C/">C++</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="数据库常用概念">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-14T15:36:40.000Z">2020-06-14</time></div>
+                    <a href="/2020/06/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/" class="title has-link-black-ter is-size-6 has-text-weight-normal">数据库常用概念</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/06/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%95%99%E7%A8%8B-%E5%A5%97%E6%8E%A5%E5%AD%97/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="计算机网络教程-套接字">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-11T06:48:19.000Z">2020-06-11</time></div>
+                    <a href="/2020/06/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%95%99%E7%A8%8B-%E5%A5%97%E6%8E%A5%E5%AD%97/" class="title has-link-black-ter is-size-6 has-text-weight-normal">计算机网络教程-套接字</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">16</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">23</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/B-%E6%A0%91/">
+                        <span class="tag">B+树</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/B-%E6%A0%91/">
+                        <span class="tag">B-树</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C/">
+                        <span class="tag">C++</span>
+                        <span class="tag is-grey">8</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C-%E6%A0%87%E5%87%86%E5%BA%93/">
+                        <span class="tag">C++标准库</span>
+                        <span class="tag is-grey">14</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTTP/">
+                        <span class="tag">HTTP</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Linux/">
+                        <span class="tag">Linux</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Linux%E6%A6%82%E8%BF%B0/">
+                        <span class="tag">Linux概述</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/TCP/">
+                        <span class="tag">TCP</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/UDP/">
+                        <span class="tag">UDP</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/chrome/">
+                        <span class="tag">chrome</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/deque/">
+                        <span class="tag">deque</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/heap/">
+                        <span class="tag">heap</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo/">
+                        <span class="tag">hexo</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/leetcode/">
+                        <span class="tag">leetcode</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/list/">
+                        <span class="tag">list</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/map/">
+                        <span class="tag">map</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/pair/">
+                        <span class="tag">pair</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/priority-queue/">
+                        <span class="tag">priority_queue</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/queue/">
+                        <span class="tag">queue</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/set/">
+                        <span class="tag">set</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/stack/">
+                        <span class="tag">stack</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/string/">
+                        <span class="tag">string</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vector/">
+                        <span class="tag">vector</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BA%92%E6%96%A5%E9%94%81/">
+                        <span class="tag">互斥锁</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BA%BA%E7%94%9F/">
+                        <span class="tag">人生</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BC%A0%E8%AE%B0/">
+                        <span class="tag">传记</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BC%A0%E8%BE%93%E5%B1%82/">
+                        <span class="tag">传输层</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BF%A1%E5%8F%B7%E9%87%8F/">
+                        <span class="tag">信号量</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%85%B3%E8%81%94%E5%AE%B9%E5%99%A8/">
+                        <span class="tag">关联容器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA/">
+                        <span class="tag">内存分区</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/">
+                        <span class="tag">内存分配</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E6%A0%B8/">
+                        <span class="tag">内核</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%88%9D%E5%A7%8B%E5%8C%96/">
+                        <span class="tag">初始化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%8A%A8%E6%80%81%E5%A4%9A%E6%80%81/">
+                        <span class="tag">动态多态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+                        <span class="tag">单例模式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%90%8D%E8%91%97/">
+                        <span class="tag">名著</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%91%BD%E4%BB%A4/">
+                        <span class="tag">命令</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%93%B2%E5%AD%A6/">
+                        <span class="tag">哲学</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/">
+                        <span class="tag">基本结构</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%9A%E6%80%81/">
+                        <span class="tag">多态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="tag">多线程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A5%97%E6%8E%A5%E5%AD%97/">
+                        <span class="tag">套接字</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/">
+                        <span class="tag">学术论文</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%AE%B9%E5%99%A8%E7%B1%BB/">
+                        <span class="tag">容器类</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B0%81%E8%A3%85/">
+                        <span class="tag">封装</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B7%A5%E5%85%B7/">
+                        <span class="tag">工具</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%BA%94%E7%94%A8%E5%B1%82/">
+                        <span class="tag">应用层</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%BF%83%E6%80%81/">
+                        <span class="tag">心态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/">
+                        <span class="tag">性能分析</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%8F%92%E4%BB%B6/">
+                        <span class="tag">插件</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">操作系统</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%95%99%E7%A8%8B/">
+                        <span class="tag">教程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%95%A3%E5%88%97%E8%A1%A8/">
+                        <span class="tag">散列表</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="tag">数据结构</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95/">
+                        <span class="tag">文件与目录</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">文件系统</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%96%87%E6%A1%A3%E5%92%8C%E6%B3%A8%E9%87%8A/">
+                        <span class="tag">文档和注释</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A0%88/">
+                        <span class="tag">栈</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/">
+                        <span class="tag">桶排序</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%B5%85%E6%8B%B7%E8%B4%9D/">
+                        <span class="tag">浅拷贝</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D/">
+                        <span class="tag">深拷贝</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%BC%94%E8%AE%B2/">
+                        <span class="tag">演讲</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/">
+                        <span class="tag">版本控制</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%94%9F%E4%BA%A7%E5%8A%9B/">
+                        <span class="tag">生产力</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">
+                        <span class="tag">目录结构</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A1%AC%E8%BF%9E%E6%8E%A5/">
+                        <span class="tag">硬连接</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%AE%80%E8%BF%B0/">
+                        <span class="tag">简述</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="tag">算法</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BA%A2%E9%BB%91%E6%A0%91/">
+                        <span class="tag">红黑树</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BB%83%E4%B9%A0/">
+                        <span class="tag">练习</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BB%A7%E6%89%BF/">
+                        <span class="tag">继承</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="tag">网络</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                        <span class="tag">计算机网络</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/">
+                        <span class="tag">设计方法</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AF%BA%E8%B4%9D%E5%B0%94%E5%A5%96/">
+                        <span class="tag">诺贝尔奖</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%B4%B9%E6%9B%BC/">
+                        <span class="tag">费曼</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%BD%AF%E8%BF%9E%E6%8E%A5/">
+                        <span class="tag">软连接</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6/">
+                        <span class="tag">运算符</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%87%8D%E8%BD%BD/">
+                        <span class="tag">重载</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%93%BE%E8%A1%A8/">
+                        <span class="tag">链表</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%98%9F%E5%88%97/">
+                        <span class="tag">队列</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%9D%99%E6%80%81%E5%A4%9A%E6%80%81/">
+                        <span class="tag">静态多态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+                        <span class="tag">面向对象</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%9F%B3%E6%A0%87/">
+                        <span class="tag">音标</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/">
+                        <span class="tag">顺序容器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F/">
+                        <span class="tag">驱动程序</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/og_image.png" alt="Linux内核驱动" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 STEMHA&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://stemha.github.io',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    	
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"debug":false,"display":{"position":"left","width":139,"height":300},"mobile":{"show":true,"scale":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
