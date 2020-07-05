@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://stemha.github.io/images/og_image.png">
 <meta property="article:published_time" content="2020-07-04T09:08:50.000Z">
-<meta property="article:modified_time" content="2020-07-04T16:16:11.989Z">
+<meta property="article:modified_time" content="2020-07-05T12:58:58.073Z">
 <meta property="article:author" content="STEMHA">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="内核">
@@ -164,7 +164,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    1 小时 读完 (大约 6986 个字)
+                    1 小时 读完 (大约 7561 个字)
                 </span>
                 
                 
@@ -341,7 +341,13 @@
 <p><img src="/2020/07/04/Linux%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B/%E7%94%A8%E6%88%B7%E6%80%81%E5%A0%86%E6%A0%88%E6%A8%A1%E5%9E%8B.png" alt="用户态堆栈模型"></p>
 </div>
 
-<h2 id="库"><a href="#库" class="headerlink" title="库"></a><strong>库</strong></h2><p>每个高级语言的源码文件都是经过几个步骤才转化为目标文件的（.o文件），目标文件中包含的是汇编语言指令的机器代码，它们和相应的高级语言指令对应。<br>目标文件并不能被执行，因为它不包含源代码文件所用的全局外部符号名的线性地址，例如库函数或同一程序中的其他源代码文件。<br>这些地址的分配或解析是由链接程序完成的，链接程序把程序所有的目标文件收集起来并构造可执行文件。<br>链接程序还分析程序所用的库函数，并以本章后面所描述的方式把它们粘合成可执行文件。<br>大多数程序，甚至是最小的程序都会利用C库。</p>
+<h2 id="库"><a href="#库" class="headerlink" title="库"></a><strong>库</strong></h2><p>每个高级语言的源码文件都是经过几个步骤才转化为目标文件的（.o文件），目标文件中包含的是汇编语言指令的机器代码，它们和相应的高级语言指令对应。</p>
+<ul>
+<li>目标文件并不能被执行，因为它不包含源代码文件所用的全局外部符号名的线性地址，例如库函数或同一程序中的其他源代码文件。</li>
+<li>这些地址的分配或解析是由链接程序完成的，链接程序把程序所有的目标文件收集起来并构造可执行文件。</li>
+<li>链接程序还分析程序所用的库函数，并以本章后面所描述的方式把它们粘合成可执行文件。</li>
+<li>大多数程序，甚至是最小的程序都会利用C库。</li>
+</ul>
 <p>例如下面只有一行的C程序：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
 <p>尽管这个程序没有做任何事情，但还是需要做很多工作来建立执行环境，并在程序终止时杀死这个进程。尤其当main()函数终止时，C编译程序把exit_group()函数插入到目标代码中。程序通常通过C库中的封装例程调用系统调用，C编译器亦如此。</p>
@@ -376,11 +382,39 @@
 <li>包含程序的堆栈，堆栈中有返回地址、参数和被执行函数的局部变量。</li>
 </ul>
 <p>每个<code>mm_struct内存描述符</code>都包含一些字段来标识相应进程特定线性区的作用：<br>start_code，end_code：程序的源代码所在线性区的起始和终止线性地址，即可执行文件中的代码。<br>start_data，end_data：程序的初始化数据所在线性区的起始和终止线性地址，正如在可执行文件中所指定的那样。这两个字段指定的线性区大体上与数据段对应。<br>start_brk，brk：存放线性区的起始和终止线性地址，该线性区包含动态分配给进程的内存区。有时把这部分线性区叫做堆。<br>start_stack：正好在main()的返回地址之上的地址。更高的地址被保留(栈向低地址增长)。<br>arg_start，arg_end：命令行参数所在的堆栈部分的起始地址和终止地址。<br>env_start，env_end：环境串所在的堆栈部分的起始地址和终止地址。</p>
-<h2 id="可执行格式"><a href="#可执行格式" class="headerlink" title="可执行格式"></a>可执行格式</h2><p>Linux正式的可执行格式是ELF(Execuable and Linking Format)。<br>类型为linux_binfmt的对象所描述的可执行格式实质上提供以下三种方法:<br>    a.loadbinary:通读存放在可执行文件中的信息为当前进程建立一个新的执行环境。<br>    b.load_shlib:用于动态地把一个共享库捆绑到一个已经在运行的进程,这个是由uselib()系统调用激活的。<br>    c.core_dump:在名为core的文件中存放当前进程的执行上下文。这个文件通常是在进程接收到一个缺省操作为”dump”的信号时被创建的<br>      其格式取决于被执行程序的可执行类型。</p>
-<p>linux_binfmt对象:处于一个简单的连接链表中,第一个元素的地址被存放在formats变量中。<br>                                          可以通过调用register_binfmt()和unregister_binfmt()函数<br>                 在链表中插入和删除元素。</p>
-<p>formats链表中的最后一个元素:是一个对解释脚本(interpreted script)的可执行格式进行描述的一个对象。定义了load_binary()方法。<br>        其相应的do_load_script()<br>               可执行文件是否是以两个#!开始，如果是,这个函数就以另一个可执行文件的路径作为参数解释第一行的其余部分，<br>               并把文件名作为参数传递过去以执行这个脚本文件。</p>
-<p>Linux允许用户注册自己定义的可执行格式:用如下的格式项/proc/sys/fs/binfmt_misc/register文件写入一个字符串<br>                   :name:type:offset:string:mask:interpreter:<br>                       name:新格式的标识符<br>                       type:识别类型(M表示魔数,E表示扩展)<br>                       offse:魔数在文件中的起始偏移量<br>                       string:或者以魔数,或者以扩展名匹配的字节序列<br>                       mask:屏蔽string中的一些位的字符串<br>                       interpreter:程序解释器的完整路径名</p>
-<p>可执行文件的前128字节填充linux_binprm结构的buf域。<br>exec类函数:这些函数能用可执行文件所描述的新上下文代替进程的上下文。</p>
+<h2 id="可执行格式"><a href="#可执行格式" class="headerlink" title="可执行格式"></a><strong>可执行格式</strong></h2><p>Linux标淮的可执行格式是<code>ELF(Executable and Linking Format)</code>，它由Unix系统实验室开发并在Unix世界相当流行。著名的Unix操作系统都把ELF作为它们的主要可执行格式。<br>Linux的旧版支持另一种名叫<code>Assembler OUTput Format (a.out)的格式</code>。因为现在ELF非常实用，因此已经很少用a.out格式。</p>
+<p>Linux支持很多其他不同格式的可执行文件。</p>
+<ul>
+<li>在这种方式下，Linux能运行为.其他操作系统所编译的程序，如MS-DOS的EXE程序。</li>
+<li>有几种可执行格式，如Java或bash脚本，是与平台无关的。</li>
+</ul>
+<p>由<code>类型为linux_binfmt的对象</code>所描述的<code>可执行格式</code>实质上提供以下三种方法：</p>
+<ul>
+<li><code>load_binary</code> 通过读存放在可执行文件中的信息<u>为当前进程建立一个新的执行环境</u>。</li>
+<li><code>load_shlib</code>  用于<u>动态地把一个共享库捆绑到一个已经在运行的进程</u>，这是由<code>uselib()系统调用</code>激活的。</li>
+<li><code>core_dump</code> 在名为<code>core</code>的文件中<strong>存放当前进程的执行上下文</strong>。这个文件通常在进程接收到缺省操作为“dump”的信号时被创建，格式取决于被执行程序的可执行类型。</li>
+</ul>
+<p>所有的<code>linux binfmt对象</code>都处于一个单向链表中。</p>
+<ol>
+<li>链表第一个元素的地址：存放在formats变量中。</li>
+<li>插入和删除元素：通过调用<code>register_binfmt()</code>和<code>unregister_binfmt()</code>函数在链表中插入和删除元素。<ul>
+<li>在系统启动期间，为每个<strong>编译进内核的可执行格式</strong>都执行<code>register_binfmt()</code>函数。</li>
+<li>当实现了一个新的可执行格式的模块正被装载时，也执行这个函数，当模块被卸载时，执行<code>unregister_binfmt()</code>函数。</li>
+</ul>
+</li>
+<li>在formats链表中的最后一个元素:是对解释脚本的可执行格式进行描述的一个对象。</li>
+</ol>
+<p>这种格式只定义了load_binary方法。其相应的load_script()函数检查这种可执行文件是否以两个<code>#!</code>字符开始。如果是，这个函数就把第一行的其余部分解释为另一个可执行文件的路径名，并把脚本文件名作为参数传递以执行它。</p>
+<h3 id="自定义的可执行格式"><a href="#自定义的可执行格式" class="headerlink" title="自定义的可执行格式"></a><strong>自定义的可执行格式</strong></h3><p>Linux允许用户注册自己定义的可执行格式:</p>
+<pre><code>对这种格式的识别或者通过存放在文件前128字节的魔数，或者通过表示文件类型的扩展名。</code></pre><p>例如，MS-DOS的扩展名由“.”把三个字符从文件名中分离出来：.exe扩展名标识可执行文件，而.bat扩展名标识shell脚本。</p>
+<h4 id="如何执行"><a href="#如何执行" class="headerlink" title="如何执行"></a><strong>如何执行</strong></h4><p><strong>当内核确定可执行文件是自定义格式时，它就启动相应的解释程序。</strong><br>解释程序运行在用户态，读入可执行文件的路径名作为参数，并执行计算。<br>例如，包含Java程序的可执行文件就由Java虚拟机(如//usr/lib/Java/bin/Java)来解释。</p>
+<h4 id="建立自定义可执行格式"><a href="#建立自定义可执行格式" class="headerlink" title="建立自定义可执行格式"></a><strong>建立自定义可执行格式</strong></h4><p>这种机制与脚本格式类似，但功能更加强大，这是因为它对自定义格式不加任何限制。<br>要<code>注册一个新格式</code>，就必须在<code>binfmt_misc文件系统</code>的<code>注册文件</code>内写人一个字符串，其格式为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> name:type:offset:<span class="built_in">string</span>:mask:interpreter:flags</span><br></pre></td></tr></table></figure>
+<p>每个字段的含义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">name:         新格式的标识符。</span><br><span class="line">type:         识别类型(M表示魔数，E表示扩展)。</span><br><span class="line">offset:       魔数在文件中的起始偏移量。</span><br><span class="line"><span class="built_in">string</span>:       以魔数或者以扩展名匹配的字节序列。</span><br><span class="line">mask:         用来屏蔽掉<span class="built_in">string</span>中的一些位的字符串。</span><br><span class="line">interpreter:  解释程序的完整路径名。</span><br><span class="line">flags:        可选标志，控制必须怎样调用解释程序。</span><br></pre></td></tr></table></figure>
+<p>例如，超级用户执行的下列命令将使内核识别出Microsoft Windows的可执行格式:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> :DOSWin:M:O:MZ:Oxff:/usr/bin/wine:’&gt;/proc/sys/fs/binfmt misc/register</span><br></pre></td></tr></table></figure>
+<p>Windows可执行文件的前两个字节是<code>魔数MZ</code>，由解释程序/usr/bin/wine执行这个可执行文件。</p>
 <h2 id="灵活线性布局-可选看"><a href="#灵活线性布局-可选看" class="headerlink" title="灵活线性布局(可选看)"></a><strong>灵活线性布局(可选看)</strong></h2><p><code>灵活线性区布局(flexible memory region lagout)</code>在内核版本2.6.9中引人。<br>实际上，每个进程均是按照用户态堆栈预期的增长量来进行内存布局的。但是仍然可以使用老的经典布局(主要用于当内核无法限制进程用户态堆栈的大小时)。</p>
 <p>下表是80x86结构的默认用户态地址空间为例描述了这两种布局，地址空间最大可以到3GB。布局之间只在文件内存映射与匿名映射时线性区的位置上有区别。</p>
 <p>x86结构的线性布局:</p>
@@ -696,7 +730,19 @@
         <a class="is-flex" href="#可执行格式">
         <span class="has-mr-6">7</span>
         <span>可执行格式</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#自定义的可执行格式">
+        <span class="has-mr-6">7.1</span>
+        <span>自定义的可执行格式</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#如何执行">
+        <span class="has-mr-6">7.1.1</span>
+        <span>如何执行</span>
         </a></li><li>
+        <a class="is-flex" href="#建立自定义可执行格式">
+        <span class="has-mr-6">7.1.2</span>
+        <span>建立自定义可执行格式</span>
+        </a></li></ul></li></ul></li><li>
         <a class="is-flex" href="#灵活线性布局-可选看">
         <span class="has-mr-6">8</span>
         <span>灵活线性布局(可选看)</span>
