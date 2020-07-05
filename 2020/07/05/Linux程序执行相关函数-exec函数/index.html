@@ -16,22 +16,23 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>B树与B+树详解 - STEMHA&#39;s Blog</title>
+<title>Linux程序执行相关函数-exec函数 - STEMHA&#39;s Blog</title>
 
 
-    <meta name="description" content="基本概念多路搜索树（multi-way search tree）：  将传统的二叉搜索树，改造为多路搜索树——在中序的遍历下，这也是一种等价变换 以k层为间隔如此重组，可以将二叉搜索树转化为等价的2^k路搜索树，统称为多路搜索树。 多路搜索树同样支持查找等操作，而且效果与原来的二叉树完全等同；但是重要的是，其对外存的访问方式已经发生本质变化，是以大节点为单位从外存读取一组（而不是单个）关键码。">
+    <meta name="description" content="类Unix系统提供了一系列函数，这些函数能用可执行文件所描述的新上下文代替进程的上下文。这样的函数名以前缀exec开始，后跟一个或两个字母。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="B树与B+树详解">
-<meta property="og:url" content="https://stemha.github.io/2020/06/03/B%E6%A0%91%E4%B8%8EB+%E6%A0%91%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:title" content="Linux程序执行相关函数-exec函数">
+<meta property="og:url" content="https://stemha.github.io/2020/07/05/Linux%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0-exec%E5%87%BD%E6%95%B0/index.html">
 <meta property="og:site_name" content="STEMHA&#39;s Blog">
-<meta property="og:description" content="基本概念多路搜索树（multi-way search tree）：  将传统的二叉搜索树，改造为多路搜索树——在中序的遍历下，这也是一种等价变换 以k层为间隔如此重组，可以将二叉搜索树转化为等价的2^k路搜索树，统称为多路搜索树。 多路搜索树同样支持查找等操作，而且效果与原来的二叉树完全等同；但是重要的是，其对外存的访问方式已经发生本质变化，是以大节点为单位从外存读取一组（而不是单个）关键码。">
+<meta property="og:description" content="类Unix系统提供了一系列函数，这些函数能用可执行文件所描述的新上下文代替进程的上下文。这样的函数名以前缀exec开始，后跟一个或两个字母。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://stemha.github.io/images/og_image.png">
-<meta property="article:published_time" content="2020-06-02T17:10:47.000Z">
-<meta property="article:modified_time" content="2020-06-03T16:23:58.017Z">
+<meta property="article:published_time" content="2020-07-05T13:25:17.000Z">
+<meta property="article:modified_time" content="2020-07-05T15:42:04.299Z">
 <meta property="article:author" content="STEMHA">
-<meta property="article:tag" content="B-树">
-<meta property="article:tag" content="B+树">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="内核">
+<meta property="article:tag" content="程序执行">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://stemha.github.io/images/og_image.png">
 
@@ -93,7 +94,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/og_image.png" alt="B树与B+树详解" height="28">
+                <img src="/images/og_image.png" alt="Linux程序执行相关函数-exec函数" height="28">
             
             </a>
         </div>
@@ -152,17 +153,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-06-02T17:10:47.000Z">2020-06-03</time>
+                <time class="level-item has-text-grey" datetime="2020-07-05T13:25:17.000Z">2020-07-05</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                <a class="has-link-grey -link" href="/categories/Linux/">Linux</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    29 分钟 读完 (大约 4341 个字)
+                    24 分钟 读完 (大约 3610 个字)
                 </span>
                 
                 
@@ -171,129 +172,186 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                B树与B+树详解
+                Linux程序执行相关函数-exec函数
             
         </h1>
         <div class="content">
-            <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a><strong>基本概念</strong></h2><p><code>多路搜索树（multi-way search tree）</code>：</p>
-<ul>
-<li>将传统的二叉搜索树，改造为多路搜索树——在中序的遍历下，这也是一种等价变换</li>
-<li>以k层为间隔如此重组，可以将二叉搜索树转化为等价的2^k路搜索树，统称为多路搜索树。</li>
-<li>多路搜索树同样支持查找等操作，而且效果与原来的二叉树完全等同；但是重要的是，其对外存的访问方式已经发生本质变化，是以大节点为单位从外存读取一组（而不是单个）关键码。</li>
-</ul>
-<p><code>B树就是B-树</code>：</p>
-<ul>
-<li>B-树就是B树，中间的横线不是减号，直接读成B树即可。</li>
-<li>有的文章里出现的B-树，即为B树。因为B树的原英文名称为B-tree，而国内很多人喜欢把B-tree译作B-树，而事实上是，B-tree就是指的B树。</li>
-<li>B树是一种多路平衡搜索树，它的每一个节点最多包含K个孩子，k被称为<code>B树的阶</code>。</li>
-<li>k的大小取决于磁盘页的大小</li>
-<li>B树比较矮胖，扁平化，B-树的宽度往往大于其高度</li>
-</ul>
-<p><code>B+树</code>：</p>
-<ul>
-<li>是应文件系统所需而产生的一种B-tree的变形树。<a id="more"></a>
+            <p>类Unix系统提供了一系列函数，这些函数能<code>用可执行文件所描述的新上下文代替进程的上下文</code>。这样的函数名以前缀exec开始，后跟一个或两个字母。</p>
+<a id="more"></a>
 
-</li>
-</ul>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a><strong>应用</strong></h2><p><strong>数据库索引主要基于什么数据结构？</strong><br>hash表和B+树</p>
-<p><strong>数据库索引为什么要用B+树结构来存储呢？</strong><br>树的查询效率高。而且可以保持有序。但是为什么不用二叉查找树呢？主要是因为磁盘I/O的影响，数据库索引是存储在磁盘上的，当数据量比较大的时候，索引的大小可能有几个G甚至更多。当我们利用索引查询时候，能把整个索引全部加载到内存吗？很显然不可能的，我们能做的是逐一加载每一个磁盘页，这里的磁盘页面对应着索引树的节点。这样的话，每遍历到一个节点就需要进行一次I/O操作。<br>磁盘这种外部存储器适合批量式的访问，为了减少I/O，我们需要把原本<strong>瘦高</strong>的树结构变得<strong>矮胖</strong>，这就是B-树的特征之一。</p>
-<p><strong>大规模数据存储中，实现索引查询这样一个实际背景下，树节点存储的元素数量是有限的，如何减少树的深度？</strong><br>一个基本的想法就是：采用多叉树结构（由于树节点元素数量是有限的，自然该节点的子树数量也就是有限的）</p>
-<p>B-树主要应用于文件系统以及部分数据库索引，比如著名的非关系型数据库MongoDB。</p>
-<h2 id="B-树（Balance-Tree）"><a href="#B-树（Balance-Tree）" class="headerlink" title="B-树（Balance Tree）"></a><strong>B-树（Balance Tree）</strong></h2><p>所谓m阶B-树，即为<code>m路平衡搜索树</code>（m大于等于2）,除了根节点，各个节点的分支数目介于[M/2向上取整, M]。<br>M为设定的非叶子结点最多子树个数，N为关键字总数。<br>由于限制了除根结点以外的非叶子结点，至少含有M/2个儿子，确保了结点的利用率，其最底搜索性能为：O(log n)</p>
-<ol>
-<li>根结点至少有两个子女。</li>
-<li><strong>子节点数</strong>：每个<code>中间节点</code>都包含k-1个元素和k个孩子，其中 m/2 &lt;= k &lt;= m</li>
-<li><strong>关键字数</strong>：每一个<code>叶子节点</code>都包含k-1个元素，其中 m/2 &lt;= k &lt;= m</li>
-<li><strong>所有的叶子结点都位于同一层。</strong>叶子节点除了包含了关键字和关键字记录的指针外也有指向其子节点的指针只不过其指针地址都为null（可以把这些null看成外部节点）</li>
-<li><strong>排序方式</strong>：每个<strong>节点中的元素从小到大排列</strong>，节点当中k-1个元素正好是k个孩子包含的元素的<strong>值域分划</strong>。</li>
-</ol>
-<h3 id="B-树的特性"><a href="#B-树的特性" class="headerlink" title="B-树的特性"></a><strong>B-树的特性</strong></h3><ol>
-<li>关键字集合分布在整颗树中；</li>
-<li>任何一个关键字出现且只出现在一个结点中；          </li>
-<li>搜索有可能在非叶子结点结束；          </li>
-<li>其搜索性能等价于在关键字全集内做一次二分查找；          </li>
-<li>自动层次控制；</li>
-</ol>
-<p>举一个B-树的例子，一个<code>3阶的B-树</code>，也就是<code>(2,3)-树</code><br><img src="https://pic2.zhimg.com/80/v2-2d9600b19f93ef2dccf61409eea395bd_720w.jpg" alt="3阶的B-树"><br>对于这颗树查询的过程比较次数不比二叉查找树少，尤其当单一节点中的元素数量很多的时候，可是相对于磁盘I/O，内存中的比较耗时几乎可以忽略，所以可以提升查找的性能。</p>
-<h3 id="B-树插入"><a href="#B-树插入" class="headerlink" title="B-树插入"></a>B-树插入</h3><p>优势，自平衡<br><strong>遵循规则</strong>：</p>
-<ol>
-<li>节点拆分规则：当前是要组成一个3路查找树，那么此时m=3,关键字数必须&lt;=3-1（这里关键字数&gt;2就要进行节点拆分，拆分的规则是把中间的元素提取出，放到父节点上，左边的单独构成一个节点，右边的单独构成一个节点）；</li>
-<li>排序规则：满足节点本身比左边节点大，比右边节点小的排序规则;</li>
-</ol>
-<p><img src="https://files.cnblogs.com/yangecnu/btreebuild.gif" alt="插入的数据依次是6 10 4 14 5 11 15 3 2 12 1 7 8 8 6 3 6 21 5 15 15 6 32 23 45 65 7 8 6 5 4"></p>
-<p>自顶向下查找4的节点位置，发现4应当插入到节点元素3，5之间。<br><img src="https://pic1.zhimg.com/80/v2-08492d931b071967954f9015aff41c68_720w.jpg" alt="插入元素4"><br>节点3，5已经是两元素节点，无法再增加。父亲节点 2， 6 也是两元素节点，也无法再增加。根节点9是单元素节点，可以升级为两元素节点。于是拆分节点3，5与节点2，6，让根节点9升级为两元素节点4，9。节点6独立为根节点的第二个孩子。<br><img src="https://pic1.zhimg.com/80/v2-ad1a6424649128def32f5d313c3f8e90_720w.jpg" alt="维持多路平衡"></p>
-<h3 id="B-树删除"><a href="#B-树删除" class="headerlink" title="B-树删除"></a>B-树删除</h3><p><strong>遵循规则</strong>：</p>
-<ol>
-<li>节点合并规则：当前是要组成一个3路查找树，那么此时m=3,关键字数必须大于等于ceil（3/2）（这里关键字数&lt;1就要进行节点合并）；</li>
-<li>满足节点本身比左边节点大，比右边节点小的排序规则;</li>
-<li><strong>关键字数小于1时先从子节点取，子节点没有符合条件时就向向父节点取，取中间值往父节点放；</strong></li>
-</ol>
-<p>自顶向下查找元素11的节点位置。<br><img src="https://pic4.zhimg.com/80/v2-0208612586cf5a92abe02f92d2260ca7_720w.jpg" alt="删除元素11"><br>删除11后，节点12只有一个孩子，不符合B树规范。因此找出12,13,15三个节点的中位数13，取代节点12，而节点12自身下移成为第一个孩子。（这个过程称为<strong>左旋</strong><br><img src="https://pic2.zhimg.com/80/v2-de8036ff5e9b13acdff7aebcbb6a9575_720w.jpg" alt="左旋"><br><img src="https://pic3.zhimg.com/80/v2-fd9dd8cfe314137da1d88ee0aba7a59a_720w.jpg" alt="左旋"></p>
-<h3 id="B-树中的卫星数据"><a href="#B-树中的卫星数据" class="headerlink" title="B-树中的卫星数据"></a><strong>B-树中的卫星数据</strong></h3><p><code>卫星数据（Satellite Information）</code>:指的是索引元素所指向的数据记录，比如数据的某一行。在B-树中，无论中间节点还是叶子节点都带有卫星数据。<br>B-树中的卫星数据（Satellite Information）:无论是叶子节点还是中间节点都带有卫星数据。<br><img src="https://pic2.zhimg.com/80/v2-ba3efdd8525facefc81189ed6a958b4d_720w.jpg" alt="B-树中的卫星数据"></p>
-<h3 id="B-树的范围查找过程"><a href="#B-树的范围查找过程" class="headerlink" title="B-树的范围查找过程"></a><strong>B-树的范围查找过程</strong></h3><p>比方对于上面的B-树，我们想查找3到11的元素，只能依靠繁琐的中序遍历。</p>
-<h2 id="B-树（-Tree）"><a href="#B-树（-Tree）" class="headerlink" title="B+树（ Tree）"></a><strong>B+树（ Tree）</strong></h2><p>B+树是B树的一个升级版，相对于B树来说B+树更充分的利用了节点的空间，让查询速度更加稳定，其速度完全接近于二分法查找。<br>B+树是对B树的一种变形树，它与B树的差异在于：</p>
+<h2 id="exec族函数"><a href="#exec族函数" class="headerlink" title="exec族函数"></a><strong>exec族函数</strong></h2><p>下表列出了<code>exec族函数</code>，它们之间的差别在于如何解释参数。</p>
+<table>
+<thead>
+<tr>
+<th align="left">函数名</th>
+<th align="left">路径搜索</th>
+<th align="left">命令行参数</th>
+<th align="left">环境数组</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">execl()</td>
+<td align="left">否</td>
+<td align="left">列表</td>
+<td align="left">否</td>
+</tr>
+<tr>
+<td align="left">execlp()</td>
+<td align="left">是</td>
+<td align="left">列表</td>
+<td align="left">否</td>
+</tr>
+<tr>
+<td align="left">execle()</td>
+<td align="left">否</td>
+<td align="left">列表</td>
+<td align="left">是</td>
+</tr>
+<tr>
+<td align="left">execv()</td>
+<td align="left">否</td>
+<td align="left">数组</td>
+<td align="left">否</td>
+</tr>
+<tr>
+<td align="left">execvp()</td>
+<td align="left">是</td>
+<td align="left">数组</td>
+<td align="left">否</td>
+</tr>
+<tr>
+<td align="left">execve()</td>
+<td align="left">否</td>
+<td align="left">数组</td>
+<td align="left">是</td>
+</tr>
+</tbody></table>
+<h2 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a><strong>参数说明</strong></h2><h3 id="第一个参数"><a href="#第一个参数" class="headerlink" title="第一个参数"></a><strong>第一个参数</strong></h3><p>每个函数的第一个参数表示被执行文件的路径名。</p>
 <ul>
-<li>有k个子结点的结点必然有k个关键码；</li>
-<li>非叶结点仅具有索引作用，跟记录有关的信息均存放在叶结点中。</li>
-<li>树的所有叶结点构成一个有序链表，可以按照关键码排序的次序遍历全部记录。</li>
+<li>路径名可以是绝对路径或是当前进程目录的相对路径。</li>
+<li>此外，如果路径名中不包含“/”字符，execlp()和execvp()函数就在PATH环境变量指定的所有目录中搜索这个可执行文件。</li>
 </ul>
-<p><strong>一个<code>m阶的B+树</code>具有如下几个特征：</strong></p>
-<ol>
-<li>有k个子树的中间节点包含有k个元素（B树中是k-1个元素），<strong>每个元素不保存数据，只用来索引，所有数据都保存在叶子节点</strong>。</li>
-<li>所有的叶子结点中包含了全部元素的信息，及指向含这些元素记录的指针，且叶子结点本身依关键字的大小自小而大顺序链接。</li>
-<li><strong>所有的中间节点元素都同时存在于子节点，在子节点元素中是最大（或最小）元素。</strong></li>
-</ol>
-<p>示例<br><img src="https://p-blog.csdn.net/images/p_blog_csdn_net/manesking/5.JPG" alt></p>
-<h3 id="B-的特性"><a href="#B-的特性" class="headerlink" title="B+的特性"></a><strong>B+的特性</strong></h3><ol>
-<li>所有关键字都出现在叶子结点的链表中（稠密索引），且链表中的关键字恰好是有序的；</li>
-<li>不可能在非叶子结点命中；</li>
-<li>非叶子结点相当于是叶子结点的索引（稀疏索引），叶子结点相当于是存储（关键字）数据的数据层；</li>
-<li>更适合文件索引系统；</li>
-</ol>
-<h3 id="B-树插入-1"><a href="#B-树插入-1" class="headerlink" title="B+树插入"></a>B+树插入</h3><p><img src="https://files.cnblogs.com/yangecnu/Bplustreebuild.gif" alt="插入的数据依次是6 10 4 14 5 11 15 3 2 12 1 7 8 8 6 3 6 21 5 15 15 6 32 23 45 65 7 8 6 5 4"></p>
-<h3 id="B-树中的卫星数据-1"><a href="#B-树中的卫星数据-1" class="headerlink" title="B+树中的卫星数据"></a>B+树中的卫星数据</h3><p><code>卫星数据（Satellite Information）</code>:指的是索引元素所指向的数据记录，比如数据的某一行。在B-树中，无论中间节点还是叶子节点都带有卫星数据。<br>B+树中的卫星数据（Satellite Information）:只有叶子节点带有卫星数据。中间节点仅仅是索引，没有任何关联数据。<br><img src="https://pic3.zhimg.com/80/v2-36d5aa8eeb765d559ba8d5e136d0b402_720w.jpg" alt="B+树中的卫星数据"><br>需要补充的是，在数据库的聚集索引（Clustered Index）中，叶子节点直接包含卫星数据。在非聚集索引（NonClustered Index）中，叶子节点带有指向卫星数据的指针。</p>
-<h3 id="B-树的范围查找过程-1"><a href="#B-树的范围查找过程-1" class="headerlink" title="B+树的范围查找过程"></a>B+树的范围查找过程</h3><p>相对于B-树要简单的多，只需要在链表上做遍历即可！</p>
-<h2 id="B树与B-树的优点"><a href="#B树与B-树的优点" class="headerlink" title="B树与B+树的优点"></a><strong>B树与B+树的优点</strong></h2><p><code>B+树的优点</code>：<br>由于B+树在内部节点上不好含数据信息，因此在内存页中能够存放更多的key。 数据存放的更加紧密，具有更好的空间局部性。因此访问叶子几点上关联的数据也具有更好的缓存命中率。<br>B+树的叶子结点都是相链的，因此对整棵树的便利只需要一次线性遍历叶子结点即可。而且由于数据顺序排列并且相连，所以便于区间查找和搜索。而B树则需要进行每一层的递归遍历。相邻的元素可能在内存中不相邻，所以缓存命中性没有B+树好。</p>
-<ol>
-<li><strong>B+树的层级更少：</strong>单一节点存储更多的元素，使得查询的IO次数更少，相较于B树B+每个非叶子节点存储的关键字数更多，树的层级更少所以查询数据更快；。</li>
-<li><strong>B+树查询速度更稳定：</strong>所有查询都要查找到叶子节点，查询性能稳定。</li>
-<li><strong>B+树天然具备排序功能：</strong>所有叶子节点形成有序链表，<strong>便于范围查询</strong>。</li>
-<li><strong>B+树全节点遍历更快：</strong>B+树遍历整棵树只需要遍历所有的叶子节点即可，，而不需要像B树一样需要对每一层进行遍历，这有利于数据库做全表扫描。</li>
-</ol>
-<p><code>B树的优点</code>:</p>
-<ol>
-<li>由于B树的每一个节点都包含key和value，因此经常访问的元素可能离根节点更近，因此访问也更迅速。</li>
-</ol>
-<h2 id="B树和B-树的区别"><a href="#B树和B-树的区别" class="headerlink" title="B树和B+树的区别"></a><strong>B树和B+树的区别</strong></h2><ul>
-<li><strong>B+树的非叶子结点只包含导航信息，不包含实际的值</strong>，所有的叶子结点和相连的节点使用链表相连，便于区间查找和遍历。</li>
-<li>B+树只有达到叶子结点才命中（B-树可以在非叶子结点命中），其性能也等价于在关键字全集做一次二分查找；</li>
+<h3 id="execl-execlp-和exec1e-中间的参数"><a href="#execl-execlp-和exec1e-中间的参数" class="headerlink" title="execl(), execlp()和exec1e()中间的参数"></a><strong>execl(), execlp()和exec1e()中间的参数</strong></h3><p>除了第一个参数，execl(), execlp()和exec1e()函数包含的其他参数个数都是可变的。</p>
+<ul>
+<li>每个参数指向一个字符串，这个字符串是对新程序命令行参数的描述，正如函数名中“l”字符所隐含的一样，这些参数组织成一个列表，最后一个值为NULL。</li>
+<li>通常情况下，第一个命令行参数复制可执行文件名。</li>
 </ul>
-<ol>
-<li>B+树的中间节点没有卫星数据，所以同样大小的磁盘页可以容纳更多的节点元素。这就意味着，数据量相同的情况下，B+树的结构比B树更加矮胖，因此查询时候的I/O次数也越少。</li>
-<li>B+树的查询必须查到叶子节点，而B-树只要找到匹配元素即可。因此B-树的查找性能并不稳定，最坏情况是查找到叶子节点。而B+树的每一次查找都是稳定的。</li>
-</ol>
-<h2 id="为什么说B-树比B树更适合数据库索引？"><a href="#为什么说B-树比B树更适合数据库索引？" class="headerlink" title="为什么说B+树比B树更适合数据库索引？"></a><strong>为什么说B+树比B树更适合数据库索引？</strong></h2><p><strong>B+树的磁盘读写代价更低</strong>：B+树的内部节点并没有指向关键字具体信息的指针，因此其内部节点相对B树更小，如果把所有同一内部节点的关键字存放在同一盘块中，那么盘块所能容纳的关键字数量也越多，一次性读入内存的需要查找的关键字也就越多，相对IO读写次数就降低了。<br><strong>B+树的查询效率更加稳定</strong>：由于非终结点并不是最终指向文件内容的结点，而只是叶子结点中关键字的索引。所以任何关键字的查找必须走一条从根结点到叶子结点的路。所有关键字查询的路径长度相同，导致每一个数据的查询效率相当。<br><strong>B+树的范围查询更加方便</strong>：由于B+树的数据都存储在叶子结点中，分支结点均为索引，方便扫库，只需要扫一遍叶子结点即可，但是B树因为其分支结点同样存储着数据，我们要找到具体的数据，需要进行一次中序遍历按序来扫，所以B+树更加适合在区间查询的情况，所以通常B+树用于数据库索引。<br>B树在提高了IO性能的同时并没有解决元素遍历的我效率低下的问题，正是为了解决这个问题，B+树应用而生。B+树只需要去遍历叶子节点就可以实现整棵树的遍历。而且在数据库中基于范围的查询是非常频繁的，而B树不支持这样的操作或者说效率太低。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><blockquote>
-<p>B-树和B+树都是很基础的概念，需要掌握好啊！</p>
+<h3 id="execv-execvp-和execve-的第二个参数"><a href="#execv-execvp-和execve-的第二个参数" class="headerlink" title="execv(), execvp()和execve()的第二个参数"></a><strong>execv(), execvp()和execve()的第二个参数</strong></h3><p>相反，execv(), execvp()和execve()函数指定单个参数的命令行参数，正如函数名中的“v”字符所隐含的一样，这单个参数是<code>指向命令行参数串的指针向量地址</code>。</p>
+<ul>
+<li>数组的最后一个元素必须存放NULL值。</li>
+</ul>
+<h3 id="最后一个参数"><a href="#最后一个参数" class="headerlink" title="最后一个参数"></a><strong>最后一个参数</strong></h3><p>execle()和execve()函数的最后一个参数是指向<code>环境串</code>的指针数组的地址：数组的最后一个元素照样必须为NULL。<br>其他函数对新程序环境参数的访问是通过C库定义的外部全局变量environ进行的。</p>
+<blockquote>
+<p>所有的<code>exec函数</code>(除execve()外)都是<code>C库定义的封装例程</code>，并利用了<code>execve()系统调用</code>，这是<code>Linux所提供的处理程序执行的唯一系统调用</code>。</p>
 </blockquote>
-<p><strong>二叉搜索树</strong>：</p>
+<h2 id="sys-execve-服务"><a href="#sys-execve-服务" class="headerlink" title="sys_execve()服务"></a><strong>sys_execve()服务</strong></h2><p>sys_execve()服务例程接收下列参数：</p>
+<ol>
+<li>可执行<code>文件路径名的地址</code>(在用户态地址空间)。</li>
+<li>以NULL结束的字符串指针数组的地址(在用户态地址空间)，每个字符串表示一个<code>命令行参数</code>。</li>
+<li>以NULL结束的字符串指针数组的地址(也在用户态地址空间)。每个字符串以NAME = value形式表示一个<code>环境变量</code>。</li>
+</ol>
+<h3 id="sys-execve-执行过程"><a href="#sys-execve-执行过程" class="headerlink" title="sys_execve()执行过程"></a><strong>sys_execve()执行过程</strong></h3><p>sys_execve()把<code>可执行文件路径名</code>拷贝到一个新分配的页框。<br>然后调用<code>do_execve()函数</code>，传递给它的参数为指向这个页框的指针、指针数组的指针及把用户态寄存器内容保存到内核态堆栈的位置。</p>
+<h2 id="do-execve"><a href="#do-execve" class="headerlink" title="do_execve()"></a><strong>do_execve()</strong></h2><p>do_execve()依次执行下列操作：</p>
+<ol>
+<li><p>动态地分配一个<code>linux_binprn数据结构</code>，并用新的可执行文件的数据<strong>填充linux_binprn数据结构</strong>。</p>
+</li>
+<li><p>调用<code>path_lookup()</code>, <code>dentry_open()</code>和<code>path_release()</code>，以<strong>获得与可执行文件相关的目录项对象、文件对象和索引节点对象</strong>。如果失败，则返回相应的错误码。</p>
+</li>
+<li><p><strong>检查是否可以由当前进程执行该文件</strong>，再检查索引节点的i_writecount字段，以确定可执行文件没被写入;把-1存放在这个字段以禁止进一步的写访问。</p>
+</li>
+<li><p>在多处理器系统中，调用<code>sched_exec()函数</code>来确定最小负载CPU以执行新程序，并把当前进程转移过去。</p>
+</li>
+<li><p>调用<code>ini_new_context()</code><strong>检查当前进程是否使用自定义局部描述符表</strong>。如果是，函数为新程序分配和淮备一个新的LDT。</p>
+</li>
+<li><p>调用<code>prepare_binprm()</code>函数<strong>填充linux_binprm数据结构</strong>，这个函数又依次执行下列操作：</p>
 <ul>
-<li>二叉树，每个结点只存储一个关键字，等于则命中，小于走左结点，大于走右结点；</li>
+<li>再一次检查文件是否可执行(至少设置一个执行访问权限)。如果不可执行，则返回错误码(因为带有CAP_DAC_OVERRIDE权能的进程总能通过检查，所以第3步中的检查还不够。</li>
+<li>初始化linux_binprm结构的<code>e_uid</code>和<code>e_gid字段</code>，考虑可执行文件的setuid和setgid标志的值。这些字段分别表示有效的用户ID和组ID。也要检查进程的权能。</li>
+<li>用可执行文件的前128字节填充linux_binprm结构的<code>buf字段</code>。这些字节包含的是适合于识别可执行文件格式的一个魔数和其他信息。</li>
 </ul>
-<p><strong>B（B-）树</strong>：</p>
+</li>
+<li><p>把<strong>文件路径名、命令行参数及环境串拷贝到一个或多个新分配的页框</strong>中，最终它们会被分配给用户态地址空间。</p>
+</li>
+<li><p>调用<code>search_binary_handler()函数</code>对<code>formats链表</code>进行扫描，并尽力<strong>应用每个元素的load_binary方法</strong>，把linux_binprm数据结构传递给这个函数。只要load_binary方法成功应答了文件的可执行格式，对formats的扫描就终止。</p>
+</li>
+<li><p><strong>如果可执行文件格式不在formats链表中</strong>，就释放所分配的所有页框并返回错误码 -ENOEXEC，表示Linux不认识这个可执行文件格式。</p>
+</li>
+<li><p>否则，函数释放linux_binprm数据结构，<strong>返回从这个文件可执行格式的load_binary方法中所获得的代码</strong>。</p>
+</li>
+</ol>
+<h2 id="load-binary方法"><a href="#load-binary方法" class="headerlink" title="load_binary方法"></a><strong>load_binary方法</strong></h2><p>可执行文件格式对应的load_binary方法执行下列操作(假定这个可执行文件所在的文件系统允许文件进行内存映射并需要一个或多个共享库)：</p>
+<ol>
+<li><p><strong>检查存放在文件前128字节中的一些魔数以确认可执行格式</strong>。如果魔数不匹配，则返回错误码 -ENOEXEC。</p>
+</li>
+<li><p><strong>读可执行文件的首部</strong>。这个首部描述程序的段和所需的<code>共享库</code>。</p>
+</li>
+<li><p>从<strong>可执行文件获得动态链接程序的路径名，并用它来确定共享库的位置并把它们映射到内存</strong>。</p>
+</li>
+<li><p><strong>获得动态链接程序的目录项对象</strong>，也就获得了索引节点对象和文件对象。</p>
+</li>
+<li><p><strong>检查动态链接程序的执行许可权</strong>。</p>
+</li>
+<li><p><strong>把动态链接程序的前128字节拷贝到缓冲区</strong>。</p>
+</li>
+<li><p><strong>对动态链接程序类型执行一些一致性检查。</strong></p>
+</li>
+<li><p>调用<code>flush_old_exec()</code>函数<strong>释放前一个计算所占用的几乎所有资源</strong>。这个函数又依次执行下列操作：</p>
+<ol start="81">
+<li>如果信号处理程序的表为其他进程所共享，那么就分配一个新表并把旧表的引用计数器减1;而且它将进程从旧的线程组脱离。这是通过调用de_ thread()函数完成的。</li>
+<li>如果与其他进程共享，就调用unshare_files()拷贝描述进程已打开文件的files_struct结构。</li>
+<li>调用exec_mmap()函数释放分配给进程的内存描述符、所有线性区及所有页框，并清除进程的页表。</li>
+<li>将可执行文件路径名赋给进程描述符的comm字段。</li>
+<li>用flush_thread()函数清除浮点寄存器的值和在TSS段保存的调试寄存器的值。</li>
+<li>调用flush_signal_handlers()函数，用于将每个信号恢复为默认操作，从而更新信号处理程序的表。</li>
+<li>调用flush_old_files()函数关闭所有打开的文件，这些打开的文件在进程描述符的files-&gt;close_on_exec字段设置了相应的标志。现在，已经不能返回了，如果真出了差错，这个函数再不能恢复前一个计算</li>
+</ol>
+</li>
+<li><p>清除<code>进程描述符的PF_FORKNOEXEC标志</code>。这个标志用于在进程创建时设置进程记账，在执行一个新程序时清除进程记账。</p>
+</li>
+<li><p><strong>设立进程新的个性</strong>，即设置进程描述符的personality字段。</p>
+</li>
+<li><p>调用arch_pick_mmap_layout()，以<strong>选择进程线性区的布局</strong>。</p>
+</li>
+<li><p>调用setup_arg_pages()函数<strong>为进程的用户态堆栈分配一个新的线性区描述符</strong>，并把那个线性区插入到进程的地址空间。setup_arg_pages()还<strong>把命令行参数和环境变量串所在的页框分配给新的线性区。</strong>   </p>
+</li>
+<li><p>调用do_map()函数<strong>创建一个新线性区来对可执行文件正文段(即代码)进行映射</strong>。这个线性区的起始线性地址依赖于可执行文件的格式，因为程序的可执行代码通常是不可重定位的。因此，这个函数假定从某一特定逻辑地址的偏移量开始装入正文段。ELF程序被装入的起始线性地址为0x080480000。    </p>
+</li>
+<li><p>调用do_mmap()函数<strong>创建一个新线性区来对可执行文件的数据段进行映射</strong>。这个线性区的起始线性地址也依赖于可执行文件的格式，因为可执行代码希望在特定的偏移量(即特定的线性地址)处找到它自己的变量。在ELF程序中，数据段正好被装在正文段之后。  </p>
+</li>
+<li><p><strong>为可执行文件的其他专用段分配另外的线性区</strong>，通常是无。 </p>
+</li>
+<li><p><strong>调用一个装入动态链接程序的函数</strong>。如果动态链接程序是ELF可执行的，这个函数就叫做<code>load_elf_interp()</code>。一般情况下，这个函数执行第12-14步的操作，不过要用动态链接程序代替被执行的文件。动态链接程序的正文段和数据段在线性区的起始线性地址是由动态链接程序本身指定的，但它们处于高地址区(通常高于0x40000000)，这是为了避免与被执行文件的正文段和数据段所映射的线性区发生冲突。</p>
+</li>
+<li><p><strong>把可执行格式的linux_binfmt对象的地址存放在进程描述符的binfmt字段中。</strong>   </p>
+</li>
+<li><p><strong>确定进程的新权能。</strong></p>
+</li>
+<li><p><strong>创建特定的动态链接程序表并把它们存放在用户态堆栈</strong>，这些表处于命令行参数和指向环境串的指针数组之间。  </p>
+</li>
+<li><p><strong>设置进程的内存描述符的start_code、end_code、start_data、end_data、start_brk、brk及start_stack字段</strong>。</p>
+</li>
+<li><p>调用do_brk()函数<strong>创建一个新的匿名线性区来映射程序的bss段</strong>(当进程写入一个变量时，就触发请求调页，进而分配一个页框)。这个线性区的大小是在可执行程序被链接时就计算出来的。因为程序的可执行代码通常是不可重新定位的，因此，必须指定这个线性区的起始线性地址。在ELF程序中，bss段正好装在数据段之后。</p>
+</li>
+<li><p>调用start_thread()宏<strong>修改保存在内核态堆栈但属于用户态寄存器的eip和esp的值</strong>，以使它们分别指向动态链接程序的入口点和新的用户态堆栈的栈顶。</p>
+</li>
+<li><p>如果进程正被跟踪，就通知调试程序execve()系统调用已完成。</p>
+</li>
+<li><p>返回0(成功)。</p>
+</li>
+</ol>
+<p>当execve()系统调用终止且调用进程重新恢复它在用户态的执行时，执行上下文被大幅度改变，调用系统调用的代码不复存在。<br>从这个意义上看，我们可以说execve()从未成功返回。取而代之的是，要执行的新程序已被映射到进程的地址空间。<br>但是，新程序还不能执行，因为动态链接程序还必须考虑共享库的装载。</p>
+<p>如果可执行文件是静态链接的，即如果不需要共享库，load_binary方法只需将程序的正文段、数据段、bss段和堆栈段映射到进程线性区，然后把用户态eip寄存器的内容设置为新程序的入口点即可。</p>
+<h2 id="动态链接程序如何运作"><a href="#动态链接程序如何运作" class="headerlink" title="动态链接程序如何运作"></a>动态链接程序如何运作</h2><p>尽管动态链接程序运行在用户态，但我们还要在这里简要概述一下动态链接程序是如何运作的。</p>
 <ul>
-<li>多路搜索树，每个结点存储M/2到M个关键字，非叶子结点存储指向关键字范围的子结点；</li>
-<li>所有关键字在整颗树中出现，且只出现一次，非叶子结点可以命中；</li>
+<li>它的第一个工作就是从内核保存在用户态堆栈的信息(处于环境串指针数组和arg start之间)开始，为自己建立一个基本的执行上下文。</li>
+<li>然后，动态链接程序必须检查被执行的程序，以识别哪个共享库必须装入及在每个共享库中哪个函数被有效地请求。</li>
+<li>接下来，解释器发出几个mmap()系统调用来创建线性区，以对将存放程序实际使用的库函数(正文和数据)的页进行映射。</li>
+<li>然后，解释器根据库的线性区的线性地址更新对共享库符号的所有引用。</li>
+<li>最后，动态链接程序通过跳转到被执行程序的主入口点而终止它的执行。</li>
+<li>从现在开始，进程将执行可执行文件的代码和共享库的代码。</li>
 </ul>
-<p><strong>B+树</strong>：</p>
-<ul>
-<li>在B-树基础上，为叶子结点增加链表指针，所有关键字都在叶子结点中出现，非叶子结点作为叶子结点的索引；B+树总是到叶子结点才命中；</li>
-</ul>
-<p><strong>B*树</strong>：</p>
-<ul>
-<li>在B+树基础上，为非叶子结点也增加链表指针，将结点的最低利用率从1/2提高到2/3</li>
-</ul>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://zhuanlan.zhihu.com/p/54102723">漫画：什么是B+树？</a><br><a href="https://blog.csdn.net/v_JULY_v/article/details/6530142">从B树、B+树、B*树谈到R 树</a><br><a href="https://zhuanlan.zhihu.com/p/27700617">平衡二叉树、B树、B+树、B*树 理解其中一种你就都明白了</a><br><a href="https://zhuanlan.zhihu.com/p/54084335">漫画：什么是B-树？</a><br><a href="https://www.cnblogs.com/godoforange/p/11618643.html">从二叉查找树到B+树中间的各种树</a> //写的相当不错<br><a href="https://baike.baidu.com/item/B-%E6%A0%91/1975968?fr=aladdin">B-树 百度百科</a><br><a href="https://blog.csdn.net/JAck_chen0309/article/details/105268976">阿里面试，问了B+树，这个回答让我通过了</a><br>数据结构 邓俊辉</p>
+<h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><p>魔数：就是一个标识作用的信息。 <a href="https://www.xuebuyuan.com/1992152.html">linux中魔数的作用</a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://stemha.github.io/2020/07/04/Linux%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B/">Linux程序的执行过程</a><br>深入理解Linux内核中文版（第三版）</p>
 
         </div>
         
@@ -301,7 +359,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/B-%E6%A0%91/" rel="tag">B+树</a>, <a class="has-link-grey -link" href="/tags/B-%E6%A0%91/" rel="tag">B-树</a>
+                    <a class="has-link-grey -link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="has-link-grey -link" href="/tags/%E5%86%85%E6%A0%B8/" rel="tag">内核</a>, <a class="has-link-grey -link" href="/tags/%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C/" rel="tag">程序执行</a>
                 </div>
             </div>
         </div>
@@ -331,17 +389,10 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/06/06/string%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">string常用操作</span>
-            </a>
-        </div>
-        
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2020/06/02/%E7%BA%A2%E9%BB%91%E6%A0%91%E8%AF%A6%E8%A7%A3/">
-                <span class="level-item">红黑树详解</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/07/04/Linux%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B/">
+                <span class="level-item">Linux程序的执行过程</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -362,7 +413,7 @@
     var gitalk = new Gitalk({
         clientID: 'e79770cfee30db02a856',
         clientSecret: 'bb958f5fc30797ffc222ca631ec345baa48a0bee',
-        id: '8734d18b9fa3c1ecaa420cda210df372',
+        id: '71f892e687d5c0afb81fe7ac2d830448',
         repo: 'STEMHA.github.io',
         owner: 'STEMHA',
         admin: "STEMHA",
@@ -508,76 +559,56 @@
                     目录
                 </h3>
                 <ul class="menu-list"><li>
-        <a class="is-flex" href="#基本概念">
+        <a class="is-flex" href="#exec族函数">
         <span class="has-mr-6">1</span>
-        <span>基本概念</span>
+        <span>exec族函数</span>
         </a></li><li>
-        <a class="is-flex" href="#应用">
+        <a class="is-flex" href="#参数说明">
         <span class="has-mr-6">2</span>
-        <span>应用</span>
+        <span>参数说明</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#第一个参数">
+        <span class="has-mr-6">2.1</span>
+        <span>第一个参数</span>
         </a></li><li>
-        <a class="is-flex" href="#B-树（Balance-Tree）">
+        <a class="is-flex" href="#execl-execlp-和exec1e-中间的参数">
+        <span class="has-mr-6">2.2</span>
+        <span>execl(), execlp()和exec1e()中间的参数</span>
+        </a></li><li>
+        <a class="is-flex" href="#execv-execvp-和execve-的第二个参数">
+        <span class="has-mr-6">2.3</span>
+        <span>execv(), execvp()和execve()的第二个参数</span>
+        </a></li><li>
+        <a class="is-flex" href="#最后一个参数">
+        <span class="has-mr-6">2.4</span>
+        <span>最后一个参数</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#sys-execve-服务">
         <span class="has-mr-6">3</span>
-        <span>B-树（Balance Tree）</span>
+        <span>sys_execve()服务</span>
         </a><ul class="menu-list"><li>
-        <a class="is-flex" href="#B-树的特性">
+        <a class="is-flex" href="#sys-execve-执行过程">
         <span class="has-mr-6">3.1</span>
-        <span>B-树的特性</span>
-        </a></li><li>
-        <a class="is-flex" href="#B-树插入">
-        <span class="has-mr-6">3.2</span>
-        <span>B-树插入</span>
-        </a></li><li>
-        <a class="is-flex" href="#B-树删除">
-        <span class="has-mr-6">3.3</span>
-        <span>B-树删除</span>
-        </a></li><li>
-        <a class="is-flex" href="#B-树中的卫星数据">
-        <span class="has-mr-6">3.4</span>
-        <span>B-树中的卫星数据</span>
-        </a></li><li>
-        <a class="is-flex" href="#B-树的范围查找过程">
-        <span class="has-mr-6">3.5</span>
-        <span>B-树的范围查找过程</span>
+        <span>sys_execve()执行过程</span>
         </a></li></ul></li><li>
-        <a class="is-flex" href="#B-树（-Tree）">
+        <a class="is-flex" href="#do-execve">
         <span class="has-mr-6">4</span>
-        <span>B+树（ Tree）</span>
-        </a><ul class="menu-list"><li>
-        <a class="is-flex" href="#B-的特性">
-        <span class="has-mr-6">4.1</span>
-        <span>B+的特性</span>
+        <span>do_execve()</span>
         </a></li><li>
-        <a class="is-flex" href="#B-树插入-1">
-        <span class="has-mr-6">4.2</span>
-        <span>B+树插入</span>
-        </a></li><li>
-        <a class="is-flex" href="#B-树中的卫星数据-1">
-        <span class="has-mr-6">4.3</span>
-        <span>B+树中的卫星数据</span>
-        </a></li><li>
-        <a class="is-flex" href="#B-树的范围查找过程-1">
-        <span class="has-mr-6">4.4</span>
-        <span>B+树的范围查找过程</span>
-        </a></li></ul></li><li>
-        <a class="is-flex" href="#B树与B-树的优点">
+        <a class="is-flex" href="#load-binary方法">
         <span class="has-mr-6">5</span>
-        <span>B树与B+树的优点</span>
+        <span>load_binary方法</span>
         </a></li><li>
-        <a class="is-flex" href="#B树和B-树的区别">
+        <a class="is-flex" href="#动态链接程序如何运作">
         <span class="has-mr-6">6</span>
-        <span>B树和B+树的区别</span>
+        <span>动态链接程序如何运作</span>
         </a></li><li>
-        <a class="is-flex" href="#为什么说B-树比B树更适合数据库索引？">
+        <a class="is-flex" href="#注解">
         <span class="has-mr-6">7</span>
-        <span>为什么说B+树比B树更适合数据库索引？</span>
-        </a></li><li>
-        <a class="is-flex" href="#总结">
-        <span class="has-mr-6">8</span>
-        <span>总结</span>
+        <span>注解</span>
         </a></li><li>
         <a class="is-flex" href="#参考资料">
-        <span class="has-mr-6">9</span>
+        <span class="has-mr-6">8</span>
         <span>参考资料</span>
         </a></li></ul>
             </div>
@@ -1584,7 +1615,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/og_image.png" alt="B树与B+树详解" height="28">
+                    <img src="/images/og_image.png" alt="Linux程序执行相关函数-exec函数" height="28">
                 
                 </a>
                 <p class="is-size-7">
