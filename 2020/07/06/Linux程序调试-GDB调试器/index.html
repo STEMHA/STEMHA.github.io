@@ -16,18 +16,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>标签: 硬连接 - STEMHA&#39;s Blog</title>
+<title>Linux程序调试-GDB调试器 - STEMHA&#39;s Blog</title>
 
 
-    <meta name="description" content="STEMHA&#39;s personal blog on github">
-<meta property="og:type" content="website">
-<meta property="og:title" content="STEMHA&#39;s Blog">
-<meta property="og:url" content="https://stemha.github.io/tags/%E7%A1%AC%E8%BF%9E%E6%8E%A5/index.html">
+    <meta name="description" content="我们需要知道什么？ GDB是什么？有什么作用呢？GDB的用法有哪些？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux程序调试-GDB调试器">
+<meta property="og:url" content="https://stemha.github.io/2020/07/06/Linux%E7%A8%8B%E5%BA%8F%E8%B0%83%E8%AF%95-GDB%E8%B0%83%E8%AF%95%E5%99%A8/index.html">
 <meta property="og:site_name" content="STEMHA&#39;s Blog">
-<meta property="og:description" content="STEMHA&#39;s personal blog on github">
+<meta property="og:description" content="我们需要知道什么？ GDB是什么？有什么作用呢？GDB的用法有哪些？">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://stemha.github.io/images/og_image.png">
+<meta property="article:published_time" content="2020-07-06T12:52:59.000Z">
+<meta property="article:modified_time" content="2020-07-06T16:06:09.420Z">
 <meta property="article:author" content="STEMHA">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="调试器">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://stemha.github.io/images/og_image.png">
 
@@ -89,7 +93,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/og_image.png" alt="STEMHA&#39;s Blog" height="28">
+                <img src="/images/og_image.png" alt="Linux程序调试-GDB调试器" height="28">
             
             </a>
         </div>
@@ -141,35 +145,24 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">硬连接</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
 <div class="card">
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-05-01T15:00:41.000Z">2020-05-01</time>
+                <time class="level-item has-text-grey" datetime="2020-07-06T12:52:59.000Z">2020-07-06</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+                <a class="has-link-grey -link" href="/categories/Linux/">Linux</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    24 分钟 读完 (大约 3538 个字)
+                    7 分钟 读完 (大约 986 个字)
                 </span>
                 
                 
@@ -178,33 +171,117 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2020/05/01/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%EF%BC%881%EF%BC%89/">文件系统（1）</a>
+                Linux程序调试-GDB调试器
             
         </h1>
         <div class="content">
-            <h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a><strong>基础概念</strong></h2><p><code>文件系统</code>：操作系统中处理文件的部分，有关文件的构造，命名，存取，使用，实现和管理都是操作系统文件系统设计的主要内容</p>
+            <h2 id="我们需要知道什么？"><a href="#我们需要知道什么？" class="headerlink" title="我们需要知道什么？"></a><strong>我们需要知道什么？</strong></h2><blockquote>
+<p>GDB是什么？有什么作用呢？<br>GDB的用法有哪些？</p>
+</blockquote>
+<a id="more"></a>
+
+
+<h2 id="GDB的功能"><a href="#GDB的功能" class="headerlink" title="GDB的功能"></a><strong>GDB的功能</strong></h2><p>GDB是GNU开源组织发布的一个强大的UNIX下的程序调试工具，GDB主要可帮助工程师完成下面4个方面的功能。</p>
+<ul>
+<li><strong>启动程序，并给定初始化的环境</strong>，可以按照工程师自定义的要求运行程序。</li>
+<li><strong>设置断点</strong>，让被调试的程序在工程师指定的断点处停住，断点可以是条件表达式。</li>
+<li><strong>查询程序执行的各种数据</strong>，当程序被停住时，可以检查此时程序中所发生的事，并追踪上文。</li>
+<li><strong>动态地改变程序的执行环境</strong>。</li>
+</ul>
+<blockquote>
+<p>不管是调试Linux内核空间的驱动还是调试用户空间的应用程序，都必须掌握GDB的用法。在调试内核和调试应用程序时使用的GDB命令是完全相同的。</p>
+</blockquote>
+<h2 id="用于调试的代码"><a href="#用于调试的代码" class="headerlink" title="用于调试的代码"></a><strong>用于调试的代码</strong></h2><p>以下面代码表示的应用程序为例演示GDB调试器的用法。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">int</span> sum[<span class="number">10</span>] =&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">   <span class="keyword">int</span> i;</span><br><span class="line">   <span class="keyword">int</span> array1[<span class="number">10</span>] =&#123;<span class="number">48</span>, <span class="number">56</span>, <span class="number">77</span>, <span class="number">33</span>, <span class="number">33</span>, <span class="number">11</span>, <span class="number">226</span>, <span class="number">544</span>, <span class="number">78</span>, <span class="number">90</span>&#125;;</span><br><span class="line">   <span class="keyword">int</span> array2[<span class="number">10</span>] =&#123;<span class="number">85</span>, <span class="number">99</span>, <span class="number">66</span>, <span class="number">0x199</span>, <span class="number">393</span>, <span class="number">11</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;;</span><br><span class="line">  </span><br><span class="line">   <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">   &#123;</span><br><span class="line">		sum[i] = add(array1[i], array2[i]);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用下面的命令编译上述程序，得到包含调试信息的二进制文件gdb_example。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc –g gdb_example.c –o gdb_example</span><br></pre></td></tr></table></figure>
+<p>执行下面的命令进入调试状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb gdb_example</span><br></pre></td></tr></table></figure>
+<p>ps：</p>
+<ul>
+<li>-c和-o是gcc编译器的可选参数。</li>
+<li>-c表示只编译源文du件但不链接，会把.c或.cc的c源程序编译成目标文件，一般是.o文件。</li>
+<li>-o用于指定输出文件名。不用-o的话，一般会在当前文件夹下生成默认的a.out文件作为可执行程序。</li>
+</ul>
+<h2 id="GDB相关命令"><a href="#GDB相关命令" class="headerlink" title="GDB相关命令"></a><strong>GDB相关命令</strong></h2><h3 id="list命令"><a href="#list命令" class="headerlink" title="list命令"></a>list命令</h3><p>在GDB中运行list命令（缩写l）可以列出代码，list的具体形式如下。<br>·list<linenum>，显示程序第linenum行周围的源程序，如下所示：</linenum></p>
+<h3 id="run命令"><a href="#run命令" class="headerlink" title="run命令"></a>run命令</h3><p>在GDB中，运行程序使用run命令。在程序运行前，我们可以设置如下4方面的工作环境。<br>（1）程序运行参数<br>用set args可指定运行时参数，如set args 10 20 30 40 50；用show args命令可以查看设置好的运行参<br>数。<br>（2）运行环境<br>用path<dir>可设定程序的运行路径；用how paths可查看程序的运行路径；用set environment<br>varname[=value]可设置环境变量，如set env USER=baohua；用show environment[varname]则可查看环境变<br>量。<br>（3）工作目录<br>cd<dir>相当于shell的cd命令，pwd可显示当前所在的目录。<br>（4）程序的输入输出<br>info terminal用于显示程序用到的终端的模式；在GDB中也可以使用重定向控制程序输出，如<br>run&gt;outfile；用tty命令可以指定输入输出的终端设备，如tty/dev/ttyS1。</dir></dir></p>
+<h3 id="break命令"><a href="#break命令" class="headerlink" title="break命令"></a>break命令</h3><p>在GDB中用break命令来设置断点，设置断点的方法如下：</p>
+<h3 id="单步命令"><a href="#单步命令" class="headerlink" title="单步命令"></a>单步命令</h3><h3 id="continue命令"><a href="#continue命令" class="headerlink" title="continue命令"></a>continue命令</h3><h3 id="print命令"><a href="#print命令" class="headerlink" title="print命令"></a>print命令</h3><h3 id="watch命令"><a href="#watch命令" class="headerlink" title="watch命令"></a>watch命令</h3><h3 id="examine命令"><a href="#examine命令" class="headerlink" title="examine命令"></a>examine命令</h3><h3 id="set命令"><a href="#set命令" class="headerlink" title="set命令"></a>set命令</h3><h3 id="jump命令"><a href="#jump命令" class="headerlink" title="jump命令"></a>jump命令</h3><h3 id="signal命令"><a href="#signal命令" class="headerlink" title="signal命令"></a>signal命令</h3><h3 id="return命令"><a href="#return命令" class="headerlink" title="return命令"></a>return命令</h3><h3 id="call命令"><a href="#call命令" class="headerlink" title="call命令"></a>call命令</h3><h3 id="info命令"><a href="#info命令" class="headerlink" title="info命令"></a>info命令</h3><h3 id="disassemble"><a href="#disassemble" class="headerlink" title="disassemble"></a>disassemble</h3><p>disassemble命令用于反汇编（将机器语言转换为汇编语言）。可用它来查看当前执行时的源代码的机器码，实际上只是把目前内存中的指令冲刷出来。<br>下面的示例用于查看函数func的汇编代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Dump of assembler code <span class="keyword">for</span> function func:</span><br><span class="line"><span class="number">0x8048450</span> &lt;func&gt;: push %ebp</span><br><span class="line"><span class="number">0x8048451</span> &lt;func+<span class="number">1</span>&gt;: mov %esp,%ebp</span><br><span class="line"><span class="number">0x8048453</span> &lt;func+<span class="number">3</span>&gt;: sub $<span class="number">0x18</span>,%esp</span><br><span class="line"><span class="number">0x8048456</span> &lt;func+<span class="number">6</span>&gt;: movl $<span class="number">0x0</span>,<span class="number">0xfffffffc</span>(%ebp)</span><br><span class="line">...</span><br><span class="line">End of assembler dump.</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>《Linux设备驱动开发详解：基于最新的Linux4.0内核》</p>
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/05/01/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%EF%BC%881%EF%BC%89/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="has-link-grey -link" href="/tags/%E8%B0%83%E8%AF%95%E5%99%A8/" rel="tag">调试器</a>
                 </div>
             </div>
         </div>
         
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
         
     </div>
 </div>
 
 
 
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+        </div>
+    </div>
+</div>
 
 
 
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/07/05/Linux%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0-exec%E5%87%BD%E6%95%B0/">
+                <span class="level-item">Linux程序执行相关函数-exec函数</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'e79770cfee30db02a856',
+        clientSecret: 'bb958f5fc30797ffc222ca631ec345baa48a0bee',
+        id: 'e7047f5d25dbfc33eb26735a94703c6a',
+        repo: 'STEMHA.github.io',
+        owner: 'STEMHA',
+        admin: "STEMHA",
+        createIssueManually: false,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
 </div>
                 
 
@@ -331,6 +408,102 @@
 </div>
     
         
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#我们需要知道什么？">
+        <span class="has-mr-6">1</span>
+        <span>我们需要知道什么？</span>
+        </a></li><li>
+        <a class="is-flex" href="#GDB的功能">
+        <span class="has-mr-6">2</span>
+        <span>GDB的功能</span>
+        </a></li><li>
+        <a class="is-flex" href="#用于调试的代码">
+        <span class="has-mr-6">3</span>
+        <span>用于调试的代码</span>
+        </a></li><li>
+        <a class="is-flex" href="#GDB相关命令">
+        <span class="has-mr-6">4</span>
+        <span>GDB相关命令</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#list命令">
+        <span class="has-mr-6">4.1</span>
+        <span>list命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#run命令">
+        <span class="has-mr-6">4.2</span>
+        <span>run命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#break命令">
+        <span class="has-mr-6">4.3</span>
+        <span>break命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#单步命令">
+        <span class="has-mr-6">4.4</span>
+        <span>单步命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#continue命令">
+        <span class="has-mr-6">4.5</span>
+        <span>continue命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#print命令">
+        <span class="has-mr-6">4.6</span>
+        <span>print命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#watch命令">
+        <span class="has-mr-6">4.7</span>
+        <span>watch命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#examine命令">
+        <span class="has-mr-6">4.8</span>
+        <span>examine命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#set命令">
+        <span class="has-mr-6">4.9</span>
+        <span>set命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#jump命令">
+        <span class="has-mr-6">4.10</span>
+        <span>jump命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#signal命令">
+        <span class="has-mr-6">4.11</span>
+        <span>signal命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#return命令">
+        <span class="has-mr-6">4.12</span>
+        <span>return命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#call命令">
+        <span class="has-mr-6">4.13</span>
+        <span>call命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#info命令">
+        <span class="has-mr-6">4.14</span>
+        <span>info命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#disassemble">
+        <span class="has-mr-6">4.15</span>
+        <span>disassemble</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#总结">
+        <span class="has-mr-6">5</span>
+        <span>总结</span>
+        </a></li><li>
+        <a class="is-flex" href="#参考资料">
+        <span class="has-mr-6">6</span>
+        <span>参考资料</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
     
         <div class="card widget">
     <div class="card-content">
@@ -1338,7 +1511,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/og_image.png" alt="STEMHA&#39;s Blog" height="28">
+                    <img src="/images/og_image.png" alt="Linux程序调试-GDB调试器" height="28">
                 
                 </a>
                 <p class="is-size-7">
