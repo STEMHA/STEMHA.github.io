@@ -6,7 +6,7 @@
   <link href="/rss.xml" rel="self"/>
   
   <link href="https://stemha.github.io/"/>
-  <updated>2020-07-09T09:24:34.598Z</updated>
+  <updated>2020-07-09T14:45:06.591Z</updated>
   <id>https://stemha.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>linux-性能分析，测试与调优工具（2）</title>
+    <link href="https://stemha.github.io/2020/07/09/linux-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%EF%BC%8C%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%B0%83%E4%BC%98%E5%B7%A5%E5%85%B7%EF%BC%882%EF%BC%89/"/>
+    <id>https://stemha.github.io/2020/07/09/linux-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%EF%BC%8C%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%B0%83%E4%BC%98%E5%B7%A5%E5%85%B7%EF%BC%882%EF%BC%89/</id>
+    <published>2020-07-09T13:41:40.000Z</published>
+    <updated>2020-07-09T14:45:06.591Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="常用工具"><a href="#常用工具" class="headerlink" title="常用工具"></a><strong>常用工具</strong></h2><h3 id="top、vmstat、iostat和sar"><a href="#top、vmstat、iostat和sar" class="headerlink" title="top、vmstat、iostat和sar"></a><strong>top、vmstat、iostat和sar</strong></h3><p>top命令用于显示处理器的活动状况。在缺省情况下，显示占用CPU最多的任务，并且每隔5s做一次刷新；<br>vmstat命令用于报告关于内核线程、虚拟内存、磁盘、陷阱和CPU活动的统计信息；<br>iostat命令用于分析各个磁盘的传输闲忙状况；<br>sar用于收集、报告或者保存系统活动信息，其中，sar用于显示数据，sar1和sar2用于收集和保存数据。</p><a id="more"></a><h3 id="sysctl"><a href="#sysctl" class="headerlink" title="sysctl"></a><strong>sysctl</strong></h3><p>sysctl是一个接口，可用于改变正在运行中的Linux系统。用sysctl可以读取几百个以上的系统变量，例如用<code>sysctl –a</code>可读取所有变量。</p><p>sysctl的实现原理是：</p><ul><li>所有的内核参数在/proc/sys中形成一个树状结构</li><li>sysctl系统调用的内核函数是：sys_sysctl，匹配项目后，最后的读写在do_sysctl_strategy中完成</li></ul><p>比如：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"1"</span> &gt; /proc/sys/net/ipv4/ip_forward</span><br></pre></td></tr></table></figure><p>就等价于：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl –w net.ipv4.ip_forward =<span class="string">"1"</span></span><br></pre></td></tr></table></figure><h2 id="高级分析手段"><a href="#高级分析手段" class="headerlink" title="高级分析手段"></a><strong>高级分析手段</strong></h2><h3 id="OProfile"><a href="#OProfile" class="headerlink" title="OProfile"></a><strong>OProfile</strong></h3><p>OProfile作用</p><ul><li>可以帮助用户识别诸如模块的占用时间、循环的展开、高速缓存的使用率低、低效的类型转换和冗余操作、错误预测转移等问题。</li><li>它收集有关处理器事件的信息，其中包括TLB的故障、停机、存储器访问以及缓存命中和未命中的指令的攫取数量。</li></ul><p>OProfile支持两种采样方式：</p><ul><li>基于事件的采样（Event Based）：<ul><li>NMI模式</li><li>OProfile只记录特定事件（比如L2缓存未命中）的发生次数，当达到用户设定的定值时Oprofile就记录一下（采一个样）。</li><li>这种方式需要CPU内部有<code>性能计数器（Performace Counter）</code>。</li></ul></li><li>基于时间的采样（Time Based）：<ul><li>Timer Interrupt模式</li><li>OProfile借助OS时钟中断的机制，在每个时钟中断，OProfile都会记录一次（采一次样）。</li><li>引入它的目的在于，提供对没有性能计数器的CPU的支持，其精度相对于基于事件的采样要低，因为要借助OS时钟中断的支持，对于禁用中断的代码，OProfile不能对其进行分析。</li></ul></li></ul><p>OProfile在Linux上分两部分:</p><ul><li>内核模块（oprofile.ko）<ul><li>负责访问性能计数器或者注册基于时间采样的函数，并将采样值置于内核的缓冲区内。</li></ul></li><li>用户空间的守护进程（oprofiled）<ul><li>后者在后台运行，负责从内核空间收集数据，写入文件。</li></ul></li></ul><p>控制oprofile需要用到opcontrol。要打开oprofile,需要用start选项来调用opconrol,当第一次调用opcontrol时,必须告诉它想统计内核还是用户空间数据.<br>其运行步骤如下。<br>1）初始化opcontrol –init<br>2）配置opcontrol –setup –event=…<br>3）启动opcontrol –start<br>4）运行待分析的程序xxx<br>5）取出数据<br>opcontrol –dump<br>opcontrol –stop<br>6）分析结果 opreport -l./xxx</p><p>具体的看一下这篇文章吧，<a href="https://www.cnblogs.com/jkkkk/p/6520381.html">《Linux调优工具oprofile的演示分析》</a></p><h3 id="gprof"><a href="#gprof" class="headerlink" title="gprof"></a><strong>gprof</strong></h3><p>GNU gprof作用：</p><ul><li>可以<strong>打印出程序运行中各个函数消耗的时间，以帮助程序员找出众多函数中耗时最多的函数</strong>；</li><li>可产生程序运行时的函数调用关系，包括调用次数，以帮助程序员分析程序的运行流程。</li></ul><p>GNU gprof的实现原理：</p><ul><li>在编译和链接程序的时候（使用-pg编译和链接选项）<ul><li>gcc在应用程序的每个函数中都加入名为mcount（_mcount或__mcount，依赖于编译器或操作系统）的函数。</li></ul></li><li>也就是说应用程序里的每一个函数都会调用mcount，而mcount会在内存中保存一张函数调用图，并通过函数调用堆栈的形式查找子函数和父函数的地址。<ul><li>这张调用图也保存了所有与函数相关的调用时间、调用次数等的所有信息。</li></ul></li></ul><p>GNU gprof的基本用法如下。<br>1）使用-pg编译和链接应用程序。<br>2）执行应用程序并使它生成供gprof分析的数据。<br>3）使用gprof程序分析应用程序生成的数据。</p><h2 id="内核跟踪"><a href="#内核跟踪" class="headerlink" title="内核跟踪"></a><strong>内核跟踪</strong></h2><h3 id="LTTng"><a href="#LTTng" class="headerlink" title="LTTng"></a><strong>LTTng</strong></h3><p>LTTng（Linux Trace Toolkit-next generation， Linux 跟踪工具包下一代）是一个用于<strong>跟踪系统详细运行状态和流程</strong>的工具</p><ul><li>它可以跟踪记录系统中的特定事件。</li><li>这些事件包括：<ul><li>系统调用的进入和退出；</li><li>陷阱/中断（Trap/Irq）的进入和退出；</li><li>进程调度事件；内核定时器</li><li>文件系统相关事件——open/read/write/seek/ioctl等；</li><li>内存管理相关事件——内存分配/释放等；</li><li>其他IPC/套接字/网络等事件。</li></ul></li></ul><p>而对于这些记录，我们可以通过图形的方式经由lttv-gui查看</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;常用工具&quot;&gt;&lt;a href=&quot;#常用工具&quot; class=&quot;headerlink&quot; title=&quot;常用工具&quot;&gt;&lt;/a&gt;&lt;strong&gt;常用工具&lt;/strong&gt;&lt;/h2&gt;&lt;h3 id=&quot;top、vmstat、iostat和sar&quot;&gt;&lt;a href=&quot;#top、vmstat、iostat和sar&quot; class=&quot;headerlink&quot; title=&quot;top、vmstat、iostat和sar&quot;&gt;&lt;/a&gt;&lt;strong&gt;top、vmstat、iostat和sar&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;top命令用于显示处理器的活动状况。在缺省情况下，显示占用CPU最多的任务，并且每隔5s做一次刷新；&lt;br&gt;vmstat命令用于报告关于内核线程、虚拟内存、磁盘、陷阱和CPU活动的统计信息；&lt;br&gt;iostat命令用于分析各个磁盘的传输闲忙状况；&lt;br&gt;sar用于收集、报告或者保存系统活动信息，其中，sar用于显示数据，sar1和sar2用于收集和保存数据。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="https://stemha.github.io/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="https://stemha.github.io/tags/Linux/"/>
+    
+      <category term="工具" scheme="https://stemha.github.io/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="性能分析" scheme="https://stemha.github.io/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux程序调试-GDB调试器</title>
