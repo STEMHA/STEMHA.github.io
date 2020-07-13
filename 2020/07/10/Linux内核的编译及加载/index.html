@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://stemha.github.io/images/og_image.png">
 <meta property="article:published_time" content="2020-07-10T09:26:52.000Z">
-<meta property="article:modified_time" content="2020-07-10T16:21:14.009Z">
+<meta property="article:modified_time" content="2020-07-12T15:17:51.539Z">
 <meta property="article:author" content="STEMHA">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://stemha.github.io/images/og_image.png">
@@ -156,7 +156,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    7 分钟 读完 (大约 1007 个字)
+                    24 分钟 读完 (大约 3643 个字)
                 </span>
                 
                 
@@ -178,14 +178,34 @@
 </li>
 </ol>
 <h2 id="Linux内核代码获取与解压"><a href="#Linux内核代码获取与解压" class="headerlink" title="Linux内核代码获取与解压"></a><strong>Linux内核代码获取与解压</strong></h2><p>建议直接去官方网站（ <a href="http://www.kernel.org">www.kernel.org</a> ）下载Linux内核代码。<br>编译内核时，一般将源码解压到/usr/src目录下，解压完成后会在该目录下生成一个与源码包版本号一致的目录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mv linux-3.12.6.tar.xz /usr/src 	//将下载的内核移动到/usr/src/目录下</span><br><span class="line"></span><br><span class="line">// 切换到/usr/src/ 下载的压缩包是.tar.xz后缀，解压分为两步</span><br><span class="line">xz -d linux-3.12.6.tar.xz</span><br><span class="line">tar -xvf linux-3.12.6.tar</span><br></pre></td></tr></table></figure>
 <h2 id="linux-DOC-编译生成"><a href="#linux-DOC-编译生成" class="headerlink" title="linux DOC 编译生成"></a><strong>linux DOC 编译生成</strong></h2><p>linux源根目录/Documentation/00-INDEX:目录索引<br>linux源根目录/Documentation/HOWTO:指南<br>生成linux内核帮助文档:在linux源根目录(Documentation) 执行下面的命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make htmldocs</span><br><span class="line">&#x2F;&#x2F;ubuntu16下需要执行sudo apt-get install xmlto安装插件才可生成doc文档</span><br></pre></td></tr></table></figure>
 <p>在 <a href="https://www.kernel.org/doc/html/latest/index.html">https://www.kernel.org/doc/html/latest/index.html</a> 也能查看到官方生成的文档</p>
+<h2 id="内核编译的准备工作"><a href="#内核编译的准备工作" class="headerlink" title="内核编译的准备工作"></a><strong>内核编译的准备工作</strong></h2><p>说明一下：本文章是根据Ubuntu系统的命令格式来写的<br>更换内核之前，先更新一下源：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<p>然后安装一些必要的编译内核的工具</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install libncurses5-dev build-essential kernel-package</span><br></pre></td></tr></table></figure>
+<ul>
+<li>libncurses5-dev是为了运行make menuconfig</li>
+<li>Build-essential是编译工具</li>
+<li>kernel-package是编译内核工具</li>
+</ul>
+<p>进入下载的内核主目录:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd linux-3.12.6</span><br></pre></td></tr></table></figure>
+<p>清理所有产生的文件与config配置文件（第一次编译内核时可省略）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make mrproper</span><br></pre></td></tr></table></figure>
 <h2 id="配置内核"><a href="#配置内核" class="headerlink" title="配置内核"></a><strong>配置内核</strong></h2><p>在编译内核时，需要配置内核，可以使用下面命令中的一个：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">make config     #（基于文本的最为传统的配置界面，不推荐使用）</span><br><span class="line">make menuconfig #（基于文本菜单的配置界面）开启文本菜单选项，对窗口有限制，尽量调大窗口，否则会出错</span><br><span class="line">                #使用此命令需安装gcc和ncurses-devel</span><br><span class="line"></span><br><span class="line">make xconfig    #（要求QT被安装）</span><br><span class="line">make gconfig    #（要求GTK+被安装）</span><br></pre></td></tr></table></figure>
 
 <p><code>make menuconfig</code>最值得推荐，它不依赖于QT或GTK+，且非常直观，对/home/baohua/develop/linux中的Linux 4.0-rc1内核运行 <code>make ARCH=arm menuconfig</code>后的界面如下图所示。</p>
 <p><img src="/2020/07/10/Linux%E5%86%85%E6%A0%B8%E7%9A%84%E7%BC%96%E8%AF%91%E5%8F%8A%E5%8A%A0%E8%BD%BD/Linux%E5%86%85%E6%A0%B8%E7%BC%96%E8%AF%91%E9%85%8D%E7%BD%AE.JPG" alt="图1，Linux内核编译配置"></p>
+<p>对每一个配置选项，用户有三种选含义如下：</p>
+<ul>
+<li><code>&lt;*&gt;或[*]</code>——编译进内核本体</li>
+<li>[M]——编译成内核模块</li>
+<li>[  ]——不将该功能编译进内核</li>
+</ul>
 <p>Linux内核的配置系统由以下3个部分组成。</p>
 <ul>
 <li><code>Makefile</code>：分布在Linux内核源代码中，定义Linux内核的编译规则。</li>
@@ -202,13 +222,142 @@
 <li><strong>通过source引入多层次的Kconfig文件</strong>：/arch/xxx/Kconfig文件中除本身包含一些与体系结构相关的配置项和配置菜单以外，还通过source语句引入了一系列Kconfig文件，而这些Kconfig又可能再次通过source引入下一层的Kconfig。</li>
 <li>配置工具依据Kconfig包含的菜单和条目即可描绘出一个如图1所示的分层结构。</li>
 </ol>
-<h2 id="编译内核和模块"><a href="#编译内核和模块" class="headerlink" title="编译内核和模块"></a>编译内核和模块</h2><h2 id="配置启动文件"><a href="#配置启动文件" class="headerlink" title="配置启动文件"></a>配置启动文件</h2><h2 id="Kconfig和Makefile"><a href="#Kconfig和Makefile" class="headerlink" title="Kconfig和Makefile"></a>Kconfig和Makefile</h2><p><strong>在Linux内核中增加程序</strong>需要完成以下3项工作:</p>
+<h2 id="编译内核和模块"><a href="#编译内核和模块" class="headerlink" title="编译内核和模块"></a><strong>编译内核和模块</strong></h2><p>编译</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo make -j4 <span class="comment"># 以4个内核多线程方式编译内核</span></span><br><span class="line">sudo make modules -j4</span><br></pre></td></tr></table></figure>
+<p>安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo make modules_install</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+<p>此时，内核编译完成。安装完成后会在/boot目录下生成几个新内核的文件。<br>剩下是修改启动程序配置，然后运行新的内核程序。</p>
+<h2 id="配置启动文件"><a href="#配置启动文件" class="headerlink" title="配置启动文件"></a><strong>配置启动文件</strong></h2><p>进入引导程序（boot loader)的配置文件看看，对于不同的引导程序(LILO和GRUB）,其配置文件所在路径不同。</p>
+<ul>
+<li>对于LILO，路径为：/etc/lilo.conf</li>
+<li>对于GRUB，路径为：/boot/grub/grub.cfg  </li>
+</ul>
+<p>本系统为GRUB引导，因此进入/boot/grub/grub.cfg<br>查看grub.conf配置文件，会发现新内核的信息已经写入了</p>
+<p>如果想开机默认显示grub菜单栏：编辑grub.conf，然后注释掉”GRUB_HIDDEN_TIMEOUT”和”GRUB_HIDDEN_TIMEOUT_QUIET”</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/default/grub</span><br></pre></td></tr></table></figure>
+<p>编辑完毕之后更新一下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-grub</span><br></pre></td></tr></table></figure>
+
+
+<p>重启,然后选择更改后的内核</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
+<h2 id="Kconfig和Makefile"><a href="#Kconfig和Makefile" class="headerlink" title="Kconfig和Makefile"></a><strong>Kconfig和Makefile</strong></h2><p><strong>在Linux内核中增加程序</strong>需要完成以下3项工作:</p>
 <ol>
 <li>将编写的源代码复制到Linux内核源代码的相应目录中。</li>
-<li>修改Kconfig配置：在目录的Kconfig文件中增加关于新源代码对应项目的<strong>编译配置选项</strong>。</li>
-<li>修改Makefile编译代码：在目录的Makefile文件中增加对新源代码的<strong>编译条目</strong>。</li>
+<li><strong>修改Kconfig配置</strong>：在目录的Kconfig文件中增加关于新源代码对应项目的<strong>编译配置选项</strong>。</li>
+<li><strong>修改Makefile编译代码</strong>：在目录的Makefile文件中增加对新源代码的<strong>编译条目</strong>。</li>
 </ol>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>《Linux设备驱动开发详解：基于最新的Linux4.0内核》<br><a href="https://blog.csdn.net/baidu_24256693/article/details/80115354">linux内核编译详解</a><br><a href="https://blog.csdn.net/qq_34247099/article/details/50949720">Linux 内核编译</a><br><a href="https://www.jianshu.com/p/5d7f7d9dc503">Linux源码下生成并安装内核文档</a><br><a href="https://www.shanlily.cn/archives/444">Linux(ubuntu)更换内核方法</a></p>
+<h3 id="内核编译中的Makefile"><a href="#内核编译中的Makefile" class="headerlink" title="内核编译中的Makefile"></a><strong>内核编译中的Makefile</strong></h3><p>这里主要对内核源代码各级子目录中的kbuild（内核的编译系统）Makefile进行简单介绍，这部分是内核模块或设备驱动开发者最常接触到的。</p>
+<p>Makefile的语法包括如下几个方面。</p>
+<ol>
+<li><code>目标定义</code>：用来定义哪些内容要作为模块编译，哪些要编译并链接进内核。（编译成模块or编译进内核）<ul>
+<li>代码示例：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">obj -y += foo.o</span><br><span class="line">------------------------------------------------------------------------------------</span><br><span class="line">obj -y 表示要由foo.c或者foo.s文件编译得到foo.o并链接进内核（无条件编译，所以不需要Kconfig配置选项）</span><br><span class="line">obj -m 则表示该文件要作为模块编译。</span><br><span class="line">obj -n 形式的目标不会被编译。</span><br></pre></td></tr></table></figure></li>
+<li>更常见的做法是根据<code>make menuconfig</code>后生成的<code>config文件</code>的<code>CONFIG_变量</code>来决定文件的编译方式，如：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">obj -$(CONfiG_ISDN) += isdn.o</span><br><span class="line">obj -$(CONfiG_ISDN_PPP_BSDCOMP) += isdn_bsdcomp.o</span><br></pre></td></tr></table></figure></li>
+<li>除了具有上述<code>obj -</code>形式的目标以外，还有<code>lib -y library库</code>、<code>hostprogs -y主机程序</code>等目标，但是这两类基本都应用在特定的目录和场合下。</li>
+</ul>
+</li>
+<li><code>多文件模块的定义</code>:处理一个模块由多个文件组成的情况。</li>
+</ol>
+<ul>
+<li>最简单的Makefile仅需一行代码就够了。如果一个模块由多个文件组成，会稍微复杂一些，这时候应采用模块名加-y或-$后缀的形式来定义模块的组成文件，如下：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#Makefile for the linux ext2-filesystem routines.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">obj -$(CONfiG_EXT2_FS) += ext2.o</span><br><span class="line">ext2 -y := balloc.o dir.o file.o fsync.o ialloc.o inode.o ioctl.o namei.o super.o symlink.o</span><br><span class="line">ext2 -$(CONfiG_EXT2_FS_XATTR) += xattr.o xattr_user.o xattr_trusted.o</span><br><span class="line">ext2 -$(CONfiG_EXT2_FS_POSIX_ACL) += acl.o</span><br><span class="line">ext2 -$(CONfiG_EXT2_FS_SECURITY) += xattr_security.o</span><br><span class="line">ext2 -$(CONfiG_EXT2_FS_XIP) += xip.o</span><br></pre></td></tr></table></figure></li>
+<li>模块的名字为ext2<ul>
+<li>由balloc.o、dir.o、file.o等多个目标文件最终链接生成ext2.o直至ext2.ko文件，</li>
+<li>并且是否包括xattr.o、acl.o等则取决于内核配置文件的配置情况，例如，如果CONFIG_EXT2_FS_POSIX_ACL被选择，则编译acl.c得到acl.o并最终链接进ext2。</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li><code>目录层次的迭代</code>:处理是否编译一个目录中文件进内核的情况。<br>如下例：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obj -$(CONfiG_EXT2_FS) += ext2/</span><br></pre></td></tr></table></figure>
+当CONFIG_EXT2_FS的值为y或m时，kbuild将会把ext2目录列入向下迭代的目标中。</li>
+</ol>
+<h3 id="Kconfig"><a href="#Kconfig" class="headerlink" title="Kconfig"></a><strong>Kconfig</strong></h3><p>Kconfig（配置文件）：在内核编译时给用户提供配置选择的功能。<br>主要包括如下几个方面。</p>
+<ol>
+<li><code>配置选项</code></li>
+</ol>
+<ul>
+<li><p>大多数内核配置选项都对应Kconfig中的一个配置选项（config）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">config MODVERSIONS       <span class="comment"># 配置选项</span></span><br><span class="line">	bool <span class="string">"Module versioning support"</span>   <span class="comment">#配置选项的类型</span></span><br><span class="line">	<span class="built_in">help</span>                 <span class="comment"># 帮助信息</span></span><br><span class="line">	   Usually, you have to use modules compiled with your kernel.</span><br><span class="line">	   Saying Y here makes it ...</span><br></pre></td></tr></table></figure>
+<p>“config”关键字定义新的配置选项，之后的几行代码定义了该配置选项的属性。</p>
+</li>
+<li><p><code>配置选项的属性</code>包括:</p>
+<ul>
+<li><code>类型</code>、<code>数据范围</code>、<code>输入提示</code>、</li>
+<li><code>依赖关系</code>、<code>选择关系</code>及<code>帮助信息</code>、<code>默认值</code>等。</li>
+</ul>
+</li>
+<li><p>每个<code>配置选项都必须指定类型</code>，<code>配置选项类型</code>包括<code>bool</code>、<code>tristate</code>、<code>string</code>、<code>hex</code>和<code>int</code></p>
+<ul>
+<li>其中<code>tristate</code>和<code>string</code>是两种<code>基本类型</code>，其他类型都基于这两种基本类型。</li>
+</ul>
+</li>
+<li><p>类型定义后可以紧跟<code>输入提示</code>，</p>
+<ul>
+<li>下面两段脚本是等价的：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool <span class="string">"Networking support"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bool</span><br><span class="line">prompt <span class="string">"Networking support"</span></span><br></pre></td></tr></table></figure></li>
+<li>输入提示的一般格式为：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prompt &lt;prompt&gt; [<span class="keyword">if</span> &lt;expr&gt;]	<span class="comment">#可选的if用来表示该提示的依赖关系。</span></span><br></pre></td></tr></table></figure></li>
+<li>配置使用默认值并使用if的格式为：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">default &lt;expr&gt; [<span class="keyword">if</span> &lt;expr&gt;]</span><br></pre></td></tr></table></figure>
+如果用户不设置对应的选项，配置选项的值就是默认值。//为了便于理解，可以看下面的例子；</li>
+</ul>
+</li>
+<li><p><code>依赖关系的格式</code>为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">depends on（或者requires） &lt;expr&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果定义了多重依赖关系，它们之间用“&amp;&amp;”间隔。</li>
+<li>依赖关系也可以应用到该菜单中所有的其他选项（同样接受if表达式）内，下面两段脚本是等价的：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bool <span class="string">"foo"</span> <span class="keyword">if</span> BAR</span><br><span class="line">default y <span class="keyword">if</span> BAR</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">depends on BAR</span><br><span class="line">bool <span class="string">"foo"</span></span><br><span class="line">default y</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><code>选择关系（也称为反向依赖关系）</code>:A如果选择了B，则在A被选中的情况下，B自动被选中。(我个人理解为一种包含关系)格式为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select &lt;symbol&gt; [<span class="keyword">if</span> &lt;expr&gt;]</span><br></pre></td></tr></table></figure></li>
+<li><p><code>数据范围的格式</code>为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">range &lt;symbol&gt; &lt;symbol&gt; [<span class="keyword">if</span> &lt;expr&gt;]</span><br></pre></td></tr></table></figure>
+<p>int和hex类型的选项设置可以接受的输入值范围，用户只能输入大于等于第一个symbol，且小于等于第二个symbol的值。</p>
+</li>
+<li><p><code>帮助信息的格式</code>为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">help</span>（或---<span class="built_in">help</span>---）</span><br><span class="line">开始</span><br><span class="line">…</span><br><span class="line">结束</span><br></pre></td></tr></table></figure>
+<ul>
+<li>帮助信息完全靠文本缩进识别结束。</li>
+<li>“—help—”和“help”在作用上没有区别，设计“—help—”的初衷在于将文件中的配置逻辑与给开发人员的提示分开。</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li><code>菜单结构</code><br>配置选项在菜单树结构中的位置可由两种方法决定。</li>
+</ol>
+<ul>
+<li>第一种方式：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">menu <span class="string">"Network device support"</span></span><br><span class="line">depends on NET</span><br><span class="line">config NETDEVICES</span><br><span class="line">…</span><br><span class="line">endmenu</span><br></pre></td></tr></table></figure>
+<ul>
+<li>所有处于“menu”和“endmenu”之间的配置选项都会成为“Network device support”的子菜单，而且，所有子菜单（config）选项都会继承父菜单（menu）的依赖关系，比如，“Network device support”对“NET”的依赖会被加到配置选项NETDEVICES的依赖列表中。</li>
+<li>注意：menu后面跟的“Network device support”项仅仅是1个菜单，没有对应真实的配置选项，也不具备3种不同的状态。这是它和config的区别。</li>
+</ul>
+</li>
+<li>第二种方式：通过分析依赖关系生成菜单结构：如果菜单项在一定程度上依赖于前面的选项，它就能成为该选项的子菜单。如果父选项为“n”，子选项不可见；如果父选项可见，子选项才可见。示例如下：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">config MODULES</span><br><span class="line">	bool <span class="string">"Enable loadable module support"</span></span><br><span class="line">config MODVERSIONS</span><br><span class="line">	bool <span class="string">"Set version information on all module symbols"</span></span><br><span class="line">	depends on MODULES</span><br><span class="line">comment <span class="string">"module support disabled"</span></span><br><span class="line">depends on !MODULES</span><br></pre></td></tr></table></figure>
+<ul>
+<li>MODVERSIONS直接依赖MODULES，只有MODULES不为“n”时，该选项才可见。</li>
+</ul>
+</li>
+<li>除此之外，Kconfig中还可能使用“choices…endchoice”、“comment”、“if…endif”这样的语法结构。其中“choices…endchoice”的结构为：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">choice</span><br><span class="line">&lt;choice options&gt;</span><br><span class="line">&lt;choice block&gt;</span><br><span class="line">endchoice</span><br></pre></td></tr></table></figure>
+它定义一个选择群，其接受的选项（choice options）可以是前面描述的任何属性，例如，LDD6410的VGA输出分辨率可以是1024×768或者800×600，在drivers/video/samsung/Kconfig中就定义了如下choice：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">choice</span><br><span class="line">depends on FB_S3C_VGA</span><br><span class="line">prompt <span class="string">"Select VGA Resolution for S3C Framebuffer"</span></span><br><span class="line">default FB_S3C_VGA_1024_768</span><br><span class="line">config FB_S3C_VGA_1024_768</span><br><span class="line">	bool <span class="string">"1024*768@60Hz"</span></span><br><span class="line">	---<span class="built_in">help</span>---</span><br><span class="line">	TBA</span><br><span class="line">config FB_S3C_VGA_640_480</span><br><span class="line">	bool <span class="string">"640*480@60Hz"</span></span><br><span class="line">	---<span class="built_in">help</span>---</span><br><span class="line">	TBA</span><br><span class="line">endchoice</span><br></pre></td></tr></table></figure>
+相关资料：<blockquote>
+<p>用Kconfig配置脚本和Makefile脚本编写的更详细信息，可以分别参见内核文档Documentation目录内的kbuild子目录下的Kconfig-language.txt和Makefiles.txt文件。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><p>内核多次编译过，在编译开始之前可进行清理</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> make clean       <span class="comment">#清理编译的文件，但保留配置文件</span></span><br><span class="line"> make mrproper    <span class="comment">#移除所有编译生成的文件、配置文件和备份文件</span></span><br><span class="line"> make distclean   <span class="comment">#清理所有产生的文件与config配置文件与编辑过的补丁文件,也就是完全清理</span></span><br></pre></td></tr></table></figure>
+<p>如果想快速编译，可进行如下操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make -j *         #*为cup核心数</span><br></pre></td></tr></table></figure>
+<p>如何只编译内核的部分代码</p>
+<p>只编译某子目录中的相关代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/src/linux</span><br><span class="line">make  path/to/dir/</span><br></pre></td></tr></table></figure>
+<p>只编译部分模块：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make M&#x3D;path&#x2F;to&#x2F;dir</span><br></pre></td></tr></table></figure>
+<p>只编译一个模块：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make path&#x2F;to&#x2F;dir&#x2F;MOD_NAME.ko</span><br></pre></td></tr></table></figure>
+<p>将编译生成的文件保存至别处：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make O&#x3D;&#x2F;path&#x2F;to&#x2F;somewhere</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>《Linux设备驱动开发详解：基于最新的Linux4.0内核》<br><a href="https://blog.csdn.net/baidu_24256693/article/details/80115354">linux内核编译详解</a><br><a href="https://blog.csdn.net/qq_34247099/article/details/50949720">Linux 内核编译</a><br><a href="https://www.jianshu.com/p/5d7f7d9dc503">Linux源码下生成并安装内核文档</a><br><a href="https://www.shanlily.cn/archives/444">Linux(ubuntu)更换内核方法</a><br><a href="https://www.cnblogs.com/bitor/p/9608725.html">linux内核编程入门 hello world</a><br><a href="https://blog.csdn.net/weixin_38391755/article/details/80380786">Makefile教程（绝对经典，所有问题看这一篇足够了）</a><br><a href="https://www.zhihu.com/question/23792247?sort=created">如何系统地学习 Makefile 相关的知识（读/写）？</a><br><a href="https://baike.baidu.com/item/Makefile/4619787?fr=aladdin">Makefile-百度百科</a></p>
 
         </div>
         
@@ -419,24 +568,40 @@
         <span class="has-mr-6">3</span>
         <span>linux DOC 编译生成</span>
         </a></li><li>
-        <a class="is-flex" href="#配置内核">
+        <a class="is-flex" href="#内核编译的准备工作">
         <span class="has-mr-6">4</span>
+        <span>内核编译的准备工作</span>
+        </a></li><li>
+        <a class="is-flex" href="#配置内核">
+        <span class="has-mr-6">5</span>
         <span>配置内核</span>
         </a></li><li>
         <a class="is-flex" href="#编译内核和模块">
-        <span class="has-mr-6">5</span>
+        <span class="has-mr-6">6</span>
         <span>编译内核和模块</span>
         </a></li><li>
         <a class="is-flex" href="#配置启动文件">
-        <span class="has-mr-6">6</span>
+        <span class="has-mr-6">7</span>
         <span>配置启动文件</span>
         </a></li><li>
         <a class="is-flex" href="#Kconfig和Makefile">
-        <span class="has-mr-6">7</span>
+        <span class="has-mr-6">8</span>
         <span>Kconfig和Makefile</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#内核编译中的Makefile">
+        <span class="has-mr-6">8.1</span>
+        <span>内核编译中的Makefile</span>
+        </a></li><li>
+        <a class="is-flex" href="#Kconfig">
+        <span class="has-mr-6">8.2</span>
+        <span>Kconfig</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#注解">
+        <span class="has-mr-6">9</span>
+        <span>注解</span>
         </a></li><li>
         <a class="is-flex" href="#参考资料">
-        <span class="has-mr-6">8</span>
+        <span class="has-mr-6">10</span>
         <span>参考资料</span>
         </a></li></ul>
             </div>
@@ -1631,5 +1796,5 @@ document.addEventListener('DOMContentLoaded', function () {
 <link rel="stylesheet" href="/css/search.css">
 <link rel="stylesheet" href="/css/insight.css">
     	
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"debug":false,"display":{"position":"left","width":139,"height":300},"mobile":{"show":true,"scale":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"debug":false,"display":{"position":"left","width":139,"height":300},"mobile":{"show":false,"scale":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>
