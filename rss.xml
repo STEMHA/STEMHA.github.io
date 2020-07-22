@@ -6,7 +6,7 @@
   <link href="/rss.xml" rel="self"/>
   
   <link href="https://stemha.github.io/"/>
-  <updated>2020-07-15T09:27:58.523Z</updated>
+  <updated>2020-07-22T15:42:48.346Z</updated>
   <id>https://stemha.github.io/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>（阅读笔记）网络信息空间的大数据计算</title>
+    <link href="https://stemha.github.io/2020/07/22/%EF%BC%88%E7%AC%94%E8%AE%B0%EF%BC%89%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF%E7%A9%BA%E9%97%B4%E7%9A%84%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/"/>
+    <id>https://stemha.github.io/2020/07/22/%EF%BC%88%E7%AC%94%E8%AE%B0%EF%BC%89%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF%E7%A9%BA%E9%97%B4%E7%9A%84%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/</id>
+    <published>2020-07-22T15:38:45.000Z</published>
+    <updated>2020-07-22T15:42:48.346Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="原文介绍"><a href="#原文介绍" class="headerlink" title="原文介绍"></a>原文介绍</h2><pre><code>网络信息空间的大数据计算 作者：胡春明、马帅、怀进鹏 ，中国计算机学会通讯</code></pre><h2 id="我们需要知道什么？"><a href="#我们需要知道什么？" class="headerlink" title="我们需要知道什么？"></a><strong>我们需要知道什么？</strong></h2><blockquote><p>大数据有什么特征？怎么产生的？这些特征带来了哪些影响？大数据时代的研究方法是不是要变化一下？有了大数据，我们需要用它来做计算，那么大数据计算在不同的层次（数据-算法-系统）又会遇到什么样的挑战？</p></blockquote><a id="more"></a><h2 id="大数据的特征"><a href="#大数据的特征" class="headerlink" title="大数据的特征"></a><strong>大数据的特征</strong></h2><p>通常认为大数据具有“4V”特征：</p><ul><li><code>Volume</code>：规模庞大</li><li><code>Variety</code>：种类繁多</li><li><code>Velocity</code>：变化频繁</li><li><code>Value</code>：价值巨大但价值密度低。</li><li>谐音：大多变价了</li></ul><p>这些特征有什么影响吗？</p><blockquote><p>这些特征对发现事实、揭示规律并预测未来提出了新的挑战，并将对已有计算模式、理论和方法产生深远的影响。</p></blockquote><h2 id="传统数据到大数据时代的研究方法论变化"><a href="#传统数据到大数据时代的研究方法论变化" class="headerlink" title="传统数据到大数据时代的研究方法论变化"></a><strong>传统数据到大数据时代的研究方法论变化</strong></h2><p>首先，网络信息空间大数据数量庞大，数据的统计特征分布不均匀。<code>（采样精度问题）</code></p><ul><li>在传统的采样方法中，样本选取的差异在减少计算量的同时可能会引入结果的不确定性，<strong>采样的质量和精确性都会对计算结果产生影响</strong>。</li><li>但是，在大数据的计算中，对单一数据项和分析算法的<strong>精确性要求不再苛刻，通过对大量数据的分析处理能够有效弥补传统抽样方法的局限（也就是上面黑体标出的局限）。</strong></li></ul><p>其次，大数据种类繁多，变化频繁。<code>（分类问题）</code></p><ul><li>已有的计算模式往往通过预先确定的分类方法降低问题的难度和规模，提高预测的准确性。//<strong>传统方法通过分类来处理</strong></li><li>而在大数据计算中，数据的持续更新可能难以形成稳定的分类，不仅要考虑可分类条件下的精确算法，还要考虑动态数据下的增量算法。//<strong>大数据难以形成稳定的分类，需要考虑更多，比如动态数据的增量算法。</strong></li></ul><p>最后，大数据研究不同于传统的逻辑推理研究，是对巨大的数据做统计分析和归纳。<code>（推理与统计归纳问题）</code></p><ul><li>传统的确定性问题往往通过自顶向下的还原方法，逐步分解并加以研究。//<strong>传统的是自顶向下的还原出问题</strong></li><li>而对多源异构大数据相关问题的研究不仅需要还原方法，还需要自底向上的归纳方法，通过关联关系补充因果关系的不足，实现多源数据和多种计算方法的有效融合。//<strong>不仅需要自顶部向下的还原，还需要自底向上的归纳</strong></li></ul><h2 id="大数据计算的特征"><a href="#大数据计算的特征" class="headerlink" title="大数据计算的特征"></a><strong>大数据计算的特征</strong></h2><p>文章作者自己又总结了大数据计算的特征。<br>大数据计算具有“<strong>近似处理、增量计算、多源归纳</strong>”的计算属性，并可进一步归纳为大数据计算的“3I”特征</p><ul><li><code>近似性(Inexact)</code></li><li><code>增量性(Incremental)</code></li><li><code>归纳性(Inductive)</code></li></ul><h2 id="大数据计算特征在不同层次带来的挑战"><a href="#大数据计算特征在不同层次带来的挑战" class="headerlink" title="大数据计算特征在不同层次带来的挑战"></a><strong>大数据计算特征在不同层次带来的挑战</strong></h2><p>三个特性分别在数据层面、算法层面和系统层面给大数据计算带来了“可表示”“可计算”和“可操作”三大问题。</p><h3 id="近似性-Inexact-挑战"><a href="#近似性-Inexact-挑战" class="headerlink" title="近似性(Inexact)挑战"></a><strong>近似性(Inexact)挑战</strong></h3><p>传统计算复杂性理论认为的易解问题在大数据时代下已成为难解问题。<br>由于数据本身的异构和噪声，很难按照传统精确处理的思路来进行大数据的挖掘。<br>此外，许多应用需求旨在寻找数据间的潜在关联关系和宏观趋势特征，允许解的质量在一定区间内近似。</p><p>因此，从数据层面，需要综合考虑数据的语义特征、结构特征与质量特征，理解并量化度量数据的价值分布；<br>从算法理论层面，需要建立大数据下的算法复杂性理论及近似算法理论，识别数据量对算法质量的关联关系；<br>从系统层面，需要<strong>设计满足用户需求的非精确计算架构，达到用户需求与计算效能的均衡</strong></p><h3 id="增量性-Incremental-挑战"><a href="#增量性-Incremental-挑战" class="headerlink" title="增量性(Incremental)挑战"></a><strong>增量性(Incremental)挑战</strong></h3><p>网络信息空间大数据动态持续产生，不断更新，很难形成大数据的统一视图。<br>此外，许多大数据处理对实时性要求越来越高，全量式的批处理和迭代处理方式在时间上难以满足需求，增量式处理成为一种解决办法。</p><p>例子：</p><ul><li>例如，百度智能搜索涉及近万亿的网页，大量网页频繁更新，在构建搜索索引和获取用户查询结果时，很难及时对近千PB(1PB=1015B)网页数据进行全量计算；（难以从头全部计算一遍，最好是根据增量的数据来计算调整结果，有一点像控制论的思想）</li><li>再如突发事件预警需要业务用户对数据进行长期、频繁地探索，并根据不断更新的结果对数据源、分析方法和计算过程等要素进行调整，以获得更准确及时的结果。</li></ul><p>因此，从数据层面，需要量化度量数据的动态复杂性；<br>从算法理论层面，需要考虑数据动态性及其对解的质量的影响，并设计增量式处理算法；<br>从系统层面，需要<strong>设计支持增量计算的存储和处理架构及相关机制</strong>。</p><h3 id="归纳性-Inductive-挑战"><a href="#归纳性-Inductive-挑战" class="headerlink" title="归纳性(Inductive)挑战"></a><strong>归纳性(Inductive)挑战</strong></h3><p>大数据的多源异构特征对网络信息空间数据挖掘提出新挑战并带来机遇。<br>寻找同一实体在多源数据之间的潜在关联性，有助于进一步规避数据中的噪声干扰，并通过多源数据处理的智能归纳融合，修正非精确数据处理引入的偏差，同时获得比单一数据源更好的处理效果。</p><blockquote><p>大数据下单一源头数据计算的结果可能不准确，可以依靠别的数据源的结果来进行修正</p></blockquote><p>例子：</p><ul><li>百度根据用户的搜索日志及其在“百度贴吧”和“百度知道”等不同产品线中提交的数据进行归纳融合，建立用户行为模型，可提供更为准确的个性化搜索结果。</li></ul><p>因此，从数据层面，一方面要研究多源异构数据的表示、度量与语义理解方法，努力减少多源异构数据带来的难题，另一方面需要关注多源数据间的潜在关联性和融合方法；<br>从算法层面，需要寻找新的多源数据处理和智能归纳融合算法，并提高算法精度及效率；<br>从系统层面，需要研究多源数据间可迁移学习的数据挖掘新方法，探索融合机器挖掘和人群分析的多种数据处理机制。</p><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>网络信息空间的大数据计算 作者：胡春明、马帅、怀进鹏</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;原文介绍&quot;&gt;&lt;a href=&quot;#原文介绍&quot; class=&quot;headerlink&quot; title=&quot;原文介绍&quot;&gt;&lt;/a&gt;原文介绍&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;网络信息空间的大数据计算 作者：胡春明、马帅、怀进鹏 ，中国计算机学会通讯&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;我们需要知道什么？&quot;&gt;&lt;a href=&quot;#我们需要知道什么？&quot; class=&quot;headerlink&quot; title=&quot;我们需要知道什么？&quot;&gt;&lt;/a&gt;&lt;strong&gt;我们需要知道什么？&lt;/strong&gt;&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;大数据有什么特征？怎么产生的？这些特征带来了哪些影响？大数据时代的研究方法是不是要变化一下？有了大数据，我们需要用它来做计算，那么大数据计算在不同的层次（数据-算法-系统）又会遇到什么样的挑战？&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="课外学术阅读" scheme="https://stemha.github.io/categories/%E8%AF%BE%E5%A4%96%E5%AD%A6%E6%9C%AF%E9%98%85%E8%AF%BB/"/>
+    
+    
+      <category term="大数据" scheme="https://stemha.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+      <category term="挑战" scheme="https://stemha.github.io/tags/%E6%8C%91%E6%88%98/"/>
+    
+      <category term="大数据计算" scheme="https://stemha.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/"/>
+    
+      <category term="研究方法论" scheme="https://stemha.github.io/tags/%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E8%AE%BA/"/>
+    
+      <category term="阅读笔记" scheme="https://stemha.github.io/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux-信号</title>
