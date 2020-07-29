@@ -88,6 +88,7 @@
 <link rel="alternate" href="/rss.xml" title="STEMHA's Blog" type="application/atom+xml">
 </head>
 <body class="is-2-column">
+<!-- <body class="is-3-column"> -->
     <nav class="navbar navbar-main">
     <div class="container">
         <div class="navbar-brand is-flex-center">
@@ -145,7 +146,7 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+               <!--<div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
 <div class="card">
     
     <div class="card-content article ">
@@ -370,8 +371,1290 @@
 
     </div>
 </div>
-</div>
+</div>-->
+			   <!-- 原始代码-->
+               <!--  
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/avatar.png" alt="STEMHA">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        STEMHA
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            67
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            14
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            101
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/STEMHA" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/STEMHA">
                 
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Twitter" href="https://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Dribbble" href="https://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/rss.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#套接字的数据结构">
+        <span class="has-mr-6">1</span>
+        <span>套接字的数据结构</span>
+        </a></li><li>
+        <a class="is-flex" href="#头文件">
+        <span class="has-mr-6">2</span>
+        <span>头文件</span>
+        </a></li><li>
+        <a class="is-flex" href="#使用-TCP-通信">
+        <span class="has-mr-6">3</span>
+        <span>使用 TCP 通信</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#TCP-中使用的套接字">
+        <span class="has-mr-6">3.1</span>
+        <span>TCP 中使用的套接字</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#通信流程图">
+        <span class="has-mr-6">4</span>
+        <span>通信流程图</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#服务器进程">
+        <span class="has-mr-6">4.1</span>
+        <span>服务器进程</span>
+        </a></li><li>
+        <a class="is-flex" href="#客户进程">
+        <span class="has-mr-6">4.2</span>
+        <span>客户进程</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#套接字接口编程（TCP）">
+        <span class="has-mr-6">5</span>
+        <span>套接字接口编程（TCP）</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#客户和服务器数据传输盒的流程图">
+        <span class="has-mr-6">5.1</span>
+        <span>客户和服务器数据传输盒的流程图</span>
+        </a></li><li>
+        <a class="is-flex" href="#缓冲区设置">
+        <span class="has-mr-6">5.2</span>
+        <span>缓冲区设置</span>
+        </a></li><li>
+        <a class="is-flex" href="#回送服务器程序">
+        <span class="has-mr-6">5.3</span>
+        <span>回送服务器程序</span>
+        </a></li><li>
+        <a class="is-flex" href="#回送客户程序">
+        <span class="has-mr-6">5.4</span>
+        <span>回送客户程序</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#Linux下的socket-函数">
+        <span class="has-mr-6">6</span>
+        <span>Linux下的socket()函数</span>
+        </a></li><li>
+        <a class="is-flex" href="#Windows下的socket-函数">
+        <span class="has-mr-6">7</span>
+        <span>Windows下的socket()函数</span>
+        </a></li><li>
+        <a class="is-flex" href="#参考资料">
+        <span class="has-mr-6">8</span>
+        <span>参考资料</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/STEMHA" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">GitHub - STEMHA</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/C/">
+            <span class="level-start">
+                <span class="level-item">C++</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">18</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Linux/">
+            <span class="level-start">
+                <span class="level-item">Linux</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">16</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E5%8D%9A%E5%AE%A2%E7%BB%B4%E6%8A%A4/">
+            <span class="level-start">
+                <span class="level-item">博客维护</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/">
+            <span class="level-start">
+                <span class="level-item">学术论文</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+            <span class="level-start">
+                <span class="level-item">操作系统</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/">
+            <span class="level-start">
+                <span class="level-item">效率工具</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+            <span class="level-start">
+                <span class="level-item">数据结构</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E7%AE%97%E6%B3%95/">
+            <span class="level-start">
+                <span class="level-item">算法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0/">
+            <span class="level-start">
+                <span class="level-item">英语学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+            <span class="level-start">
+                <span class="level-item">计算机网络</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+            <span class="level-start">
+                <span class="level-item">读书笔记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%AF%BE%E5%A4%96%E5%AD%A6%E6%9C%AF%E9%98%85%E8%AF%BB/">
+            <span class="level-start">
+                <span class="level-item">课外学术阅读</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">
+            <span class="level-start">
+                <span class="level-item">软件工程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E9%86%92%E4%B8%96%E9%80%9A%E8%A8%80/">
+            <span class="level-start">
+                <span class="level-item">醒世通言</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/B-%E6%A0%91/" style="font-size: 10px;">B+树</a> <a href="/tags/B-%E6%A0%91/" style="font-size: 10px;">B-树</a> <a href="/tags/C/" style="font-size: 16.25px;">C++</a> <a href="/tags/C-%E6%A0%87%E5%87%86%E5%BA%93/" style="font-size: 18.75px;">C++标准库</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Linux%E6%A6%82%E8%BF%B0/" style="font-size: 10px;">Linux概述</a> <a href="/tags/TCP/" style="font-size: 13.75px;">TCP</a> <a href="/tags/UDP/" style="font-size: 10px;">UDP</a> <a href="/tags/VFS/" style="font-size: 10px;">VFS</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/deque/" style="font-size: 10px;">deque</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/module/" style="font-size: 10px;">module</a> <a href="/tags/pair/" style="font-size: 10px;">pair</a> <a href="/tags/priority-queue/" style="font-size: 10px;">priority_queue</a> <a href="/tags/queue/" style="font-size: 10px;">queue</a> <a href="/tags/set/" style="font-size: 10px;">set</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/%E4%BA%92%E6%96%A5%E9%94%81/" style="font-size: 10px;">互斥锁</a> <a href="/tags/%E4%BA%BA%E7%94%9F/" style="font-size: 10px;">人生</a> <a href="/tags/%E4%BC%A0%E8%AE%B0/" style="font-size: 10px;">传记</a> <a href="/tags/%E4%BC%A0%E8%BE%93%E5%B1%82/" style="font-size: 15px;">传输层</a> <a href="/tags/%E4%BF%A1%E5%8F%B7%E9%87%8F/" style="font-size: 10px;">信号量</a> <a href="/tags/%E5%85%B3%E8%81%94%E5%AE%B9%E5%99%A8/" style="font-size: 10px;">关联容器</a> <a href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA/" style="font-size: 10px;">内存分区</a> <a href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" style="font-size: 10px;">内存分配</a> <a href="/tags/%E5%86%85%E6%A0%B8/" style="font-size: 17.5px;">内核</a> <a href="/tags/%E5%88%9D%E5%A7%8B%E5%8C%96/" style="font-size: 10px;">初始化</a> <a href="/tags/%E5%8A%A8%E6%80%81%E5%A4%9A%E6%80%81/" style="font-size: 10px;">动态多态</a> <a href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">单例模式</a> <a href="/tags/%E5%90%8D%E8%91%97/" style="font-size: 10px;">名著</a> <a href="/tags/%E5%91%BD%E4%BB%A4/" style="font-size: 11.25px;">命令</a> <a href="/tags/%E5%93%B2%E5%AD%A6/" style="font-size: 10px;">哲学</a> <a href="/tags/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/" style="font-size: 10px;">基本结构</a> <a href="/tags/%E5%A4%9A%E6%80%81/" style="font-size: 10px;">多态</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 10px;">多线程</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 10px;">大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">大数据计算</a> <a href="/tags/%E5%A5%97%E6%8E%A5%E5%AD%97/" style="font-size: 10px;">套接字</a> <a href="/tags/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/" style="font-size: 10px;">学术论文</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E7%B1%BB/" style="font-size: 10px;">容器类</a> <a href="/tags/%E5%B0%81%E8%A3%85/" style="font-size: 10px;">封装</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 11.25px;">工具</a> <a href="/tags/%E5%BA%94%E7%94%A8%E5%B1%82/" style="font-size: 10px;">应用层</a> <a href="/tags/%E5%BF%83%E6%80%81/" style="font-size: 10px;">心态</a> <a href="/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/" style="font-size: 11.25px;">性能分析</a> <a href="/tags/%E6%8C%91%E6%88%98/" style="font-size: 10px;">挑战</a> <a href="/tags/%E6%8F%92%E4%BB%B6/" style="font-size: 10px;">插件</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">操作系统</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%A3%E5%88%97%E8%A1%A8/" style="font-size: 10px;">散列表</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 11.25px;">数据结构</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95/" style="font-size: 10px;">文件与目录</a> <a href="/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">文件系统</a> <a href="/tags/%E6%96%87%E6%A1%A3%E5%92%8C%E6%B3%A8%E9%87%8A/" style="font-size: 10px;">文档和注释</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">桶排序</a> <a href="/tags/%E6%A6%82%E8%BF%B0/" style="font-size: 11.25px;">概述</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 10px;">模块</a> <a href="/tags/%E6%B5%85%E6%8B%B7%E8%B4%9D/" style="font-size: 10px;">浅拷贝</a> <a href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D/" style="font-size: 10px;">深拷贝</a> <a href="/tags/%E6%BC%94%E8%AE%B2/" style="font-size: 10px;">演讲</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">版本控制</a> <a href="/tags/%E7%94%9F%E4%BA%A7%E5%8A%9B/" style="font-size: 10px;">生产力</a> <a href="/tags/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/" style="font-size: 11.25px;">目录结构</a> <a href="/tags/%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E8%AE%BA/" style="font-size: 10px;">研究方法论</a> <a href="/tags/%E7%A1%AC%E8%BF%9E%E6%8E%A5/" style="font-size: 10px;">硬连接</a> <a href="/tags/%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C/" style="font-size: 10px;">程序执行</a> <a href="/tags/%E7%AE%80%E8%BF%B0/" style="font-size: 10px;">简述</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13.75px;">算法</a> <a href="/tags/%E7%BA%A2%E9%BB%91%E6%A0%91/" style="font-size: 10px;">红黑树</a> <a href="/tags/%E7%BB%83%E4%B9%A0/" style="font-size: 10px;">练习</a> <a href="/tags/%E7%BB%A7%E6%89%BF/" style="font-size: 10px;">继承</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8A%A0%E8%BD%BD/" style="font-size: 10px;">编译加载</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">虚拟文件系统</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">计算机网络</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/" style="font-size: 10px;">设计方法</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">设计模式</a> <a href="/tags/%E8%AF%B4%E6%98%8E/" style="font-size: 10px;">说明</a> <a href="/tags/%E8%AF%BA%E8%B4%9D%E5%B0%94%E5%A5%96/" style="font-size: 10px;">诺贝尔奖</a> <a href="/tags/%E8%B0%83%E8%AF%95%E5%99%A8/" style="font-size: 10px;">调试器</a> <a href="/tags/%E8%B4%B9%E6%9B%BC/" style="font-size: 10px;">费曼</a> <a href="/tags/%E8%BD%AF%E8%BF%9E%E6%8E%A5/" style="font-size: 10px;">软连接</a> <a href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6/" style="font-size: 10px;">运算符</a> <a href="/tags/%E9%87%8D%E8%BD%BD/" style="font-size: 10px;">重载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">阅读笔记</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9D%99%E6%80%81%E5%A4%9A%E6%80%81/" style="font-size: 10px;">静态多态</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 11.25px;">面向对象</a> <a href="/tags/%E9%9F%B3%E6%A0%87/" style="font-size: 10px;">音标</a> <a href="/tags/%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/" style="font-size: 10px;">顺序容器</a> <a href="/tags/%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F/" style="font-size: 12.5px;">驱动程序</a>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/07/29/Linux-%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Linux-虚拟文件系统">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-07-29T02:50:17.206Z">2020-07-29</time></div>
+                    <a href="/2020/07/29/Linux-%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux-虚拟文件系统</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Linux/">Linux</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/07/22/%EF%BC%88%E7%AC%94%E8%AE%B0%EF%BC%89%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF%E7%A9%BA%E9%97%B4%E7%9A%84%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="（阅读笔记）网络信息空间的大数据计算">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-07-22T15:38:45.000Z">2020-07-22</time></div>
+                    <a href="/2020/07/22/%EF%BC%88%E7%AC%94%E8%AE%B0%EF%BC%89%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF%E7%A9%BA%E9%97%B4%E7%9A%84%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/" class="title has-link-black-ter is-size-6 has-text-weight-normal">（阅读笔记）网络信息空间的大数据计算</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E8%AF%BE%E5%A4%96%E5%AD%A6%E6%9C%AF%E9%98%85%E8%AF%BB/">课外学术阅读</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/07/14/Linux-%E4%BF%A1%E5%8F%B7/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Linux-信号">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-07-14T15:24:42.000Z">2020-07-14</time></div>
+                    <a href="/2020/07/14/Linux-%E4%BF%A1%E5%8F%B7/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux-信号</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/07/13/Linux%E6%A8%A1%E5%9D%97%EF%BC%88modules%EF%BC%89/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Linux模块（modules）">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-07-13T13:31:39.000Z">2020-07-13</time></div>
+                    <a href="/2020/07/13/Linux%E6%A8%A1%E5%9D%97%EF%BC%88modules%EF%BC%89/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux模块（modules）</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Linux/">Linux</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/07/13/Linux%E5%86%85%E6%A0%B8%E7%9A%84%E7%BB%84%E6%88%90/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Linux内核的组成">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-07-13T07:06:32.000Z">2020-07-13</time></div>
+                    <a href="/2020/07/13/Linux%E5%86%85%E6%A0%B8%E7%9A%84%E7%BB%84%E6%88%90/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux内核的组成</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Linux/">Linux</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">17</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">23</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/B-%E6%A0%91/">
+                        <span class="tag">B+树</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/B-%E6%A0%91/">
+                        <span class="tag">B-树</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C/">
+                        <span class="tag">C++</span>
+                        <span class="tag is-grey">8</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C-%E6%A0%87%E5%87%86%E5%BA%93/">
+                        <span class="tag">C++标准库</span>
+                        <span class="tag is-grey">14</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTTP/">
+                        <span class="tag">HTTP</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Linux/">
+                        <span class="tag">Linux</span>
+                        <span class="tag is-grey">15</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Linux%E6%A6%82%E8%BF%B0/">
+                        <span class="tag">Linux概述</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/TCP/">
+                        <span class="tag">TCP</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/UDP/">
+                        <span class="tag">UDP</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/VFS/">
+                        <span class="tag">VFS</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/chrome/">
+                        <span class="tag">chrome</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/deque/">
+                        <span class="tag">deque</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/heap/">
+                        <span class="tag">heap</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo/">
+                        <span class="tag">hexo</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/leetcode/">
+                        <span class="tag">leetcode</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/list/">
+                        <span class="tag">list</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/map/">
+                        <span class="tag">map</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/module/">
+                        <span class="tag">module</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/pair/">
+                        <span class="tag">pair</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/priority-queue/">
+                        <span class="tag">priority_queue</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/queue/">
+                        <span class="tag">queue</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/set/">
+                        <span class="tag">set</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/stack/">
+                        <span class="tag">stack</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/string/">
+                        <span class="tag">string</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vector/">
+                        <span class="tag">vector</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BA%92%E6%96%A5%E9%94%81/">
+                        <span class="tag">互斥锁</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BA%BA%E7%94%9F/">
+                        <span class="tag">人生</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BC%A0%E8%AE%B0/">
+                        <span class="tag">传记</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BC%A0%E8%BE%93%E5%B1%82/">
+                        <span class="tag">传输层</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BF%A1%E5%8F%B7%E9%87%8F/">
+                        <span class="tag">信号量</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%85%B3%E8%81%94%E5%AE%B9%E5%99%A8/">
+                        <span class="tag">关联容器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA/">
+                        <span class="tag">内存分区</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/">
+                        <span class="tag">内存分配</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E6%A0%B8/">
+                        <span class="tag">内核</span>
+                        <span class="tag is-grey">9</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%88%9D%E5%A7%8B%E5%8C%96/">
+                        <span class="tag">初始化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%8A%A8%E6%80%81%E5%A4%9A%E6%80%81/">
+                        <span class="tag">动态多态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+                        <span class="tag">单例模式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%90%8D%E8%91%97/">
+                        <span class="tag">名著</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%91%BD%E4%BB%A4/">
+                        <span class="tag">命令</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%93%B2%E5%AD%A6/">
+                        <span class="tag">哲学</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/">
+                        <span class="tag">基本结构</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%9A%E6%80%81/">
+                        <span class="tag">多态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="tag">多线程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                        <span class="tag">大数据</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/">
+                        <span class="tag">大数据计算</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A5%97%E6%8E%A5%E5%AD%97/">
+                        <span class="tag">套接字</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/">
+                        <span class="tag">学术论文</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%AE%B9%E5%99%A8%E7%B1%BB/">
+                        <span class="tag">容器类</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B0%81%E8%A3%85/">
+                        <span class="tag">封装</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B7%A5%E5%85%B7/">
+                        <span class="tag">工具</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%BA%94%E7%94%A8%E5%B1%82/">
+                        <span class="tag">应用层</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%BF%83%E6%80%81/">
+                        <span class="tag">心态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/">
+                        <span class="tag">性能分析</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%8C%91%E6%88%98/">
+                        <span class="tag">挑战</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%8F%92%E4%BB%B6/">
+                        <span class="tag">插件</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">操作系统</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%95%99%E7%A8%8B/">
+                        <span class="tag">教程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%95%A3%E5%88%97%E8%A1%A8/">
+                        <span class="tag">散列表</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="tag">数据结构</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95/">
+                        <span class="tag">文件与目录</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">文件系统</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%96%87%E6%A1%A3%E5%92%8C%E6%B3%A8%E9%87%8A/">
+                        <span class="tag">文档和注释</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A0%88/">
+                        <span class="tag">栈</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/">
+                        <span class="tag">桶排序</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A6%82%E8%BF%B0/">
+                        <span class="tag">概述</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A8%A1%E5%9D%97/">
+                        <span class="tag">模块</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%B5%85%E6%8B%B7%E8%B4%9D/">
+                        <span class="tag">浅拷贝</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D/">
+                        <span class="tag">深拷贝</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%BC%94%E8%AE%B2/">
+                        <span class="tag">演讲</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/">
+                        <span class="tag">版本控制</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%94%9F%E4%BA%A7%E5%8A%9B/">
+                        <span class="tag">生产力</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">
+                        <span class="tag">目录结构</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E8%AE%BA/">
+                        <span class="tag">研究方法论</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A1%AC%E8%BF%9E%E6%8E%A5/">
+                        <span class="tag">硬连接</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C/">
+                        <span class="tag">程序执行</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%AE%80%E8%BF%B0/">
+                        <span class="tag">简述</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="tag">算法</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BA%A2%E9%BB%91%E6%A0%91/">
+                        <span class="tag">红黑树</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BB%83%E4%B9%A0/">
+                        <span class="tag">练习</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BB%A7%E6%89%BF/">
+                        <span class="tag">继承</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BC%96%E8%AF%91%E5%8A%A0%E8%BD%BD/">
+                        <span class="tag">编译加载</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="tag">网络</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">虚拟文件系统</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                        <span class="tag">计算机网络</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/">
+                        <span class="tag">设计方法</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AF%B4%E6%98%8E/">
+                        <span class="tag">说明</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AF%BA%E8%B4%9D%E5%B0%94%E5%A5%96/">
+                        <span class="tag">诺贝尔奖</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%B0%83%E8%AF%95%E5%99%A8/">
+                        <span class="tag">调试器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%B4%B9%E6%9B%BC/">
+                        <span class="tag">费曼</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%BD%AF%E8%BF%9E%E6%8E%A5/">
+                        <span class="tag">软连接</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6/">
+                        <span class="tag">运算符</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%87%8D%E8%BD%BD/">
+                        <span class="tag">重载</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%93%BE%E8%A1%A8/">
+                        <span class="tag">链表</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">
+                        <span class="tag">阅读笔记</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%98%9F%E5%88%97/">
+                        <span class="tag">队列</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%9D%99%E6%80%81%E5%A4%9A%E6%80%81/">
+                        <span class="tag">静态多态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+                        <span class="tag">面向对象</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%9F%B3%E6%A0%87/">
+                        <span class="tag">音标</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/">
+                        <span class="tag">顺序容器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F/">
+                        <span class="tag">驱动程序</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+ -->
+               <!--  -->
+			   <!-- 下面几行是调整3栏变两栏的代码-->
+			     
 
 
 
@@ -1650,7 +2933,236 @@
     
 </div>
 
+				 
+				 
+				  <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main twoLine">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-06-11T06:48:19.000Z">2020-06-11</time>
                 
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    28 分钟 读完 (大约 4151 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                计算机网络教程-套接字
+            
+        </h1>
+        <div class="content">
+            <h2 id="套接字的数据结构"><a href="#套接字的数据结构" class="headerlink" title="套接字的数据结构"></a>套接字的数据结构</h2><p>C 语言将套接字定义为一个结构（struct）。套接字结构由五个字段组成；每个套接字地址是一个由五部分构成的结构。</p>
+<a id="more"></a>
+<p><img src="/2020/06/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%95%99%E7%A8%8B-%E5%A5%97%E6%8E%A5%E5%AD%97/%E5%A5%97%E6%8E%A5%E5%AD%97%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.JPG" alt="图1，套接字数据结构"></p>
+<ul>
+<li><code>族</code>。这个字段定义了协议簇（如何解释地址和端口号）。<ul>
+<li>通常值是<code>PF_INET</code>（用于当前因特网）、PF_INET6（用于下一代因特网）等等。我们在本节使用PF_INET。</li>
+</ul>
+</li>
+<li><code>类型</code>。这个字段定义了四个套接字类型：<ul>
+<li>SOCK_STREAM（用于TCP）</li>
+<li>SOCK_DGRAM（用于UDP）、</li>
+<li>SOCK_SEQPACKET（用于SCTP）</li>
+<li>SOCK_RAW（用于直接使用ISP 服务的应用）。</li>
+</ul>
+</li>
+<li><code>协议</code>。这个字段定义了族中特定协议。对于TCP/IP 协议簇这个字段设置为0，因为它是族中唯一的协议。</li>
+<li><code>本地套接字地址</code>。这个字段定义了本地套接字地址。<ul>
+<li>一个套接字地址是一个结构，它由<code>长度字段</code>、<code>族字段</code>（对于TCP/IP 协议簇，它被设置为<code>常量AF_INET</code>）、<code>端口号字段</code>（定义了进程）以及<code>IP 地址字段</code>（定义了正在运行的进程所在的主机）构成。它也包含未使用字段。</li>
+</ul>
+</li>
+<li><code>远程套接字地址</code>。这个字段定义了远程套接字地址。它的结构与本地套接字地址相同。</li>
+</ul>
+<h2 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netdb.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/innet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/wait.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="使用-TCP-通信"><a href="#使用-TCP-通信" class="headerlink" title="使用 TCP 通信"></a>使用 TCP 通信</h2><ul>
+<li>TCP 是面向连接的协议。在发送或接收数据之前，需要在客户端和服务器之间建立连接。在连接建立之后，只要它们有数据要发送或接收，两端就可以彼此发送以及接收数据块。</li>
+<li>TCP 连接可以是迭代的（一次服务一个客户）也可以是并发的（一次服务多个客户）。</li>
+</ul>
+<h3 id="TCP-中使用的套接字"><a href="#TCP-中使用的套接字" class="headerlink" title="TCP 中使用的套接字"></a>TCP 中使用的套接字</h3><p>TCP 服务器使用两个不同的套接字:</p>
+<ul>
+<li>一个用于连接建立。称为<code>监听套接字（listen socket）</code>。</li>
+<li>一个用于数据传输。称为<code>套接字（socket）</code>。</li>
+<li>设置两种套接字的目的是将建立阶段和数据交换阶段分开。</li>
+</ul>
+<p>服务器使用监听套接字来监听试图建立连接的新客户。在连接建立之后，服务器创建一个用于和客户交换数据的套接字并且最终终止连接。<br>客户只使用一个套接字用于连接建立以及数据交换。</p>
+<p><img src="/2020/06/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%95%99%E7%A8%8B-%E5%A5%97%E6%8E%A5%E5%AD%97/TCP%E9%80%9A%E4%BF%A1%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%9A%84%E5%A5%97%E6%8E%A5%E5%AD%97.JPG" alt="图2，TCP 通信中使用的套接字"></p>
+<h2 id="通信流程图"><a href="#通信流程图" class="headerlink" title="通信流程图"></a>通信流程图</h2><p><img src="/2020/06/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%95%99%E7%A8%8B-%E5%A5%97%E6%8E%A5%E5%AD%97/%E8%BF%AD%E4%BB%A3TCP%E9%80%9A%E4%BF%A1%E6%B5%81%E7%A8%8B%E5%9B%BE.JPG" alt="图3，迭代TCP通信流程图"></p>
+<h3 id="服务器进程"><a href="#服务器进程" class="headerlink" title="服务器进程"></a>服务器进程</h3><ol>
+<li>TCP 服务器进程调用socket 和bind 函数，但是这两个函数创建监听套接字，它只在连接建立阶段被使用。</li>
+<li>之后，服务器进程调用listen函数，允许操作系统开始接收客户、完成连接阶段并把他们放入等待被服务的列表。<ul>
+<li>这个函数也定义了被连接的客户等待列表的大小，这依赖于服务器进程的复杂性，但是通常值为5。</li>
+</ul>
+</li>
+<li>现在，服务器进程开始循环并且逐一对客户进行服务。<ul>
+<li>在每次循环中，服务器进程调用accept函数从已连接客户的等待列表中去除一个客户，对其进行服务。</li>
+<li>如果列表是空的，那么accept 函数进入阻塞状态直到出现一个客户待服务。</li>
+<li>当accept 函数返回，它创建一个新的与监听套接字一样的套接字。</li>
+</ul>
+</li>
+<li>监听套接字现在移入后台，并且新的套接字成为活动套接字。</li>
+<li>服务器进程现在使用连接建立期间获得的客户套接字地址，用它来填充新建套接字的远程套接字地址。</li>
+</ol>
+<p>此时，客户和服务器可以交换数据。我们没有给出数据传输的特定方式，因为这取决于特定的客户-服务器对。</p>
+<ul>
+<li>TCP 使用<code>send</code>以及<code>recv</code>程序在它们之间传输数据字节。这两个函数比UDP 中使用的sendto 和recvfrom 函数更简单，因为它们不提供远程套接字地址；连接已经在客户和服务器之间建立。</li>
+<li>然而，由于TCP 用于传输无边界报文，每个应用需要仔细设计数据传输部分。</li>
+</ul>
+<p>send 和recv 函数可能被调用多次来处理大量数据传输。可以将上图的流程图当作一个通用流程图；如果是特殊用途，需要定义服务器数据传输（sever data-transfer）盒。</p>
+<h3 id="客户进程"><a href="#客户进程" class="headerlink" title="客户进程"></a>客户进程</h3><p>客户进程进行主动开启（active open）。换言之，它开启连接。它调用socket 函数来创建一个套接字并填充前三个字段。<br>尽管某些实现要求客户进程也调用bind 函数来填充本地套接字，但通常这是由操作系统自动完成的，操作系统为客户选择一个临时端口号<br>最终close 函数被调用以销毁套接字。<br>客户流程图与UDP 版本类似，除了客户数据传输（client data-transfer）盒需要为每个特定情况定义。</p>
+<h2 id="套接字接口编程（TCP）"><a href="#套接字接口编程（TCP）" class="headerlink" title="套接字接口编程（TCP）"></a><strong>套接字接口编程（TCP）</strong></h2><p>编写客户和服务器程序来模拟使用TCP的标准回送应用——客户程序发送一个短的字符串给服务器；服务器将相同的字符串回送到客户。在我们这样做之前，需要为客户和服务器数据传输盒提供流程图</p>
+<h3 id="客户和服务器数据传输盒的流程图"><a href="#客户和服务器数据传输盒的流程图" class="headerlink" title="客户和服务器数据传输盒的流程图"></a>客户和服务器数据传输盒的流程图</h3><p><img src="/2020/06/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%95%99%E7%A8%8B-%E5%A5%97%E6%8E%A5%E5%AD%97/%E5%AE%A2%E6%88%B7%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E7%9B%92%E7%9A%84%E6%B5%81%E7%A8%8B%E5%9B%BE.JPG" alt="图4，客户和服务器数据传输盒的流程图"><br>（发送消息和回送消息）对于发送和回送短的字符这个特定的情况，因为待发送的字符串很短（小于几个单词），我们可以在客户端调用send函数一次完成。<br>然而，TCP 并不保证把整个报文在一个报文段内发送。因此，我们需要在服务器端调用一组recv（在一个循环内）来接收整个报文并将它们收集到缓冲区内，从而能一次性发送回去。<br>当服务器向客户发送回送报文时，它也可能使用多个报文段，这意味着客户的recv 程序需要调用多少次就会被调用多少次。</p>
+<h3 id="缓冲区设置"><a href="#缓冲区设置" class="headerlink" title="缓冲区设置"></a>缓冲区设置</h3><p>另一个有待解决的问题是设置缓冲区，缓冲区用于在每个站点接收数据。</p>
+<ul>
+<li>我们<strong>需要控制接收的字节数以及下一个数据块存储的位置。</strong></li>
+<li>如图所示，程序设置了一些变量进行控制。</li>
+<li>在每次迭代中，<code>指针（ptr）</code>移动指向下一个要接收的字节，<code>接收字节的长度（len）</code>呈增长趋势并且<code>待接收的最大字节数（maxLen）</code>呈减少趋势。</li>
+</ul>
+<p><img src="/2020/06/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%95%99%E7%A8%8B-%E5%A5%97%E6%8E%A5%E5%AD%97/%E7%94%A8%E4%BA%8E%E6%8E%A5%E6%94%B6%E7%9A%84%E7%BC%93%E5%86%B2%E5%8C%BA.JPG" alt="图5，用于接收的缓冲区"></p>
+<h3 id="回送服务器程序"><a href="#回送服务器程序" class="headerlink" title="回送服务器程序"></a><strong>回送服务器程序</strong></h3><p>程序遵循迭代TCP通信流程图。<br>第 6 行到第16 行声明并定义了变量。<br>第18 行到第21 行分配内存并且按UDP 情况下所述创建了本地（服务器）套接字地址。<br>第23 行到第27 行创建了监听套接字。第29 行到第33 行将监听套接字绑定到第18 行到第21 行创建的服务器套接字地址上。<br>第35 行到第39 行是TCP 通信中的新内容。调用 listen 函数让操作系统完成连接建立阶段并将客户置入等待列表。<br>第44 行到第48 行调用accept 函数来移除等待列表中的第一个客户并开始为其服务。如果在等待列表中没有客户，那么这个函数处于阻塞状态。<br>第50 行到第56 行对图2-63 中描述的数据传输部分进行编码。最大缓冲区大小与回送字符串长度都和图5中所示相同。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//回送服务器程序</span></span><br><span class="line"><span class="meta"># <span class="meta-keyword">include</span><span class="meta-string">"headerFiles.h"</span>  <span class="comment">//也就是我上面写的那些头文件的集合</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//声明并定义</span></span><br><span class="line">	<span class="keyword">int</span> ls;                                        <span class="comment">//监听套接字描述符（引用）</span></span><br><span class="line">	<span class="keyword">int</span> s;                                         <span class="comment">//套接字描述符（引用）</span></span><br><span class="line">	<span class="keyword">char</span> buffer[<span class="number">256</span>];                              <span class="comment">//数据缓冲区</span></span><br><span class="line">	<span class="keyword">char</span> *ptr=buffer;                              <span class="comment">//数据缓冲区</span></span><br><span class="line">	<span class="keyword">int</span> len=<span class="number">0</span>;                                     <span class="comment">//等待接收或者发送的字节数</span></span><br><span class="line">	<span class="keyword">int</span> maxLen=<span class="keyword">sizeof</span>(buffer);                     <span class="comment">//最大接收字节数</span></span><br><span class="line">	<span class="keyword">int</span> n;                                         <span class="comment">//每次调用receive接收的字节数</span></span><br><span class="line">	<span class="keyword">int</span> waitSize=<span class="number">16</span>;                               <span class="comment">//等待客户数量</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">servAddr</span>;</span>                   <span class="comment">//服务器地址</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">clntAddr</span>;</span>                   <span class="comment">//客户地址</span></span><br><span class="line">	<span class="keyword">int</span> clntAddrLen;                               <span class="comment">//客户地址长度</span></span><br><span class="line">	<span class="comment">//创建本地（服务器）套接字地址</span></span><br><span class="line">	<span class="built_in">memset</span>(&amp;servAddr,<span class="number">0</span>,sieof(servAddr));</span><br><span class="line">	servAddr.sin_family=AF_INET;</span><br><span class="line">	servAddr.sin_addr.s_addr=htonl(INADDR_ANY);     <span class="comment">//默认IP地址</span></span><br><span class="line">	servAddr.sin_port=htonl(SERV_PORT);             <span class="comment">//默认端口</span></span><br><span class="line">	<span class="comment">//创建监听套接字</span></span><br><span class="line">	<span class="keyword">if</span>(ls=socket(PF_INET,SOCK_STREAM,<span class="number">0</span>)&lt;<span class="number">0</span>)           <span class="comment">//PF_INET族，SOCK_STREAM指套接字类型（tcp）</span></span><br><span class="line">	&#123;</span><br><span class="line">		perror(<span class="string">"Error:Listen socket failed!"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//将套接字绑定到本地套接字地址</span></span><br><span class="line">	<span class="keyword">if</span>(bind(ls,&amp;servAddr,<span class="keyword">sizeof</span>(servAddr))&lt;<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		perror(<span class="string">"Error:binding failed!"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125; 		</span><br><span class="line">	<span class="comment">//创建连接请求</span></span><br><span class="line">	<span class="keyword">if</span>(listen(ls,waitSize)&lt;<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		perror(<span class="string">"Error:listening failed!"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//处理连接</span></span><br><span class="line">	<span class="keyword">for</span>(;;)       <span class="comment">//永远运行</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//接收来自客户的连接</span></span><br><span class="line">		<span class="keyword">if</span>(s=accept(ls,&amp;clntAddr,&amp;clntAddrLen)&lt;<span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			perror(<span class="string">"Error:accepting failed!"</span>);</span><br><span class="line">			<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//数据传输部分</span></span><br><span class="line">		<span class="keyword">while</span>((n=recv(s,ptr,maxLen,<span class="number">0</span>))&gt;<span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			ptr+=n;           <span class="comment">//在缓冲区上移动指针</span></span><br><span class="line">			maxLen-=n;        <span class="comment">//调整待接收的最大字节数</span></span><br><span class="line">			len+=n;           <span class="comment">//更新已经接收的字节数</span></span><br><span class="line">		&#125;</span><br><span class="line">		send(s,buffer,len,<span class="number">0</span>); <span class="comment">//发回（回送）所有接收的字节</span></span><br><span class="line">		<span class="comment">//关闭套接字</span></span><br><span class="line">		close(s);</span><br><span class="line">	&#125;<span class="comment">//循环结束</span></span><br><span class="line">&#125;<span class="comment">//回送服务器程序结束</span></span><br></pre></td></tr></table></figure>
+<p>tips:</p>
+<ul>
+<li>在C/C++写网络程序的时候，往往会遇到字节的网络顺序和主机顺序的问题。这是就可能用到htonl(), ntohl(), ntohs()，htons()这4个函数。</li>
+<li>htonl()–”Host to Network Long”</li>
+<li>ntohl()–”Network to Host Long”</li>
+<li>htons()–”Host to Network Short”</li>
+<li>ntohs()–”Network to Host Short”</li>
+</ul>
+<h3 id="回送客户程序"><a href="#回送客户程序" class="headerlink" title="回送客户程序"></a><strong>回送客户程序</strong></h3><p>TCP 的客户程序与UDP 的客户程序非常相似，只有些许不同。</p>
+<ul>
+<li>因为TCP 是面向连接的协议第36 行到第40 行调用connect 函数连接服务器。</li>
+<li>第42 行到第48 行使用图3中的思想完成数据传输。</li>
+<li>按图5所示方式完成接收数据的长度调整和指针移动。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//回送客户程序</span></span><br><span class="line"><span class="meta"># <span class="meta-keyword">include</span><span class="meta-string">"headerFiles.h"</span>  <span class="comment">//也就是我上面写的那些头文件的集合</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> *argv[])</span>   <span class="comment">//三个参数之后待检验</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//声明并定义</span></span><br><span class="line">	<span class="keyword">int</span> s;                                        <span class="comment">//套接字描述符</span></span><br><span class="line">	<span class="keyword">int</span> n;                                         <span class="comment">//每次调用recv接收的字节数</span></span><br><span class="line">	<span class="keyword">char</span> servName;                                 <span class="comment">//服务器名</span></span><br><span class="line">	<span class="keyword">int</span> servPort;                                  <span class="comment">//服务器名</span></span><br><span class="line">	<span class="keyword">char</span> *<span class="built_in">string</span>;                                  <span class="comment">//被回送的字符串</span></span><br><span class="line">	<span class="keyword">int</span> len;                                       <span class="comment">//被回送的字符串的长度</span></span><br><span class="line">	<span class="keyword">char</span> buffer[<span class="number">256</span>+<span class="number">1</span>];                            <span class="comment">//缓冲区</span></span><br><span class="line">	<span class="keyword">char</span> *ptr=buffer;                              <span class="comment">//在缓冲区上移动指针	</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">serverAddr</span>;</span>                   <span class="comment">//服务器套接字地址</span></span><br><span class="line">	<span class="comment">//检测并设置参数</span></span><br><span class="line">	<span class="keyword">if</span>(argc!=<span class="number">3</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Error:three arguments are needed!"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	servName=argv[<span class="number">1</span>];</span><br><span class="line">	servPort=atoi(argv[<span class="number">2</span>]);</span><br><span class="line">	<span class="built_in">string</span>=arg[<span class="number">3</span>];</span><br><span class="line">	<span class="comment">//创建远程（服务器）套接字地址</span></span><br><span class="line">	<span class="built_in">memset</span>(&amp;serverAddr,<span class="number">0</span>,sieof(serverAddr));</span><br><span class="line">	servAddr.sin_family=AF_INET;</span><br><span class="line">	inet_pton(AF_INET,servName,&amp;serverAddr.sin_addr); <span class="comment">//服务器IP地址</span></span><br><span class="line">	serverAddr.sin_port=htons(SERV_PORT);               <span class="comment">//默认端口</span></span><br><span class="line">	<span class="comment">//创建套接字</span></span><br><span class="line">	<span class="keyword">if</span>(ls=socket(PF_INET,SOCK_STREAM,<span class="number">0</span>)&lt;<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		perror(<span class="string">"Error: socket creation failed!"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//连接到服务器</span></span><br><span class="line">	<span class="keyword">if</span>(connect(sd,(struct sockaddr*)&amp;serverAddr,<span class="keyword">sizeof</span>(serverAddr))&lt;<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		perror(<span class="string">"Error:connection failed!"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;	</span><br><span class="line">	<span class="comment">//数据传输部分</span></span><br><span class="line">	send(s,<span class="built_in">string</span>,<span class="built_in">strlen</span>(<span class="built_in">string</span>),<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">while</span>((n=recv(s,ptr,maxLen,<span class="number">0</span>))&gt;<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">			ptr+=n;           <span class="comment">//在缓冲区上移动指针</span></span><br><span class="line">			maxLen-=n;        <span class="comment">//调整待接收的最大字节数</span></span><br><span class="line">			len+=n;           <span class="comment">//更新已经接收的字节数	</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//打印并验证回送的字符串</span></span><br><span class="line">	buffer[len]=<span class="string">'\0'</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Echoed string received:"</span>);</span><br><span class="line">	<span class="built_in">fputs</span>(buffer,<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="comment">//关闭套接字</span></span><br><span class="line">	close(s);</span><br><span class="line">	<span class="comment">//停止程序</span></span><br><span class="line">	<span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;<span class="comment">//回送客户程序结束</span></span><br></pre></td></tr></table></figure>
+<h2 id="Linux下的socket-函数"><a href="#Linux下的socket-函数" class="headerlink" title="Linux下的socket()函数"></a><strong>Linux下的socket()函数</strong></h2><p>inux中的一切都是文件，每个文件都有一个<code>整数类型的文件描述符</code>；<br>socket也是一个文件，也有文件描述符。使用socket()函数创建套接字以后，返回值就是一个 <strong>int类型的文件描述符</strong>。<br>在 Linux 下使用 &lt;sys/socket.h&gt; 头文件中 socket()函数来创建套接字，原型为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span><span class="params">(<span class="keyword">int</span> af, <span class="keyword">int</span> type, <span class="keyword">int</span> protocol)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>1) af 为<code>地址族（Address Family）</code>，也就是 IP 地址类型，常用的有 AF_INET 和 AF_INET6。</p>
+<ul>
+<li>AF 是“Address Family”的简写，INET是“Inetnet”的简写。</li>
+<li>AF_INET 表示 IPv4 地址，例如 127.0.0.1；</li>
+<li>AF_INET6 表示 IPv6 地址，例如 1030::C9B4:FF12:48AA:1A2B。</li>
+<li>也可以使用 PF 前缀，PF 是“Protocol Family”的简写，它和 AF 是一样的。例如，PF_INET 等价于 AF_INET，PF_INET6 等价于 AF_INET6。</li>
+</ul>
+<blockquote>
+<p>需要记住127.0.0.1，它是一个特殊IP地址，表示本机地址</p>
+</blockquote>
+<p>2) type 为数据传输方式/套接字类型，</p>
+<ul>
+<li>常用的有 SOCK_STREAM（流格式套接字/面向连接的套接字） </li>
+<li>SOCK_DGRAM（数据报套接字/无连接的套接字）</li>
+</ul>
+<p>3) protocol 表示传输协议，常用的有 IPPROTO_TCP 和 IPPTOTO_UDP，分别表示 TCP 传输协议和 UDP 传输协议。<br>有了地址类型和数据传输方式，还不足以决定采用哪种协议吗？为什么还需要第三个参数呢？</p>
+<p>正如大家所想，一般情况下有了 af 和 type 两个参数就可以创建套接字了，操作系统会自动推演出协议类型，除非遇到这样的情况：有两种不同的协议支持同一种地址类型和数据传输类型。如果我们不指明使用哪种协议，操作系统是没办法自动推演的。</p>
+<p>本教程使用 IPv4 地址，参数 af 的值为 PF_INET。如果使用 SOCK_STREAM 传输数据，那么满足这两个条件的协议只有 TCP，因此可以这样来调用 socket() 函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> tcp_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);  <span class="comment">//IPPROTO_TCP表示TCP协议</span></span><br></pre></td></tr></table></figure>
+<p>这种套接字称为 TCP 套接字。</p>
+<p>如果使用 SOCK_DGRAM 传输方式，那么满足这两个条件的协议只有 UDP，因此可以这样来调用 socket() 函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> udp_socket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);  <span class="comment">//IPPROTO_UDP表示UDP协议</span></span><br></pre></td></tr></table></figure>
+<p>这种套接字称为 UDP 套接字。</p>
+<p>上面两种情况都只有一种协议满足条件，可以将 protocol 的值设为 0，系统会自动推演出应该使用什么协议，如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> tcp_socket = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);  <span class="comment">//创建TCP套接字</span></span><br><span class="line"><span class="keyword">int</span> udp_socket = socket(AF_INET, SOCK_DGRAM, <span class="number">0</span>);  <span class="comment">//创建UDP套接字</span></span><br></pre></td></tr></table></figure>
+<h2 id="Windows下的socket-函数"><a href="#Windows下的socket-函数" class="headerlink" title="Windows下的socket()函数"></a><strong>Windows下的socket()函数</strong></h2><p>Windows 会区分 socket 和普通文件，它把 socket 当做一个网络连接来对待，调用 socket() 以后，返回值是 SOCKET 类型，用来表示一个套接字。<br>Windows 下也使用 socket() 函数来创建套接字，原型为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">SOCKET <span class="title">socket</span><span class="params">(<span class="keyword">int</span> af, <span class="keyword">int</span> type, <span class="keyword">int</span> protocol)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>除了返回值类型不同，其他都是相同的。Windows 不把套接字作为普通文件对待，而是返回 SOCKET 类型的句柄。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>计算机网络-自顶向下方法<br><a href="http://c.biancheng.net/view/2344.html">bind()和connect()函数：绑定套接字并建立连接</a><br><a href="http://c.biancheng.net/view/2345.html">listen()和accept()函数：让套接字进入监听状态并响应客户端请求</a><br><a href="http://c.biancheng.net/view/2346.html">send()/recv()和write()/read()：发送数据和接收数据</a><br><a href="https://www.cnblogs.com/eping/archive/2009/12/12/1622579.html">TCP协议的无消息边界问题</a><br><a href="http://c.biancheng.net/view/2350.html">TCP协议的粘包问题（数据的无边界性）</a><br><a href="https://blog.csdn.net/hherima/article/details/42921149">TCP网络传输“粘包”问题，经典解决（附代码）</a><br><a href="http://c.biancheng.net/view/2131.html">socket()函数用法详解：创建套接字</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/TCP/" rel="tag">TCP</a>, <a class="has-link-grey -link" href="/tags/%E5%A5%97%E6%8E%A5%E5%AD%97/" rel="tag">套接字</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/06/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">数据库常用概念</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/06/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%95%99%E7%A8%8B-TCP%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2/">
+                <span class="level-item">计算机网络教程-TCP状态转换</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'e79770cfee30db02a856',
+        clientSecret: 'bb958f5fc30797ffc222ca631ec345baa48a0bee',
+        id: '5c058d5f73eaf2770a04dca610759c4b',
+        repo: 'STEMHA.github.io',
+        owner: 'STEMHA',
+        admin: "STEMHA",
+        createIssueManually: false,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
+</div>
+				 
+				
             </div>
         </div>
     </section>
