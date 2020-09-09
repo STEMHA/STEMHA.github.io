@@ -6,7 +6,7 @@
   <link href="/rss.xml" rel="self"/>
   
   <link href="https://stemha.github.io/"/>
-  <updated>2020-09-08T16:25:56.093Z</updated>
+  <updated>2020-09-01T14:20:01.494Z</updated>
   <id>https://stemha.github.io/</id>
   
   <author>
@@ -15,37 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://stemha.github.io/2020/08/22/hello-world/"/>
-    <id>https://stemha.github.io/2020/08/22/hello-world/</id>
-    <published>2020-08-22T14:25:42.312Z</published>
-    <updated>2020-09-08T16:25:56.093Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><figcaption><span>点击展开代码 >folded</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><a id="more"></a><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><div class="notification">  <button class="delete"></button>  通知消除测试模块</div> <script>document.addEventListener('DOMContentLoaded', () => {  (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {    $notification = $delete.parentNode;    $delete.addEventListener('click', () => {      $notification.parentNode.removeChild($notification);    });  });});</script><div class="notification is-success">  <button class="delete"></button>  Primar lorem ipsum dolor sit amet, consectetur  adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Sit amet,  consectetur adipiscing elit</div><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p><h2 id="相关维护资料"><a href="#相关维护资料" class="headerlink" title="相关维护资料"></a>相关维护资料</h2><p><a href="https://www.jianshu.com/p/7795779f8f8d">hexo 添加和取消live2d看板动画</a><br><a href="https://dp2px.com/2019/04/25/hexo-meihua/">Hexo主题(Next)美化、配置、优化这一篇就够了 - DP2PX.COM</a><br><a href="https://blog.csdn.net/qq_36759224/article/details/85420403">Hexo 博客优化之博客美化系列（持续更新）</a><br><a href="https://blog.zhangruipeng.me/hexo-theme-icarus/">Icarus官方示例</a><br><a href="https://www.cnblogs.com/whiremapple/p/12419113.html">Hexo+Markdown在你自己的博客发布文章！</a><br><a href="https://removeif.github.io/theme/%E5%8D%9A%E5%AE%A2%E6%BA%90%E7%A0%81%E5%88%86%E4%BA%AB.html">博客源码分享-Icarus美化</a><br><a href="https://www.imaegoo.com/2020/icarus-with-bulma/">活用 Bulma 美化 Icarus 文章</a><br><a href="https://susreal.com/article/2019/hexo-theme-icarus-3/">Hexo | 初识icarus主题中的Bulma框架-宽度调整</a><br><a href="https://lqwang.net/5.html#8%E3%80%81%E6%96%87%E7%AB%A0%E9%A1%B5%E4%B8%89%E6%A0%8F%E5%8F%98%E4%B8%A4%E6%A0%8F">Hexo&amp;icarus主题修改-三栏变两栏</a><br><a href="https://www.alphalxy.com/2019/03/customize-icarus/">Icarus 主题自定义</a><br><a href="https://bulma.io/documentation/elements/">Bulma查询</a><br><a href="https://www.jianshu.com/p/60f5c84aa5a8">hexo创建自定义about页</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;h3 id=&quot;Create-a-new-post&quot;&gt;&lt;a href=&quot;#Create-a-new-post&quot; class=&quot;headerlink&quot; title=&quot;Create a new post&quot;&gt;&lt;/a&gt;Create a new post&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;figcaption&gt;&lt;span&gt;点击展开代码 &gt;folded&lt;/span&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo new &lt;span class=&quot;string&quot;&gt;&quot;My New Post&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/writing.html&quot;&gt;Writing&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Run-server&quot;&gt;&lt;a href=&quot;#Run-server&quot; class=&quot;headerlink&quot; title=&quot;Run server&quot;&gt;&lt;/a&gt;Run server&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo server&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/server.html&quot;&gt;Server&lt;/a&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="博客维护" scheme="https://stemha.github.io/categories/%E5%8D%9A%E5%AE%A2%E7%BB%B4%E6%8A%A4/"/>
-    
-    
-      <category term="hexo" scheme="https://stemha.github.io/tags/hexo/"/>
-    
-      <category term="教程" scheme="https://stemha.github.io/tags/%E6%95%99%E7%A8%8B/"/>
-    
-  </entry>
   
   <entry>
     <title>Linux-块设备驱动程序</title>
@@ -2080,6 +2049,37 @@ SPARC处理器的系统上，用户可以看见一个zImage文件。部分用户
       <category term="哲学" scheme="https://stemha.github.io/tags/%E5%93%B2%E5%AD%A6/"/>
     
       <category term="名著" scheme="https://stemha.github.io/tags/%E5%90%8D%E8%91%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://stemha.github.io/2020/03/28/hello-world/"/>
+    <id>https://stemha.github.io/2020/03/28/hello-world/</id>
+    <published>2020-03-28T00:08:08.000Z</published>
+    <updated>2020-09-09T01:04:16.797Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><figcaption><span>点击展开代码 >folded</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><a id="more"></a><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><div class="notification">  <button class="delete"></button>  通知消除测试模块</div> <script>document.addEventListener('DOMContentLoaded', () => {  (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {    $notification = $delete.parentNode;    $delete.addEventListener('click', () => {      $notification.parentNode.removeChild($notification);    });  });});</script><div class="notification is-success">  <button class="delete"></button>  Primar lorem ipsum dolor sit amet, consectetur  adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Sit amet,  consectetur adipiscing elit</div><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p><h2 id="相关维护资料"><a href="#相关维护资料" class="headerlink" title="相关维护资料"></a>相关维护资料</h2><p><a href="https://www.jianshu.com/p/7795779f8f8d">hexo 添加和取消live2d看板动画</a><br><a href="https://dp2px.com/2019/04/25/hexo-meihua/">Hexo主题(Next)美化、配置、优化这一篇就够了 - DP2PX.COM</a><br><a href="https://blog.csdn.net/qq_36759224/article/details/85420403">Hexo 博客优化之博客美化系列（持续更新）</a><br><a href="https://blog.zhangruipeng.me/hexo-theme-icarus/">Icarus官方示例</a><br><a href="https://www.cnblogs.com/whiremapple/p/12419113.html">Hexo+Markdown在你自己的博客发布文章！</a><br><a href="https://removeif.github.io/theme/%E5%8D%9A%E5%AE%A2%E6%BA%90%E7%A0%81%E5%88%86%E4%BA%AB.html">博客源码分享-Icarus美化</a><br><a href="https://www.imaegoo.com/2020/icarus-with-bulma/">活用 Bulma 美化 Icarus 文章</a><br><a href="https://susreal.com/article/2019/hexo-theme-icarus-3/">Hexo | 初识icarus主题中的Bulma框架-宽度调整</a><br><a href="https://lqwang.net/5.html#8%E3%80%81%E6%96%87%E7%AB%A0%E9%A1%B5%E4%B8%89%E6%A0%8F%E5%8F%98%E4%B8%A4%E6%A0%8F">Hexo&amp;icarus主题修改-三栏变两栏</a><br><a href="https://www.alphalxy.com/2019/03/customize-icarus/">Icarus 主题自定义</a><br><a href="https://bulma.io/documentation/elements/">Bulma查询</a><br><a href="https://www.jianshu.com/p/60f5c84aa5a8">hexo创建自定义about页</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;h3 id=&quot;Create-a-new-post&quot;&gt;&lt;a href=&quot;#Create-a-new-post&quot; class=&quot;headerlink&quot; title=&quot;Create a new post&quot;&gt;&lt;/a&gt;Create a new post&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;figcaption&gt;&lt;span&gt;点击展开代码 &gt;folded&lt;/span&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo new &lt;span class=&quot;string&quot;&gt;&quot;My New Post&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/writing.html&quot;&gt;Writing&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Run-server&quot;&gt;&lt;a href=&quot;#Run-server&quot; class=&quot;headerlink&quot; title=&quot;Run server&quot;&gt;&lt;/a&gt;Run server&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo server&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/server.html&quot;&gt;Server&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="博客维护" scheme="https://stemha.github.io/categories/%E5%8D%9A%E5%AE%A2%E7%BB%B4%E6%8A%A4/"/>
+    
+    
+      <category term="hexo" scheme="https://stemha.github.io/tags/hexo/"/>
+    
+      <category term="教程" scheme="https://stemha.github.io/tags/%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
