@@ -6,7 +6,7 @@
   <link href="/rss.xml" rel="self"/>
   
   <link href="https://stemha.github.io/"/>
-  <updated>2020-09-25T09:04:43.492Z</updated>
+  <updated>2020-10-05T07:25:31.139Z</updated>
   <id>https://stemha.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux内存管理</title>
+    <link href="https://stemha.github.io/2020/10/05/Linux%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
+    <id>https://stemha.github.io/2020/10/05/Linux%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</id>
+    <published>2020-10-05T07:05:43.000Z</published>
+    <updated>2020-10-05T07:25:31.139Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="进程的用户空间划分"><a href="#进程的用户空间划分" class="headerlink" title="进程的用户空间划分"></a>进程的用户空间划分</h2><a id="more"></a><p>我们以x86架构的 32 位 Linux系统为例子表述：<br><code>栈(stack)</code>：栈又称堆栈， 是用户存放程序临时创建的局部变量，也就是说我们函数括弧“{} ”中定义的变量（但不包括static 声明的变量，static 意味着在数据段中存放变量）。此外，在函数被调用时，其参数也会被压入发起调用的进程栈中，并且待到调用结束后，函数的返回值也会被存放回栈中。由于栈的先进先出特点，所以栈特别方便用来保存/ 恢复调用现场。从这个意义上讲，我们可以把堆栈看成一个寄存、交换临时数据的内存区。</p><p><code>堆（heap）</code>：用于存放进程运行中被动态分配的内存段，它的大小并不固定，可动态扩张或缩减。当进程调用malloc 等函数分配内存时，新分配的内存就被动态添加到堆上（堆被扩张）；当利用free 等函数释放内存时，被释放的内存从堆中被剔除（堆被缩减） </p><p><code>BSS 段（bss segment）</code>：是指用来存放程序中未初始化的或者初始化为 0 的全局变量和静态变量的一块内存区域。BSS段属于静态内存分配。 </p><p><code>数据段（data segment）</code>：是指用来存放程序中已初始化的全局变量的一块内存区域。换句话说就是存放程序静态分配的变量和全局变量。数据段属于静态内存分配。 </p><p><code>代码段（code segment/text segment）</code>：通常是指用来存放程序执行代码的一块内存区域。这部分区域的大小在程序运行前就已经确定，并且内存区域通常属于只读, 某些架构也允许代码段为可写，即允许修改程序。在代码段中，也有可能包含一些只读的常数变量，例如字符串常量等。 </p><p>说明：</p><ul><li>包含data段和bss段的整个区段此时通常称为数据区。</li></ul><p>数据段、BSS 段、堆通常是被连续存储在内存中，在位置上是连续的，而代码段和栈往往会被独立存放。堆和栈两个区域在 i386 体系结构中栈向下扩展、堆向上扩展，相对而生。就像下面这张图这样子：</p><center><img src="/2020/10/05/Linux%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/Linux内存分区.png" width="20%" height="20%">  </center><center>图1. Linux进程用户空间分区</center><h2 id="使用size命令查看"><a href="#使用size命令查看" class="headerlink" title="使用size命令查看"></a>使用size命令查看</h2><h3 id="size命令说明"><a href="#size命令说明" class="headerlink" title="size命令说明"></a>size命令说明</h3><p>size 作用：显示一个目标文件或者链接库文件中的目标文件的各个段的大小(可执行文件段的大小,默认为a.out)，是 GNU 二进制工具集 GNU Binutils 的一员。<br>支持的目标： elf32-i386 a.out-i386-linux efi-app-ia32 elf32-little elf32-big srec symbolsrec tekhex binary ihex trad-core。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># root @ LAPTOP in /usr/bin </span></span><br><span class="line">$ size sort</span><br><span class="line">   text    data     bss     dec     hex filename</span><br><span class="line"> <span class="number">104372</span>    <span class="number">3136</span>    <span class="number">1960</span>  <span class="number">109468</span>   <span class="number">1</span>ab9c sort</span><br></pre></td></tr></table></figure><ul><li>text表示正文段</li><li>data表示包含静态变量和已经初始化的全局变量的数据段大小（可执行文件包含了初始化的值）</li><li>bss由可执行文件中不含其初始化值的全局变量组成。</li><li>C语言之类的程序编译完成之后，已初始化的全局变量保存在.data 段中，未初始化的全局变量保存在.bss 段中。</li></ul><h3 id="size命令安装"><a href="#size命令安装" class="headerlink" title="size命令安装"></a>size命令安装</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ apt-get install  binutils <span class="comment">//注意安装的时候不要写成Binutils，这样是找不到安装包的</span></span><br></pre></td></tr></table></figure><p>安装成功后，查看size命令的版本</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ size -v</span><br><span class="line">GNU size (GNU Binutils for Ubuntu) 2.30</span><br><span class="line">Copyright (C) <span class="number">2018</span> Free Software Foundation, Inc.</span><br><span class="line">This program is <span class="built_in">free</span> software; you may redistribute it under the terms of</span><br><span class="line">the GNU General Public License version <span class="number">3</span> <span class="keyword">or</span> (at your option) any later version.</span><br><span class="line">This program has absolutely no warranty.</span><br></pre></td></tr></table></figure><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.cnblogs.com/yanghong-hnu/p/4705755.html">(深入理解计算机系统) bss段，data段、text段、堆(heap)和栈(stack)</a><br><a href="https://labuladong.gitbook.io/algo/labuladong-he-ta-de-peng-you-men/bie-zai-shuo-ni-bu-dong-linux-nei-cun-guan-li-le-10-zhang-tu-gei-ni-an-pai-de-ming-ming-bai-bai">别再说你不懂Linux内存管理了，10张图给你安排的明明白白</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;进程的用户空间划分&quot;&gt;&lt;a href=&quot;#进程的用户空间划分&quot; class=&quot;headerlink&quot; title=&quot;进程的用户空间划分&quot;&gt;&lt;/a&gt;进程的用户空间划分&lt;/h2&gt;
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="https://stemha.github.io/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="https://stemha.github.io/tags/Linux/"/>
+    
+      <category term="内存管理" scheme="https://stemha.github.io/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
+    
+  </entry>
   
   <entry>
     <title>C++精度控制</title>
