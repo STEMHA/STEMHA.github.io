@@ -1,0 +1,3323 @@
+<!DOCTYPE html>
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<script type="text/javascript" src="/js/src/click.js"></script>
+<script type="text/javascript" src="/live2d-widget/autolload.js"></script>
+
+<!-- 数字雨-->
+<canvas id="canvas" width="1440" height="900" ></canvas>
+  <script type="text/javascript" src="/js/src/DigitalRain.js"></script> 
+
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>建造者模式 - STEMHA&#39;s Blog</title>
+
+
+    <meta name="description" content="建造者模式是什么 ？顾名思义，建造者模式用于构建对象。  有时，我们创建的对象可能很复杂，可能由多个子对象组成，或者需要复杂的构建过程。通过使用建造者模式，可以简化创建复杂类型的过程。 建造者模式通常用来构建复合或者聚合的对象 严谨地说，构建器模式封装或隐藏了构建复杂对象的过程，并将对象的表示和构建进行了分离。这种分离使我们可以使用相同的构建过程来构建不同的表示形式。 建造者模式是一个非常实用而常">
+<meta property="og:type" content="article">
+<meta property="og:title" content="建造者模式">
+<meta property="og:url" content="https://stemha.github.io/2020/10/14/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="STEMHA&#39;s Blog">
+<meta property="og:description" content="建造者模式是什么 ？顾名思义，建造者模式用于构建对象。  有时，我们创建的对象可能很复杂，可能由多个子对象组成，或者需要复杂的构建过程。通过使用建造者模式，可以简化创建复杂类型的过程。 建造者模式通常用来构建复合或者聚合的对象 严谨地说，构建器模式封装或隐藏了构建复杂对象的过程，并将对象的表示和构建进行了分离。这种分离使我们可以使用相同的构建过程来构建不同的表示形式。 建造者模式是一个非常实用而常">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://stemha.github.io/images/og_image.png">
+<meta property="article:published_time" content="2020-10-14T14:02:30.000Z">
+<meta property="article:modified_time" content="2020-10-16T08:34:02.799Z">
+<meta property="article:author" content="STEMHA">
+<meta property="article:tag" content="面向对象">
+<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="建造者模式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://stemha.github.io/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/pojoaque.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="alternate" href="/rss.xml" title="STEMHA's Blog" type="application/atom+xml">
+</head>
+<body class="is-2-column">
+<!-- <body class="is-3-column"> -->
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/og_image.png" alt="建造者模式" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">首页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+                <a class="navbar-item"
+                href="/cs-quotes">CS语录</a>
+                
+                <a class="navbar-item"
+                href="/rss.xml">RSS</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+               <!--<div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-10-14T14:02:30.000Z">2020-10-14</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    14 分钟 读完 (大约 2154 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                建造者模式
+            
+        </h1>
+        <div class="content">
+            <h2 id="建造者模式是什么-？"><a href="#建造者模式是什么-？" class="headerlink" title="建造者模式是什么 ？"></a><strong>建造者模式是什么 ？</strong></h2><p>顾名思义，建造者模式用于构建对象。</p>
+<ul>
+<li>有时，我们创建的对象可能很复杂，可能由多个子对象组成，或者需要复杂的构建过程。通过使用建造者模式，可以简化创建复杂类型的过程。</li>
+<li>建造者模式通常用来构建复合或者聚合的对象</li>
+<li>严谨地说，<strong>构建器模式封装或隐藏了构建复杂对象的过程，并将对象的表示和构建进行了分离</strong>。这种分离使我们可以<strong>使用相同的构建过程来构建不同的表示形式</strong>。</li>
+<li>建造者模式是一个非常实用而常见的创建类型的模式（creational design pattern)</li>
+</ul>
+<p>应用场景：</p>
+<ul>
+<li>当一个类的构造函数参数个数超过4个，而且这些参数有些是可选的参数，考虑使用构造者模式。</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="建造者模式类图"><a href="#建造者模式类图" class="headerlink" title="建造者模式类图"></a><strong>建造者模式类图</strong></h2><p>类图由以下实体组成</p>
+<ul>
+<li><code>Builder</code>：其定义了构建Product的抽象步骤，其实体类需要实现这些步骤。其会包含一个用来返回最终产品的方法Product getProduct()。</li>
+<li><code>Concrete Builder</code>：具体的建造者</li>
+<li><code>Director</code> ：决定如何构建最终产品的算法. 其会包含一个负责组装的方法void Construct(Builder builder)， 在这个方法中通过调用builder的方法，就可以设置builder，等设置完成后，就可以通过builder的 getProduct() 方法获得最终的产品。</li>
+<li><code>Product</code>：最终要生成的对象</li>
+</ul>
+<p><img src="/2020/10/14/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F.png" alt></p>
+<h2 id="使用建造者模式造不同的飞机"><a href="#使用建造者模式造不同的飞机" class="headerlink" title="使用建造者模式造不同的飞机"></a><strong>使用建造者模式造不同的飞机</strong></h2><p>接下来的示例讨论了如何将表示和构造复杂的对象两个操作耦合在一起。</p>
+<p>示例：<br>以制造飞机为例，假设飞机的制造过程分三个步骤进行：</p>
+<ul>
+<li>驾驶舱的制作</li>
+<li>引擎</li>
+<li>机翼</li>
+</ul>
+<p>在我们的假设中，每架飞机至少需要上述三个步骤。但是，如果飞机是客机的话，我们就需要增加在飞机上建造浴室的步骤。这些步骤代表了构建过程。我们建造的产品可以是不同的形式。文中的例子是飞机，但可以有不同的表示形式的飞机，例如战斗机或客机。但是使用相同的建造过程，我们应该能够同时生产战斗机和客机。</p>
+<p>现在看一些代码。首先，我们将从<code>AircraftBuilder类</code>的抽象接口开始。</p>
+<ul>
+<li>The builder contains a method for each component that can be part of the final product. These methods are selectively overridden by concrete builders depending on if the builders will be including that part in the final product variant that they are responsible for building.</li>
+<li>抽象类Builder会包含最终产品每个部分的构建方法。</li>
+<li>这些方法会被具体的构建者（concrete builders）有选择地覆盖，这取决于具体的构建者负责的最终产品中是否包括该部分，如果包含，就覆盖对应的方法。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AircraftBuilder</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildEngine</span><span class="params">()</span> </span>&#123;  <span class="comment">//引擎</span></span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildWings</span><span class="params">()</span> </span>&#123;   <span class="comment">//机翼</span></span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildCockpit</span><span class="params">()</span> </span>&#123; <span class="comment">//驾驶舱</span></span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildBathrooms</span><span class="params">()</span> </span>&#123; <span class="comment">//洗手间</span></span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> IAircraft&amp; <span class="title">getResult</span><span class="params">()</span> </span>= <span class="number">0</span>; <span class="comment">//返回最终产品的方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们将实施两个具体的建造者，一个用于F-16，另一个用于波音747。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Boeing747Builder</span>：<span class="title">public</span> <span class="title">AircraftBuilder</span> &#123;</span></span><br><span class="line">    Boeing747 boeing747;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildCockpit</span><span class="params">()</span> <span class="keyword">override</span> <span class="comment">//选择覆盖驾驶舱建造方法</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildEngine</span><span class="params">()</span> <span class="keyword">override</span> <span class="comment">//选择覆盖引擎建造方法</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildBathrooms</span><span class="params">()</span> <span class="keyword">override</span> <span class="comment">//选择覆盖洗手间建造方法</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildWings</span><span class="params">()</span> <span class="keyword">override</span> <span class="comment">//选择覆盖机翼建造方法</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> IAircraft&amp; <span class="title">getResult</span><span class="params">()</span> <span class="keyword">override</span> <span class="comment">//返回最终产品的方法</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> boeing747;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">F16Builder</span> <span class="title">extends</span> <span class="title">AircraftBuilder</span> &#123;</span></span><br><span class="line">    F16 f16;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildEngine</span><span class="params">()</span> <span class="keyword">override</span> <span class="comment">//选择覆盖引擎建造方法</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// get F-16 an engine</span></span><br><span class="line">        <span class="comment">// f16.engine = new F16Engine();</span></span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildWings</span><span class="params">()</span> <span class="keyword">override</span> <span class="comment">//选择覆盖机翼建造方法</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// get F-16 wings</span></span><br><span class="line">        <span class="comment">// f16.wings = new F16Wings();</span></span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildCockpit</span><span class="params">()</span> <span class="keyword">override</span> <span class="comment">//选择覆盖驾驶舱建造方法</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        f16 = <span class="keyword">new</span> F16();</span><br><span class="line">        <span class="comment">// get F-16 a cockpit</span></span><br><span class="line">        <span class="comment">// f16.cockpit = new F16Cockpit();</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> IAircraft&amp; <span class="title">getResult</span><span class="params">()</span> <span class="keyword">override</span> <span class="comment">//返回最终产品的方法</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> f16;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为简便起见，我们提供了建造器的框架，并跳过了每种方法的单独实现。</p>
+<p>请注意，F16Builder它不会覆盖该buildBathrooms方法，因为F-16座舱中没有浴室。由于波音747拥有供乘客使用的浴室，因此波音的制造商确实重写了浴室的方法。</p>
+<p>建造飞机所需的过程或算法（在我们的案例中是创建不同零件的特定顺序）被称为的另一个<code>类Director</code>捕获。</p>
+<p><code>Director类</code>在某种意义上指导着飞机的建造。<strong>最终产品仍由建造者（Builders）返回（return）。</strong>这里的意思是说Director类知识用来配置建造过程中的参数，最中的产品仍然在建造者那里，所以需要建造者（Builders）返回（return）产品。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Director</span> &#123;</span></span><br><span class="line">    AircraftBuilder aircraftBuilder; <span class="comment">//捕获Builder，也就是Builder是Director的一份子</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    </span><br><span class="line">    Director(AircraftBuilder aircraftBuilder)  <span class="comment">//构造函数</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;aircraftBuilder = aircraftBuilder;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">construct</span><span class="params">(<span class="keyword">bool</span> isPassenger)</span>   <span class="comment">//构建过程（可以有各种参数，来配置构建过程）</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        aircraftBuilder.buildCockpit();</span><br><span class="line">        aircraftBuilder.buildEngine();</span><br><span class="line">        aircraftBuilder.buildWings();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> (isPassenger)</span><br><span class="line">            aircraftBuilder.buildBathrooms();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>请注意，我们如何通过我们选择的制造商，并将飞机产品（表示形式）更改为F-16或Boeing-747。</p>
+<p>在我们的方案中，建造者返回相同的超类，但是如果构建器返回的产品不太相似，则情况可能并非如此。</p>
+<p>客户端将使用以下模式：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">     <span class="function"><span class="keyword">void</span> <span class="title">Clientmain</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        F16Builder f16Builder = F16Builder();  <span class="comment">//先初始化一个建造者</span></span><br><span class="line">        Director director =  Director(f16Builder); <span class="comment">//然后交给指导者来配参数</span></span><br><span class="line">        director.construct(<span class="literal">false</span>); <span class="comment">//指导建造过程</span></span><br><span class="line"> </span><br><span class="line">        IAircraft f16 = f16Builder.getResult(); <span class="comment">//建造者接受指导后返回最终的产品</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>The AircraftBuilder interface hides how a given aircraft gets built. </li>
+<li>The client is unaware of the classes F16Engine, F16Cockpit and similar classes for Boeing-747.</li>
+</ul>
+<h3 id="假如没有指导者"><a href="#假如没有指导者" class="headerlink" title="假如没有指导者"></a>假如没有指导者</h3><p>如果在没有Director的情况下使用了构建器模式。客户端可以直接实例化Builder并调用所需的方法以获取自身的产品。<br>而且也是一个应对“（伸缩构建）telescoping constructors”的解法：</p>
+<ul>
+<li>假设一个类具有很多的属性，但是有些属性是可选的。在这种情况下，可以调用Builder仅设置必需的属性并创建产品。</li>
+</ul>
+<h2 id="其他例子"><a href="#其他例子" class="headerlink" title="其他例子"></a><strong>其他例子</strong></h2><p>另一个假设的示例可能是创建pdf或html类型的文档。请考虑以下代码段：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">IDocument <span class="title">construct</span><span class="params">(DocumentBuilder documentBuilder)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    documentBuilder.addTitle(<span class="string">"Why use design patterns"</span>);</span><br><span class="line">    documentBuilder.addBody(<span class="string">"blah blah blah... more blah blah blah"</span>);</span><br><span class="line">    documentBuilder.addAuthor(<span class="string">"C. H. Afzal"</span>);</span><br><span class="line">    documentBuilder.addConclusion(<span class="string">"Happy Coding!"</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Return the document and depending on the concrete</span></span><br><span class="line">    <span class="comment">// implementation of the DocumentBuilder, we could return</span></span><br><span class="line">    <span class="comment">// either a pdf or html document.</span></span><br><span class="line">    <span class="keyword">return</span> documentBuilder.buildDocument();</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的方法可以出现在控制器代码或客户端代码中，并且可以通过更改传递给该方法的DocumentBuilder的具体类型来构建不同的文档类型。我们可以从抽象类中得到一个HtmlDocumentBuilder和一个PdfDocumentBuilder派生类DocumentBuilder。</p>
+<h2 id="抽象工厂模式与建造者模式"><a href="#抽象工厂模式与建造者模式" class="headerlink" title="抽象工厂模式与建造者模式"></a><strong>抽象工厂模式与建造者模式</strong></h2><ul>
+<li>建造者模式可能看起来类似于抽象工厂模式，但是二者还是略有不同。其中一个不同之处在于，建造者模式是逐步创建对象的，而抽象工厂模式则一步就返回了对象。</li>
+</ul>
+<h2 id="建造者模式的比喻"><a href="#建造者模式的比喻" class="headerlink" title="建造者模式的比喻"></a><strong>建造者模式的比喻</strong></h2><p>假设我们有一座工厂吧，工厂得有基础核心部门（Builder），这个部门拥有所有的基础生产资料模板，然后我们需要几个分别生产不同产品的车间（Concrete Builder）吧，这些车间需要自己从基础核心部门挑选合适的模板然后自己填充定制，用于生产自己的产品。 工厂的生产不能太随意，得需要指挥部（Director）指导，指挥部在基础核心部门（Builder）等着其他车间（Concrete Builder）来接受指导，给出相应的指挥命令（也就是参数），最终车间（Concrete Builder）生产出合适的产品。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h2><p><a href="https://stemha.github.io/2020/05/09/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/">设计模式总结</a><br>Software Design Patterns: Best Practices for Software Developers /github educative</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="tag">建造者模式</a>, <a class="has-link-grey -link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a>, <a class="has-link-grey -link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/10/15/C-%E8%99%9A%E5%87%BD%E6%95%B0/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">C++虚函数</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/10/14/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                <span class="level-item">软件设计模式</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'e79770cfee30db02a856',
+        clientSecret: 'bb958f5fc30797ffc222ca631ec345baa48a0bee',
+        id: 'f033bdcb079bd715703a572e20ccf9fe',
+        repo: 'STEMHA.github.io',
+        owner: 'STEMHA',
+        admin: "STEMHA",
+        createIssueManually: false,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
+</div>-->
+			   <!-- 原始代码-->
+               <!--  
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/avatar.png" alt="STEMHA">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        STEMHA
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            76
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            14
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            105
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/STEMHA" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/STEMHA">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Twitter" href="https://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Dribbble" href="https://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/rss.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#建造者模式是什么-？">
+        <span class="has-mr-6">1</span>
+        <span>建造者模式是什么 ？</span>
+        </a></li><li>
+        <a class="is-flex" href="#建造者模式类图">
+        <span class="has-mr-6">2</span>
+        <span>建造者模式类图</span>
+        </a></li><li>
+        <a class="is-flex" href="#使用建造者模式造不同的飞机">
+        <span class="has-mr-6">3</span>
+        <span>使用建造者模式造不同的飞机</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#假如没有指导者">
+        <span class="has-mr-6">3.1</span>
+        <span>假如没有指导者</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#其他例子">
+        <span class="has-mr-6">4</span>
+        <span>其他例子</span>
+        </a></li><li>
+        <a class="is-flex" href="#抽象工厂模式与建造者模式">
+        <span class="has-mr-6">5</span>
+        <span>抽象工厂模式与建造者模式</span>
+        </a></li><li>
+        <a class="is-flex" href="#建造者模式的比喻">
+        <span class="has-mr-6">6</span>
+        <span>建造者模式的比喻</span>
+        </a></li><li>
+        <a class="is-flex" href="#参考资料">
+        <span class="has-mr-6">7</span>
+        <span>参考资料</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/STEMHA" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">GitHub - STEMHA</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/C/">
+            <span class="level-start">
+                <span class="level-item">C++</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">20</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Linux/">
+            <span class="level-start">
+                <span class="level-item">Linux</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">21</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E5%8D%9A%E5%AE%A2%E7%BB%B4%E6%8A%A4/">
+            <span class="level-start">
+                <span class="level-item">博客维护</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/">
+            <span class="level-start">
+                <span class="level-item">学术论文</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+            <span class="level-start">
+                <span class="level-item">操作系统</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/">
+            <span class="level-start">
+                <span class="level-item">效率工具</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+            <span class="level-start">
+                <span class="level-item">数据结构</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E7%AE%97%E6%B3%95/">
+            <span class="level-start">
+                <span class="level-item">算法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0/">
+            <span class="level-start">
+                <span class="level-item">英语学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+            <span class="level-start">
+                <span class="level-item">计算机网络</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+            <span class="level-start">
+                <span class="level-item">读书笔记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%AF%BE%E5%A4%96%E5%AD%A6%E6%9C%AF%E9%98%85%E8%AF%BB/">
+            <span class="level-start">
+                <span class="level-item">课外学术阅读</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">
+            <span class="level-start">
+                <span class="level-item">软件工程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E9%86%92%E4%B8%96%E9%80%9A%E8%A8%80/">
+            <span class="level-start">
+                <span class="level-item">醒世通言</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/B-%E6%A0%91/" style="font-size: 10px;">B+树</a> <a href="/tags/B-%E6%A0%91/" style="font-size: 10px;">B-树</a> <a href="/tags/C/" style="font-size: 16.25px;">C++</a> <a href="/tags/C-%E6%A0%87%E5%87%86%E5%BA%93/" style="font-size: 18.75px;">C++标准库</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Linux%E6%A6%82%E8%BF%B0/" style="font-size: 10px;">Linux概述</a> <a href="/tags/TCP/" style="font-size: 13.75px;">TCP</a> <a href="/tags/UDP/" style="font-size: 10px;">UDP</a> <a href="/tags/VFS/" style="font-size: 10px;">VFS</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/deque/" style="font-size: 10px;">deque</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/module/" style="font-size: 10px;">module</a> <a href="/tags/pair/" style="font-size: 10px;">pair</a> <a href="/tags/priority-queue/" style="font-size: 10px;">priority_queue</a> <a href="/tags/queue/" style="font-size: 10px;">queue</a> <a href="/tags/set/" style="font-size: 10px;">set</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/%E4%BA%92%E6%96%A5%E9%94%81/" style="font-size: 10px;">互斥锁</a> <a href="/tags/%E4%BA%BA%E7%94%9F/" style="font-size: 10px;">人生</a> <a href="/tags/%E4%BC%A0%E8%AE%B0/" style="font-size: 10px;">传记</a> <a href="/tags/%E4%BC%A0%E8%BE%93%E5%B1%82/" style="font-size: 15px;">传输层</a> <a href="/tags/%E4%BF%A1%E5%8F%B7%E9%87%8F/" style="font-size: 10px;">信号量</a> <a href="/tags/%E5%85%B3%E8%81%94%E5%AE%B9%E5%99%A8/" style="font-size: 10px;">关联容器</a> <a href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA/" style="font-size: 10px;">内存分区</a> <a href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" style="font-size: 10px;">内存分配</a> <a href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">内存管理</a> <a href="/tags/%E5%86%85%E6%A0%B8/" style="font-size: 17.5px;">内核</a> <a href="/tags/%E5%88%9D%E5%A7%8B%E5%8C%96/" style="font-size: 10px;">初始化</a> <a href="/tags/%E5%8A%A8%E6%80%81%E5%A4%9A%E6%80%81/" style="font-size: 10px;">动态多态</a> <a href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">单例模式</a> <a href="/tags/%E5%90%8D%E8%91%97/" style="font-size: 10px;">名著</a> <a href="/tags/%E5%91%BD%E4%BB%A4/" style="font-size: 11.25px;">命令</a> <a href="/tags/%E5%93%B2%E5%AD%A6/" style="font-size: 10px;">哲学</a> <a href="/tags/%E5%9D%97%E8%AE%BE%E5%A4%87/" style="font-size: 10px;">块设备</a> <a href="/tags/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/" style="font-size: 10px;">基本结构</a> <a href="/tags/%E5%A4%9A%E6%80%81/" style="font-size: 10px;">多态</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 10px;">多线程</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 10px;">大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">大数据计算</a> <a href="/tags/%E5%A5%97%E6%8E%A5%E5%AD%97/" style="font-size: 10px;">套接字</a> <a href="/tags/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/" style="font-size: 10px;">学术论文</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E7%B1%BB/" style="font-size: 10px;">容器类</a> <a href="/tags/%E5%B0%81%E8%A3%85/" style="font-size: 10px;">封装</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 11.25px;">工具</a> <a href="/tags/%E5%BA%94%E7%94%A8%E5%B1%82/" style="font-size: 10px;">应用层</a> <a href="/tags/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">建造者模式</a> <a href="/tags/%E5%BF%83%E6%80%81/" style="font-size: 10px;">心态</a> <a href="/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/" style="font-size: 11.25px;">性能分析</a> <a href="/tags/%E6%8C%91%E6%88%98/" style="font-size: 10px;">挑战</a> <a href="/tags/%E6%8F%92%E4%BB%B6/" style="font-size: 10px;">插件</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">操作系统</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%A3%E5%88%97%E8%A1%A8/" style="font-size: 10px;">散列表</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 12.5px;">数据结构</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95/" style="font-size: 10px;">文件与目录</a> <a href="/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 11.25px;">文件系统</a> <a href="/tags/%E6%96%87%E6%A1%A3%E5%92%8C%E6%B3%A8%E9%87%8A/" style="font-size: 10px;">文档和注释</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">桶排序</a> <a href="/tags/%E6%A6%82%E8%BF%B0/" style="font-size: 11.25px;">概述</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 10px;">模块</a> <a href="/tags/%E6%B5%85%E6%8B%B7%E8%B4%9D/" style="font-size: 10px;">浅拷贝</a> <a href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D/" style="font-size: 10px;">深拷贝</a> <a href="/tags/%E6%BC%94%E8%AE%B2/" style="font-size: 10px;">演讲</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">版本控制</a> <a href="/tags/%E7%89%B9%E6%AE%8A%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">特殊文件系统</a> <a href="/tags/%E7%94%9F%E4%BA%A7%E5%8A%9B/" style="font-size: 10px;">生产力</a> <a href="/tags/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/" style="font-size: 11.25px;">目录结构</a> <a href="/tags/%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E8%AE%BA/" style="font-size: 10px;">研究方法论</a> <a href="/tags/%E7%A1%AC%E8%BF%9E%E6%8E%A5/" style="font-size: 10px;">硬连接</a> <a href="/tags/%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C/" style="font-size: 10px;">程序执行</a> <a href="/tags/%E7%AE%80%E8%BF%B0/" style="font-size: 10px;">简述</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13.75px;">算法</a> <a href="/tags/%E7%BA%A2%E9%BB%91%E6%A0%91/" style="font-size: 10px;">红黑树</a> <a href="/tags/%E7%BB%83%E4%B9%A0/" style="font-size: 10px;">练习</a> <a href="/tags/%E7%BB%A7%E6%89%BF/" style="font-size: 10px;">继承</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8A%A0%E8%BD%BD/" style="font-size: 10px;">编译加载</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">虚拟文件系统</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">计算机网络</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/" style="font-size: 10px;">设计方法</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 12.5px;">设计模式</a> <a href="/tags/%E8%AF%B4%E6%98%8E/" style="font-size: 10px;">说明</a> <a href="/tags/%E8%AF%BA%E8%B4%9D%E5%B0%94%E5%A5%96/" style="font-size: 10px;">诺贝尔奖</a> <a href="/tags/%E8%B0%83%E8%AF%95%E5%99%A8/" style="font-size: 10px;">调试器</a> <a href="/tags/%E8%B4%B9%E6%9B%BC/" style="font-size: 10px;">费曼</a> <a href="/tags/%E8%BD%AF%E8%BF%9E%E6%8E%A5/" style="font-size: 10px;">软连接</a> <a href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6/" style="font-size: 10px;">运算符</a> <a href="/tags/%E9%87%8D%E8%BD%BD/" style="font-size: 10px;">重载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">阅读笔记</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9D%99%E6%80%81%E5%A4%9A%E6%80%81/" style="font-size: 10px;">静态多态</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 13.75px;">面向对象</a> <a href="/tags/%E9%9F%B3%E6%A0%87/" style="font-size: 10px;">音标</a> <a href="/tags/%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/" style="font-size: 10px;">顺序容器</a> <a href="/tags/%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F/" style="font-size: 13.75px;">驱动程序</a>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/10/15/C-%E8%99%9A%E5%87%BD%E6%95%B0/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="C++虚函数">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-10-15T11:21:09.706Z">2020-10-15</time></div>
+                    <a href="/2020/10/15/C-%E8%99%9A%E5%87%BD%E6%95%B0/" class="title has-link-black-ter is-size-6 has-text-weight-normal">C++虚函数</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/C/">C++</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/10/14/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="建造者模式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-10-14T14:02:30.000Z">2020-10-14</time></div>
+                    <a href="/2020/10/14/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" class="title has-link-black-ter is-size-6 has-text-weight-normal">建造者模式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/10/14/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="软件设计模式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-10-14T13:38:03.000Z">2020-10-14</time></div>
+                    <a href="/2020/10/14/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="title has-link-black-ter is-size-6 has-text-weight-normal">软件设计模式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/10/05/Linux%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Linux内存管理">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-10-05T07:05:43.000Z">2020-10-05</time></div>
+                    <a href="/2020/10/05/Linux%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux内存管理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Linux/">Linux</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/09/25/C-%E7%B2%BE%E5%BA%A6%E6%8E%A7%E5%88%B6/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="C++精度控制">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-09-25T01:38:32.449Z">2020-09-25</time></div>
+                    <a href="/2020/09/25/C-%E7%B2%BE%E5%BA%A6%E6%8E%A7%E5%88%B6/" class="title has-link-black-ter is-size-6 has-text-weight-normal">C++精度控制</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/C/">C++</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">10</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">17</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">23</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/B-%E6%A0%91/">
+                        <span class="tag">B+树</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/B-%E6%A0%91/">
+                        <span class="tag">B-树</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C/">
+                        <span class="tag">C++</span>
+                        <span class="tag is-grey">8</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C-%E6%A0%87%E5%87%86%E5%BA%93/">
+                        <span class="tag">C++标准库</span>
+                        <span class="tag is-grey">14</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTTP/">
+                        <span class="tag">HTTP</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Linux/">
+                        <span class="tag">Linux</span>
+                        <span class="tag is-grey">20</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Linux%E6%A6%82%E8%BF%B0/">
+                        <span class="tag">Linux概述</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/TCP/">
+                        <span class="tag">TCP</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/UDP/">
+                        <span class="tag">UDP</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/VFS/">
+                        <span class="tag">VFS</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/chrome/">
+                        <span class="tag">chrome</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/deque/">
+                        <span class="tag">deque</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/heap/">
+                        <span class="tag">heap</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo/">
+                        <span class="tag">hexo</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/leetcode/">
+                        <span class="tag">leetcode</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/list/">
+                        <span class="tag">list</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/map/">
+                        <span class="tag">map</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/module/">
+                        <span class="tag">module</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/pair/">
+                        <span class="tag">pair</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/priority-queue/">
+                        <span class="tag">priority_queue</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/queue/">
+                        <span class="tag">queue</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/set/">
+                        <span class="tag">set</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/stack/">
+                        <span class="tag">stack</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/string/">
+                        <span class="tag">string</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vector/">
+                        <span class="tag">vector</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BA%92%E6%96%A5%E9%94%81/">
+                        <span class="tag">互斥锁</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BA%BA%E7%94%9F/">
+                        <span class="tag">人生</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BC%A0%E8%AE%B0/">
+                        <span class="tag">传记</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BC%A0%E8%BE%93%E5%B1%82/">
+                        <span class="tag">传输层</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BF%A1%E5%8F%B7%E9%87%8F/">
+                        <span class="tag">信号量</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%85%B3%E8%81%94%E5%AE%B9%E5%99%A8/">
+                        <span class="tag">关联容器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA/">
+                        <span class="tag">内存分区</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/">
+                        <span class="tag">内存分配</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">
+                        <span class="tag">内存管理</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E6%A0%B8/">
+                        <span class="tag">内核</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%88%9D%E5%A7%8B%E5%8C%96/">
+                        <span class="tag">初始化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%8A%A8%E6%80%81%E5%A4%9A%E6%80%81/">
+                        <span class="tag">动态多态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+                        <span class="tag">单例模式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%90%8D%E8%91%97/">
+                        <span class="tag">名著</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%91%BD%E4%BB%A4/">
+                        <span class="tag">命令</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%93%B2%E5%AD%A6/">
+                        <span class="tag">哲学</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%9D%97%E8%AE%BE%E5%A4%87/">
+                        <span class="tag">块设备</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/">
+                        <span class="tag">基本结构</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%9A%E6%80%81/">
+                        <span class="tag">多态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="tag">多线程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                        <span class="tag">大数据</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/">
+                        <span class="tag">大数据计算</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A5%97%E6%8E%A5%E5%AD%97/">
+                        <span class="tag">套接字</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/">
+                        <span class="tag">学术论文</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%AE%B9%E5%99%A8%E7%B1%BB/">
+                        <span class="tag">容器类</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B0%81%E8%A3%85/">
+                        <span class="tag">封装</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B7%A5%E5%85%B7/">
+                        <span class="tag">工具</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%BA%94%E7%94%A8%E5%B1%82/">
+                        <span class="tag">应用层</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">
+                        <span class="tag">建造者模式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%BF%83%E6%80%81/">
+                        <span class="tag">心态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/">
+                        <span class="tag">性能分析</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%8C%91%E6%88%98/">
+                        <span class="tag">挑战</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%8F%92%E4%BB%B6/">
+                        <span class="tag">插件</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">操作系统</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%95%99%E7%A8%8B/">
+                        <span class="tag">教程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%95%A3%E5%88%97%E8%A1%A8/">
+                        <span class="tag">散列表</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="tag">数据结构</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95/">
+                        <span class="tag">文件与目录</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">文件系统</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%96%87%E6%A1%A3%E5%92%8C%E6%B3%A8%E9%87%8A/">
+                        <span class="tag">文档和注释</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A0%88/">
+                        <span class="tag">栈</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/">
+                        <span class="tag">桶排序</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A6%82%E8%BF%B0/">
+                        <span class="tag">概述</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A8%A1%E5%9D%97/">
+                        <span class="tag">模块</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%B5%85%E6%8B%B7%E8%B4%9D/">
+                        <span class="tag">浅拷贝</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D/">
+                        <span class="tag">深拷贝</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%BC%94%E8%AE%B2/">
+                        <span class="tag">演讲</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/">
+                        <span class="tag">版本控制</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%89%B9%E6%AE%8A%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">特殊文件系统</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%94%9F%E4%BA%A7%E5%8A%9B/">
+                        <span class="tag">生产力</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">
+                        <span class="tag">目录结构</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E8%AE%BA/">
+                        <span class="tag">研究方法论</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A1%AC%E8%BF%9E%E6%8E%A5/">
+                        <span class="tag">硬连接</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C/">
+                        <span class="tag">程序执行</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%AE%80%E8%BF%B0/">
+                        <span class="tag">简述</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="tag">算法</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BA%A2%E9%BB%91%E6%A0%91/">
+                        <span class="tag">红黑树</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BB%83%E4%B9%A0/">
+                        <span class="tag">练习</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BB%A7%E6%89%BF/">
+                        <span class="tag">继承</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BC%96%E8%AF%91%E5%8A%A0%E8%BD%BD/">
+                        <span class="tag">编译加载</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="tag">网络</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">虚拟文件系统</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                        <span class="tag">计算机网络</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/">
+                        <span class="tag">设计方法</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AF%B4%E6%98%8E/">
+                        <span class="tag">说明</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AF%BA%E8%B4%9D%E5%B0%94%E5%A5%96/">
+                        <span class="tag">诺贝尔奖</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%B0%83%E8%AF%95%E5%99%A8/">
+                        <span class="tag">调试器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%B4%B9%E6%9B%BC/">
+                        <span class="tag">费曼</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%BD%AF%E8%BF%9E%E6%8E%A5/">
+                        <span class="tag">软连接</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6/">
+                        <span class="tag">运算符</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%87%8D%E8%BD%BD/">
+                        <span class="tag">重载</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%93%BE%E8%A1%A8/">
+                        <span class="tag">链表</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">
+                        <span class="tag">阅读笔记</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%98%9F%E5%88%97/">
+                        <span class="tag">队列</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%9D%99%E6%80%81%E5%A4%9A%E6%80%81/">
+                        <span class="tag">静态多态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+                        <span class="tag">面向对象</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%9F%B3%E6%A0%87/">
+                        <span class="tag">音标</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/">
+                        <span class="tag">顺序容器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F/">
+                        <span class="tag">驱动程序</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+ -->
+               <!--  -->
+			   <!-- 下面几行是调整3栏变两栏的代码-->
+			     
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/avatar.png" alt="STEMHA">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        STEMHA
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            76
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            14
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            105
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/STEMHA" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/STEMHA">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Twitter" href="https://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Dribbble" href="https://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/rss.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#建造者模式是什么-？">
+        <span class="has-mr-6">1</span>
+        <span>建造者模式是什么 ？</span>
+        </a></li><li>
+        <a class="is-flex" href="#建造者模式类图">
+        <span class="has-mr-6">2</span>
+        <span>建造者模式类图</span>
+        </a></li><li>
+        <a class="is-flex" href="#使用建造者模式造不同的飞机">
+        <span class="has-mr-6">3</span>
+        <span>使用建造者模式造不同的飞机</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#假如没有指导者">
+        <span class="has-mr-6">3.1</span>
+        <span>假如没有指导者</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#其他例子">
+        <span class="has-mr-6">4</span>
+        <span>其他例子</span>
+        </a></li><li>
+        <a class="is-flex" href="#抽象工厂模式与建造者模式">
+        <span class="has-mr-6">5</span>
+        <span>抽象工厂模式与建造者模式</span>
+        </a></li><li>
+        <a class="is-flex" href="#建造者模式的比喻">
+        <span class="has-mr-6">6</span>
+        <span>建造者模式的比喻</span>
+        </a></li><li>
+        <a class="is-flex" href="#参考资料">
+        <span class="has-mr-6">7</span>
+        <span>参考资料</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/STEMHA" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">GitHub - STEMHA</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/C/">
+            <span class="level-start">
+                <span class="level-item">C++</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">20</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Linux/">
+            <span class="level-start">
+                <span class="level-item">Linux</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">21</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E5%8D%9A%E5%AE%A2%E7%BB%B4%E6%8A%A4/">
+            <span class="level-start">
+                <span class="level-item">博客维护</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/">
+            <span class="level-start">
+                <span class="level-item">学术论文</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+            <span class="level-start">
+                <span class="level-item">操作系统</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/">
+            <span class="level-start">
+                <span class="level-item">效率工具</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+            <span class="level-start">
+                <span class="level-item">数据结构</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E7%AE%97%E6%B3%95/">
+            <span class="level-start">
+                <span class="level-item">算法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0/">
+            <span class="level-start">
+                <span class="level-item">英语学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+            <span class="level-start">
+                <span class="level-item">计算机网络</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+            <span class="level-start">
+                <span class="level-item">读书笔记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%AF%BE%E5%A4%96%E5%AD%A6%E6%9C%AF%E9%98%85%E8%AF%BB/">
+            <span class="level-start">
+                <span class="level-item">课外学术阅读</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">
+            <span class="level-start">
+                <span class="level-item">软件工程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E9%86%92%E4%B8%96%E9%80%9A%E8%A8%80/">
+            <span class="level-start">
+                <span class="level-item">醒世通言</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/B-%E6%A0%91/" style="font-size: 10px;">B+树</a> <a href="/tags/B-%E6%A0%91/" style="font-size: 10px;">B-树</a> <a href="/tags/C/" style="font-size: 16.25px;">C++</a> <a href="/tags/C-%E6%A0%87%E5%87%86%E5%BA%93/" style="font-size: 18.75px;">C++标准库</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Linux%E6%A6%82%E8%BF%B0/" style="font-size: 10px;">Linux概述</a> <a href="/tags/TCP/" style="font-size: 13.75px;">TCP</a> <a href="/tags/UDP/" style="font-size: 10px;">UDP</a> <a href="/tags/VFS/" style="font-size: 10px;">VFS</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/deque/" style="font-size: 10px;">deque</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/module/" style="font-size: 10px;">module</a> <a href="/tags/pair/" style="font-size: 10px;">pair</a> <a href="/tags/priority-queue/" style="font-size: 10px;">priority_queue</a> <a href="/tags/queue/" style="font-size: 10px;">queue</a> <a href="/tags/set/" style="font-size: 10px;">set</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/%E4%BA%92%E6%96%A5%E9%94%81/" style="font-size: 10px;">互斥锁</a> <a href="/tags/%E4%BA%BA%E7%94%9F/" style="font-size: 10px;">人生</a> <a href="/tags/%E4%BC%A0%E8%AE%B0/" style="font-size: 10px;">传记</a> <a href="/tags/%E4%BC%A0%E8%BE%93%E5%B1%82/" style="font-size: 15px;">传输层</a> <a href="/tags/%E4%BF%A1%E5%8F%B7%E9%87%8F/" style="font-size: 10px;">信号量</a> <a href="/tags/%E5%85%B3%E8%81%94%E5%AE%B9%E5%99%A8/" style="font-size: 10px;">关联容器</a> <a href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA/" style="font-size: 10px;">内存分区</a> <a href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" style="font-size: 10px;">内存分配</a> <a href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">内存管理</a> <a href="/tags/%E5%86%85%E6%A0%B8/" style="font-size: 17.5px;">内核</a> <a href="/tags/%E5%88%9D%E5%A7%8B%E5%8C%96/" style="font-size: 10px;">初始化</a> <a href="/tags/%E5%8A%A8%E6%80%81%E5%A4%9A%E6%80%81/" style="font-size: 10px;">动态多态</a> <a href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">单例模式</a> <a href="/tags/%E5%90%8D%E8%91%97/" style="font-size: 10px;">名著</a> <a href="/tags/%E5%91%BD%E4%BB%A4/" style="font-size: 11.25px;">命令</a> <a href="/tags/%E5%93%B2%E5%AD%A6/" style="font-size: 10px;">哲学</a> <a href="/tags/%E5%9D%97%E8%AE%BE%E5%A4%87/" style="font-size: 10px;">块设备</a> <a href="/tags/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/" style="font-size: 10px;">基本结构</a> <a href="/tags/%E5%A4%9A%E6%80%81/" style="font-size: 10px;">多态</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 10px;">多线程</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 10px;">大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">大数据计算</a> <a href="/tags/%E5%A5%97%E6%8E%A5%E5%AD%97/" style="font-size: 10px;">套接字</a> <a href="/tags/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/" style="font-size: 10px;">学术论文</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E7%B1%BB/" style="font-size: 10px;">容器类</a> <a href="/tags/%E5%B0%81%E8%A3%85/" style="font-size: 10px;">封装</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 11.25px;">工具</a> <a href="/tags/%E5%BA%94%E7%94%A8%E5%B1%82/" style="font-size: 10px;">应用层</a> <a href="/tags/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">建造者模式</a> <a href="/tags/%E5%BF%83%E6%80%81/" style="font-size: 10px;">心态</a> <a href="/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/" style="font-size: 11.25px;">性能分析</a> <a href="/tags/%E6%8C%91%E6%88%98/" style="font-size: 10px;">挑战</a> <a href="/tags/%E6%8F%92%E4%BB%B6/" style="font-size: 10px;">插件</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">操作系统</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%A3%E5%88%97%E8%A1%A8/" style="font-size: 10px;">散列表</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 12.5px;">数据结构</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95/" style="font-size: 10px;">文件与目录</a> <a href="/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 11.25px;">文件系统</a> <a href="/tags/%E6%96%87%E6%A1%A3%E5%92%8C%E6%B3%A8%E9%87%8A/" style="font-size: 10px;">文档和注释</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">桶排序</a> <a href="/tags/%E6%A6%82%E8%BF%B0/" style="font-size: 11.25px;">概述</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 10px;">模块</a> <a href="/tags/%E6%B5%85%E6%8B%B7%E8%B4%9D/" style="font-size: 10px;">浅拷贝</a> <a href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D/" style="font-size: 10px;">深拷贝</a> <a href="/tags/%E6%BC%94%E8%AE%B2/" style="font-size: 10px;">演讲</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">版本控制</a> <a href="/tags/%E7%89%B9%E6%AE%8A%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">特殊文件系统</a> <a href="/tags/%E7%94%9F%E4%BA%A7%E5%8A%9B/" style="font-size: 10px;">生产力</a> <a href="/tags/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/" style="font-size: 11.25px;">目录结构</a> <a href="/tags/%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E8%AE%BA/" style="font-size: 10px;">研究方法论</a> <a href="/tags/%E7%A1%AC%E8%BF%9E%E6%8E%A5/" style="font-size: 10px;">硬连接</a> <a href="/tags/%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C/" style="font-size: 10px;">程序执行</a> <a href="/tags/%E7%AE%80%E8%BF%B0/" style="font-size: 10px;">简述</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13.75px;">算法</a> <a href="/tags/%E7%BA%A2%E9%BB%91%E6%A0%91/" style="font-size: 10px;">红黑树</a> <a href="/tags/%E7%BB%83%E4%B9%A0/" style="font-size: 10px;">练习</a> <a href="/tags/%E7%BB%A7%E6%89%BF/" style="font-size: 10px;">继承</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8A%A0%E8%BD%BD/" style="font-size: 10px;">编译加载</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">虚拟文件系统</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">计算机网络</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/" style="font-size: 10px;">设计方法</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 12.5px;">设计模式</a> <a href="/tags/%E8%AF%B4%E6%98%8E/" style="font-size: 10px;">说明</a> <a href="/tags/%E8%AF%BA%E8%B4%9D%E5%B0%94%E5%A5%96/" style="font-size: 10px;">诺贝尔奖</a> <a href="/tags/%E8%B0%83%E8%AF%95%E5%99%A8/" style="font-size: 10px;">调试器</a> <a href="/tags/%E8%B4%B9%E6%9B%BC/" style="font-size: 10px;">费曼</a> <a href="/tags/%E8%BD%AF%E8%BF%9E%E6%8E%A5/" style="font-size: 10px;">软连接</a> <a href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6/" style="font-size: 10px;">运算符</a> <a href="/tags/%E9%87%8D%E8%BD%BD/" style="font-size: 10px;">重载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">阅读笔记</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9D%99%E6%80%81%E5%A4%9A%E6%80%81/" style="font-size: 10px;">静态多态</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 13.75px;">面向对象</a> <a href="/tags/%E9%9F%B3%E6%A0%87/" style="font-size: 10px;">音标</a> <a href="/tags/%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/" style="font-size: 10px;">顺序容器</a> <a href="/tags/%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F/" style="font-size: 13.75px;">驱动程序</a>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/10/15/C-%E8%99%9A%E5%87%BD%E6%95%B0/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="C++虚函数">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-10-15T11:21:09.706Z">2020-10-15</time></div>
+                    <a href="/2020/10/15/C-%E8%99%9A%E5%87%BD%E6%95%B0/" class="title has-link-black-ter is-size-6 has-text-weight-normal">C++虚函数</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/C/">C++</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/10/14/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="建造者模式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-10-14T14:02:30.000Z">2020-10-14</time></div>
+                    <a href="/2020/10/14/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" class="title has-link-black-ter is-size-6 has-text-weight-normal">建造者模式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/10/14/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="软件设计模式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-10-14T13:38:03.000Z">2020-10-14</time></div>
+                    <a href="/2020/10/14/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="title has-link-black-ter is-size-6 has-text-weight-normal">软件设计模式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/10/05/Linux%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Linux内存管理">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-10-05T07:05:43.000Z">2020-10-05</time></div>
+                    <a href="/2020/10/05/Linux%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux内存管理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Linux/">Linux</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/09/25/C-%E7%B2%BE%E5%BA%A6%E6%8E%A7%E5%88%B6/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="C++精度控制">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-09-25T01:38:32.449Z">2020-09-25</time></div>
+                    <a href="/2020/09/25/C-%E7%B2%BE%E5%BA%A6%E6%8E%A7%E5%88%B6/" class="title has-link-black-ter is-size-6 has-text-weight-normal">C++精度控制</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/C/">C++</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">10</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">17</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">23</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/B-%E6%A0%91/">
+                        <span class="tag">B+树</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/B-%E6%A0%91/">
+                        <span class="tag">B-树</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C/">
+                        <span class="tag">C++</span>
+                        <span class="tag is-grey">8</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C-%E6%A0%87%E5%87%86%E5%BA%93/">
+                        <span class="tag">C++标准库</span>
+                        <span class="tag is-grey">14</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTTP/">
+                        <span class="tag">HTTP</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Linux/">
+                        <span class="tag">Linux</span>
+                        <span class="tag is-grey">20</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Linux%E6%A6%82%E8%BF%B0/">
+                        <span class="tag">Linux概述</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/TCP/">
+                        <span class="tag">TCP</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/UDP/">
+                        <span class="tag">UDP</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/VFS/">
+                        <span class="tag">VFS</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/chrome/">
+                        <span class="tag">chrome</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/deque/">
+                        <span class="tag">deque</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/heap/">
+                        <span class="tag">heap</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo/">
+                        <span class="tag">hexo</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/leetcode/">
+                        <span class="tag">leetcode</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/list/">
+                        <span class="tag">list</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/map/">
+                        <span class="tag">map</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/module/">
+                        <span class="tag">module</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/pair/">
+                        <span class="tag">pair</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/priority-queue/">
+                        <span class="tag">priority_queue</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/queue/">
+                        <span class="tag">queue</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/set/">
+                        <span class="tag">set</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/stack/">
+                        <span class="tag">stack</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/string/">
+                        <span class="tag">string</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vector/">
+                        <span class="tag">vector</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BA%92%E6%96%A5%E9%94%81/">
+                        <span class="tag">互斥锁</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BA%BA%E7%94%9F/">
+                        <span class="tag">人生</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BC%A0%E8%AE%B0/">
+                        <span class="tag">传记</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BC%A0%E8%BE%93%E5%B1%82/">
+                        <span class="tag">传输层</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BF%A1%E5%8F%B7%E9%87%8F/">
+                        <span class="tag">信号量</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%85%B3%E8%81%94%E5%AE%B9%E5%99%A8/">
+                        <span class="tag">关联容器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA/">
+                        <span class="tag">内存分区</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/">
+                        <span class="tag">内存分配</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">
+                        <span class="tag">内存管理</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E6%A0%B8/">
+                        <span class="tag">内核</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%88%9D%E5%A7%8B%E5%8C%96/">
+                        <span class="tag">初始化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%8A%A8%E6%80%81%E5%A4%9A%E6%80%81/">
+                        <span class="tag">动态多态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+                        <span class="tag">单例模式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%90%8D%E8%91%97/">
+                        <span class="tag">名著</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%91%BD%E4%BB%A4/">
+                        <span class="tag">命令</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%93%B2%E5%AD%A6/">
+                        <span class="tag">哲学</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%9D%97%E8%AE%BE%E5%A4%87/">
+                        <span class="tag">块设备</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/">
+                        <span class="tag">基本结构</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%9A%E6%80%81/">
+                        <span class="tag">多态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="tag">多线程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                        <span class="tag">大数据</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/">
+                        <span class="tag">大数据计算</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A5%97%E6%8E%A5%E5%AD%97/">
+                        <span class="tag">套接字</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/">
+                        <span class="tag">学术论文</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%AE%B9%E5%99%A8%E7%B1%BB/">
+                        <span class="tag">容器类</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B0%81%E8%A3%85/">
+                        <span class="tag">封装</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B7%A5%E5%85%B7/">
+                        <span class="tag">工具</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%BA%94%E7%94%A8%E5%B1%82/">
+                        <span class="tag">应用层</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">
+                        <span class="tag">建造者模式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%BF%83%E6%80%81/">
+                        <span class="tag">心态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/">
+                        <span class="tag">性能分析</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%8C%91%E6%88%98/">
+                        <span class="tag">挑战</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%8F%92%E4%BB%B6/">
+                        <span class="tag">插件</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">操作系统</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%95%99%E7%A8%8B/">
+                        <span class="tag">教程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%95%A3%E5%88%97%E8%A1%A8/">
+                        <span class="tag">散列表</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="tag">数据结构</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95/">
+                        <span class="tag">文件与目录</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">文件系统</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%96%87%E6%A1%A3%E5%92%8C%E6%B3%A8%E9%87%8A/">
+                        <span class="tag">文档和注释</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A0%88/">
+                        <span class="tag">栈</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/">
+                        <span class="tag">桶排序</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A6%82%E8%BF%B0/">
+                        <span class="tag">概述</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A8%A1%E5%9D%97/">
+                        <span class="tag">模块</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%B5%85%E6%8B%B7%E8%B4%9D/">
+                        <span class="tag">浅拷贝</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D/">
+                        <span class="tag">深拷贝</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%BC%94%E8%AE%B2/">
+                        <span class="tag">演讲</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/">
+                        <span class="tag">版本控制</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%89%B9%E6%AE%8A%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">特殊文件系统</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%94%9F%E4%BA%A7%E5%8A%9B/">
+                        <span class="tag">生产力</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">
+                        <span class="tag">目录结构</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E8%AE%BA/">
+                        <span class="tag">研究方法论</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A1%AC%E8%BF%9E%E6%8E%A5/">
+                        <span class="tag">硬连接</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C/">
+                        <span class="tag">程序执行</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%AE%80%E8%BF%B0/">
+                        <span class="tag">简述</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="tag">算法</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BA%A2%E9%BB%91%E6%A0%91/">
+                        <span class="tag">红黑树</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BB%83%E4%B9%A0/">
+                        <span class="tag">练习</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BB%A7%E6%89%BF/">
+                        <span class="tag">继承</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BC%96%E8%AF%91%E5%8A%A0%E8%BD%BD/">
+                        <span class="tag">编译加载</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="tag">网络</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">虚拟文件系统</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                        <span class="tag">计算机网络</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/">
+                        <span class="tag">设计方法</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AF%B4%E6%98%8E/">
+                        <span class="tag">说明</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AF%BA%E8%B4%9D%E5%B0%94%E5%A5%96/">
+                        <span class="tag">诺贝尔奖</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%B0%83%E8%AF%95%E5%99%A8/">
+                        <span class="tag">调试器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%B4%B9%E6%9B%BC/">
+                        <span class="tag">费曼</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%BD%AF%E8%BF%9E%E6%8E%A5/">
+                        <span class="tag">软连接</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6/">
+                        <span class="tag">运算符</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%87%8D%E8%BD%BD/">
+                        <span class="tag">重载</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%93%BE%E8%A1%A8/">
+                        <span class="tag">链表</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">
+                        <span class="tag">阅读笔记</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%98%9F%E5%88%97/">
+                        <span class="tag">队列</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%9D%99%E6%80%81%E5%A4%9A%E6%80%81/">
+                        <span class="tag">静态多态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+                        <span class="tag">面向对象</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%9F%B3%E6%A0%87/">
+                        <span class="tag">音标</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/">
+                        <span class="tag">顺序容器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F/">
+                        <span class="tag">驱动程序</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+				 
+				 
+				  <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main twoLine">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-10-14T14:02:30.000Z">2020-10-14</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    14 分钟 读完 (大约 2154 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                建造者模式
+            
+        </h1>
+        <div class="content">
+            <h2 id="建造者模式是什么-？"><a href="#建造者模式是什么-？" class="headerlink" title="建造者模式是什么 ？"></a><strong>建造者模式是什么 ？</strong></h2><p>顾名思义，建造者模式用于构建对象。</p>
+<ul>
+<li>有时，我们创建的对象可能很复杂，可能由多个子对象组成，或者需要复杂的构建过程。通过使用建造者模式，可以简化创建复杂类型的过程。</li>
+<li>建造者模式通常用来构建复合或者聚合的对象</li>
+<li>严谨地说，<strong>构建器模式封装或隐藏了构建复杂对象的过程，并将对象的表示和构建进行了分离</strong>。这种分离使我们可以<strong>使用相同的构建过程来构建不同的表示形式</strong>。</li>
+<li>建造者模式是一个非常实用而常见的创建类型的模式（creational design pattern)</li>
+</ul>
+<p>应用场景：</p>
+<ul>
+<li>当一个类的构造函数参数个数超过4个，而且这些参数有些是可选的参数，考虑使用构造者模式。</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="建造者模式类图"><a href="#建造者模式类图" class="headerlink" title="建造者模式类图"></a><strong>建造者模式类图</strong></h2><p>类图由以下实体组成</p>
+<ul>
+<li><code>Builder</code>：其定义了构建Product的抽象步骤，其实体类需要实现这些步骤。其会包含一个用来返回最终产品的方法Product getProduct()。</li>
+<li><code>Concrete Builder</code>：具体的建造者</li>
+<li><code>Director</code> ：决定如何构建最终产品的算法. 其会包含一个负责组装的方法void Construct(Builder builder)， 在这个方法中通过调用builder的方法，就可以设置builder，等设置完成后，就可以通过builder的 getProduct() 方法获得最终的产品。</li>
+<li><code>Product</code>：最终要生成的对象</li>
+</ul>
+<p><img src="/2020/10/14/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F.png" alt></p>
+<h2 id="使用建造者模式造不同的飞机"><a href="#使用建造者模式造不同的飞机" class="headerlink" title="使用建造者模式造不同的飞机"></a><strong>使用建造者模式造不同的飞机</strong></h2><p>接下来的示例讨论了如何将表示和构造复杂的对象两个操作耦合在一起。</p>
+<p>示例：<br>以制造飞机为例，假设飞机的制造过程分三个步骤进行：</p>
+<ul>
+<li>驾驶舱的制作</li>
+<li>引擎</li>
+<li>机翼</li>
+</ul>
+<p>在我们的假设中，每架飞机至少需要上述三个步骤。但是，如果飞机是客机的话，我们就需要增加在飞机上建造浴室的步骤。这些步骤代表了构建过程。我们建造的产品可以是不同的形式。文中的例子是飞机，但可以有不同的表示形式的飞机，例如战斗机或客机。但是使用相同的建造过程，我们应该能够同时生产战斗机和客机。</p>
+<p>现在看一些代码。首先，我们将从<code>AircraftBuilder类</code>的抽象接口开始。</p>
+<ul>
+<li>The builder contains a method for each component that can be part of the final product. These methods are selectively overridden by concrete builders depending on if the builders will be including that part in the final product variant that they are responsible for building.</li>
+<li>抽象类Builder会包含最终产品每个部分的构建方法。</li>
+<li>这些方法会被具体的构建者（concrete builders）有选择地覆盖，这取决于具体的构建者负责的最终产品中是否包括该部分，如果包含，就覆盖对应的方法。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AircraftBuilder</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildEngine</span><span class="params">()</span> </span>&#123;  <span class="comment">//引擎</span></span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildWings</span><span class="params">()</span> </span>&#123;   <span class="comment">//机翼</span></span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildCockpit</span><span class="params">()</span> </span>&#123; <span class="comment">//驾驶舱</span></span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildBathrooms</span><span class="params">()</span> </span>&#123; <span class="comment">//洗手间</span></span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> IAircraft&amp; <span class="title">getResult</span><span class="params">()</span> </span>= <span class="number">0</span>; <span class="comment">//返回最终产品的方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们将实施两个具体的建造者，一个用于F-16，另一个用于波音747。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Boeing747Builder</span>：<span class="title">public</span> <span class="title">AircraftBuilder</span> &#123;</span></span><br><span class="line">    Boeing747 boeing747;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildCockpit</span><span class="params">()</span> <span class="keyword">override</span> <span class="comment">//选择覆盖驾驶舱建造方法</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildEngine</span><span class="params">()</span> <span class="keyword">override</span> <span class="comment">//选择覆盖引擎建造方法</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildBathrooms</span><span class="params">()</span> <span class="keyword">override</span> <span class="comment">//选择覆盖洗手间建造方法</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildWings</span><span class="params">()</span> <span class="keyword">override</span> <span class="comment">//选择覆盖机翼建造方法</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> IAircraft&amp; <span class="title">getResult</span><span class="params">()</span> <span class="keyword">override</span> <span class="comment">//返回最终产品的方法</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> boeing747;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">F16Builder</span> <span class="title">extends</span> <span class="title">AircraftBuilder</span> &#123;</span></span><br><span class="line">    F16 f16;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildEngine</span><span class="params">()</span> <span class="keyword">override</span> <span class="comment">//选择覆盖引擎建造方法</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// get F-16 an engine</span></span><br><span class="line">        <span class="comment">// f16.engine = new F16Engine();</span></span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildWings</span><span class="params">()</span> <span class="keyword">override</span> <span class="comment">//选择覆盖机翼建造方法</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// get F-16 wings</span></span><br><span class="line">        <span class="comment">// f16.wings = new F16Wings();</span></span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">buildCockpit</span><span class="params">()</span> <span class="keyword">override</span> <span class="comment">//选择覆盖驾驶舱建造方法</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        f16 = <span class="keyword">new</span> F16();</span><br><span class="line">        <span class="comment">// get F-16 a cockpit</span></span><br><span class="line">        <span class="comment">// f16.cockpit = new F16Cockpit();</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> IAircraft&amp; <span class="title">getResult</span><span class="params">()</span> <span class="keyword">override</span> <span class="comment">//返回最终产品的方法</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> f16;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为简便起见，我们提供了建造器的框架，并跳过了每种方法的单独实现。</p>
+<p>请注意，F16Builder它不会覆盖该buildBathrooms方法，因为F-16座舱中没有浴室。由于波音747拥有供乘客使用的浴室，因此波音的制造商确实重写了浴室的方法。</p>
+<p>建造飞机所需的过程或算法（在我们的案例中是创建不同零件的特定顺序）被称为的另一个<code>类Director</code>捕获。</p>
+<p><code>Director类</code>在某种意义上指导着飞机的建造。<strong>最终产品仍由建造者（Builders）返回（return）。</strong>这里的意思是说Director类知识用来配置建造过程中的参数，最中的产品仍然在建造者那里，所以需要建造者（Builders）返回（return）产品。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Director</span> &#123;</span></span><br><span class="line">    AircraftBuilder aircraftBuilder; <span class="comment">//捕获Builder，也就是Builder是Director的一份子</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    </span><br><span class="line">    Director(AircraftBuilder aircraftBuilder)  <span class="comment">//构造函数</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;aircraftBuilder = aircraftBuilder;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">construct</span><span class="params">(<span class="keyword">bool</span> isPassenger)</span>   <span class="comment">//构建过程（可以有各种参数，来配置构建过程）</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        aircraftBuilder.buildCockpit();</span><br><span class="line">        aircraftBuilder.buildEngine();</span><br><span class="line">        aircraftBuilder.buildWings();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> (isPassenger)</span><br><span class="line">            aircraftBuilder.buildBathrooms();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>请注意，我们如何通过我们选择的制造商，并将飞机产品（表示形式）更改为F-16或Boeing-747。</p>
+<p>在我们的方案中，建造者返回相同的超类，但是如果构建器返回的产品不太相似，则情况可能并非如此。</p>
+<p>客户端将使用以下模式：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">     <span class="function"><span class="keyword">void</span> <span class="title">Clientmain</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        F16Builder f16Builder = F16Builder();  <span class="comment">//先初始化一个建造者</span></span><br><span class="line">        Director director =  Director(f16Builder); <span class="comment">//然后交给指导者来配参数</span></span><br><span class="line">        director.construct(<span class="literal">false</span>); <span class="comment">//指导建造过程</span></span><br><span class="line"> </span><br><span class="line">        IAircraft f16 = f16Builder.getResult(); <span class="comment">//建造者接受指导后返回最终的产品</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>The AircraftBuilder interface hides how a given aircraft gets built. </li>
+<li>The client is unaware of the classes F16Engine, F16Cockpit and similar classes for Boeing-747.</li>
+</ul>
+<h3 id="假如没有指导者"><a href="#假如没有指导者" class="headerlink" title="假如没有指导者"></a>假如没有指导者</h3><p>如果在没有Director的情况下使用了构建器模式。客户端可以直接实例化Builder并调用所需的方法以获取自身的产品。<br>而且也是一个应对“（伸缩构建）telescoping constructors”的解法：</p>
+<ul>
+<li>假设一个类具有很多的属性，但是有些属性是可选的。在这种情况下，可以调用Builder仅设置必需的属性并创建产品。</li>
+</ul>
+<h2 id="其他例子"><a href="#其他例子" class="headerlink" title="其他例子"></a><strong>其他例子</strong></h2><p>另一个假设的示例可能是创建pdf或html类型的文档。请考虑以下代码段：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">IDocument <span class="title">construct</span><span class="params">(DocumentBuilder documentBuilder)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    documentBuilder.addTitle(<span class="string">"Why use design patterns"</span>);</span><br><span class="line">    documentBuilder.addBody(<span class="string">"blah blah blah... more blah blah blah"</span>);</span><br><span class="line">    documentBuilder.addAuthor(<span class="string">"C. H. Afzal"</span>);</span><br><span class="line">    documentBuilder.addConclusion(<span class="string">"Happy Coding!"</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Return the document and depending on the concrete</span></span><br><span class="line">    <span class="comment">// implementation of the DocumentBuilder, we could return</span></span><br><span class="line">    <span class="comment">// either a pdf or html document.</span></span><br><span class="line">    <span class="keyword">return</span> documentBuilder.buildDocument();</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的方法可以出现在控制器代码或客户端代码中，并且可以通过更改传递给该方法的DocumentBuilder的具体类型来构建不同的文档类型。我们可以从抽象类中得到一个HtmlDocumentBuilder和一个PdfDocumentBuilder派生类DocumentBuilder。</p>
+<h2 id="抽象工厂模式与建造者模式"><a href="#抽象工厂模式与建造者模式" class="headerlink" title="抽象工厂模式与建造者模式"></a><strong>抽象工厂模式与建造者模式</strong></h2><ul>
+<li>建造者模式可能看起来类似于抽象工厂模式，但是二者还是略有不同。其中一个不同之处在于，建造者模式是逐步创建对象的，而抽象工厂模式则一步就返回了对象。</li>
+</ul>
+<h2 id="建造者模式的比喻"><a href="#建造者模式的比喻" class="headerlink" title="建造者模式的比喻"></a><strong>建造者模式的比喻</strong></h2><p>假设我们有一座工厂吧，工厂得有基础核心部门（Builder），这个部门拥有所有的基础生产资料模板，然后我们需要几个分别生产不同产品的车间（Concrete Builder）吧，这些车间需要自己从基础核心部门挑选合适的模板然后自己填充定制，用于生产自己的产品。 工厂的生产不能太随意，得需要指挥部（Director）指导，指挥部在基础核心部门（Builder）等着其他车间（Concrete Builder）来接受指导，给出相应的指挥命令（也就是参数），最终车间（Concrete Builder）生产出合适的产品。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h2><p><a href="https://stemha.github.io/2020/05/09/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/">设计模式总结</a><br>Software Design Patterns: Best Practices for Software Developers /github educative</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="tag">建造者模式</a>, <a class="has-link-grey -link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a>, <a class="has-link-grey -link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/10/15/C-%E8%99%9A%E5%87%BD%E6%95%B0/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">C++虚函数</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/10/14/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                <span class="level-item">软件设计模式</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'e79770cfee30db02a856',
+        clientSecret: 'bb958f5fc30797ffc222ca631ec345baa48a0bee',
+        id: 'f033bdcb079bd715703a572e20ccf9fe',
+        repo: 'STEMHA.github.io',
+        owner: 'STEMHA',
+        admin: "STEMHA",
+        createIssueManually: false,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
+</div>
+				 
+				
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/og_image.png" alt="建造者模式" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 STEMHA&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://stemha.github.io',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    	
+
+</body>
+</html>

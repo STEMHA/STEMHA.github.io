@@ -1,0 +1,3396 @@
+<!DOCTYPE html>
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<script type="text/javascript" src="/js/src/click.js"></script>
+<script type="text/javascript" src="/live2d-widget/autolload.js"></script>
+
+<!-- 数字雨-->
+<canvas id="canvas" width="1440" height="900" ></canvas>
+  <script type="text/javascript" src="/js/src/DigitalRain.js"></script> 
+
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>C++虚函数 - STEMHA&#39;s Blog</title>
+
+
+    <meta name="description" content="虚函数与纯虚函数定义虚函数的目的：为了允许用基类的指针来调用子类的这个函数。定义纯虚函数的目的：为了实现一个接口，起到一个规范的作用，规范继承这个类的程序员必须实现这个函数。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++虚函数">
+<meta property="og:url" content="https://stemha.github.io/2020/10/15/C-%E8%99%9A%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="STEMHA&#39;s Blog">
+<meta property="og:description" content="虚函数与纯虚函数定义虚函数的目的：为了允许用基类的指针来调用子类的这个函数。定义纯虚函数的目的：为了实现一个接口，起到一个规范的作用，规范继承这个类的程序员必须实现这个函数。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://stemha.github.io/images/og_image.png">
+<meta property="article:published_time" content="2020-10-15T11:21:09.706Z">
+<meta property="article:modified_time" content="2020-10-16T02:38:19.933Z">
+<meta property="article:author" content="STEMHA">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://stemha.github.io/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/pojoaque.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="alternate" href="/rss.xml" title="STEMHA's Blog" type="application/atom+xml">
+</head>
+<body class="is-2-column">
+<!-- <body class="is-3-column"> -->
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/og_image.png" alt="C++虚函数" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">首页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+                <a class="navbar-item"
+                href="/cs-quotes">CS语录</a>
+                
+                <a class="navbar-item"
+                href="/rss.xml">RSS</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+               <!--<div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-10-15T11:21:09.706Z">2020-10-15</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/C/">C++</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    16 分钟 读完 (大约 2342 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                C++虚函数
+            
+        </h1>
+        <div class="content">
+            <h2 id="虚函数与纯虚函数"><a href="#虚函数与纯虚函数" class="headerlink" title="虚函数与纯虚函数"></a><strong>虚函数与纯虚函数</strong></h2><p><code>定义虚函数的目的</code>：为了允许用基类的指针来调用子类的这个函数。<br><code>定义纯虚函数的目的</code>：为了实现一个接口，起到一个规范的作用，规范继承这个类的程序员必须实现这个函数。</p>
+<a id="more"></a>
+
+<p>注意：</p>
+<ul>
+<li>定义一个函数为虚函数，不代表函数为不被实现的函数。</li>
+<li>定义一个函数为纯虚函数，才代表函数没有被实现。</li>
+</ul>
+<p>C++ 中，基类必须指出希望派生类<strong>重写</strong>哪些函数，定义为 virtual 的函数（虚函数）是基类期待派生类重新定义的，基类希望派生类<strong>继承</strong>的函数不能定义为虚函数。</p>
+<h2 id="虚函数"><a href="#虚函数" class="headerlink" title="虚函数"></a><strong>虚函数</strong></h2><p><code>虚函数定义</code>：被virtual关键字修饰的成员函数。</p>
+<p>使用规则：</p>
+<ul>
+<li>为了指明函数为虚函数，在其返回类型前面加上保留字 virtual。</li>
+<li>除了构造函数之外，任意非 static 成员函数都可以是虚函数。</li>
+<li>virtual 保留字只在类内部的成员函数声明中出现，不能用在类定义体外部出现的函数定义上。</li>
+<li>虚函数声明基类和子类要一致：在派生类中重新定义时,其函数原型,包括返回类型,函数名,参数个数,参数类型及参数的先后顺序,都必须与基类中的原型完全相同. <ul>
+<li>虚函数在派生类中重新定义时候，如果返回的是对基类型的引用或是指针，那么派生类的虚函数可以返回基类函数返回类型的派生类引用或指针，而不是一定要求一样的，primer上看到的。 </li>
+</ul>
+</li>
+<li><code>虚函数符号子类可以不加virtual</code>：c++规定，当一个成员函数被声明为虚函数后，其<u>派生类中的同名函数都自动成为虚函数</u>。因此，在子类从新声明该虚函数时，可以加，也可以不加，但习惯上每一层声明函数时都加virtual,使程序更加清晰。<ul>
+<li>如果基类把一个函数声明成虚函数，则该函数在派生类中隐式地也是虚函数；</li>
+<li>如果派生类没有覆盖基类中的某个成员函数，则该虚函数的行为类似于其他的普通成员，派生类会直接继承其在基类中的版本。</li>
+</ul>
+</li>
+</ul>
+<p>作用：</p>
+<ul>
+<li>启用动态绑定，实现多态性，通过指向派生类的基类指针或引用，访问派生类中同名覆盖成员函数。 如果成员默认为非虚函数，对非虚函数的调用在编译时确定。</li>
+<li>虚函数是重载的一种表现形式,是一种动态的重载方式。</li>
+<li>虚函数是基类希望派生类继承函数的缺省实现和重载的成员函数。当基类的指针或者引用指向派生类的对象的时候，这时候，如果使用基类指针或引用调用一个虚函数，实际上调用的是继承类的版本；</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>当我们使用指针或引用对虚函数的调用将被动态绑定，即根据所绑定的对象不同，所执行的函数不同，有可能是基类的，也有可能是派生类的。</li>
+<li>相对的，<code>非虚函数</code>总是在编译时根据调用该函数的对象、引用或指针的类型而确定。</li>
+</ul>
+<blockquote>
+<p>在 C++ 中，基类必须指出希望派生类重写哪些函数，定义为 virtual 的函数是基类期待派生类重新定义的，基类希望派生类继承的函数不能定义为虚函数。//也就是说虚函数部分，是不被作为基类部分在派生类中继承的，而是被重新定义的，画一画继承的图可能会更清晰地理解这一点。</p>
+</blockquote>
+<h2 id="纯虚函数"><a href="#纯虚函数" class="headerlink" title="纯虚函数"></a><strong>纯虚函数</strong></h2><p>纯虚函数（pure virtual）没有实现，被初始化为0；规定：在函数形参表后面写上 = 0 以指定纯虚函数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">void</span>)</span> </span>= <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<p>声明一个纯虚函数（pure virtual）的目的:</p>
+<ul>
+<li>是为了让派生类只继承函数接口，也就是上面说的接口继承。这个类（包含纯虚函数的类）的存在只是为了让其他类继承。</li>
+<li>为了令继承类继承函数接口以及做一份强制性实现。</li>
+</ul>
+<p>声明非纯虚函数（impure virtual）的目的:</p>
+<ul>
+<li>是让继承类继承该函数的接口和缺省实现。</li>
+</ul>
+<h2 id="非虚函数"><a href="#非虚函数" class="headerlink" title="非虚函数"></a><strong>非虚函数</strong></h2><p>一般成员函数，无virtual关键字修饰。<br><code>非虚函数</code>总是在编译时根据调用该函数的对象、引用或指针的类型而确定，而不是像</p>
+<h2 id="override关键字"><a href="#override关键字" class="headerlink" title="override关键字"></a><strong>override关键字</strong></h2><p>C++11新标准允许派生类显式注明它使用某个成员函数覆盖了它<strong>继承的虚函数</strong>，具体做法是在形参列表或const限定符或引用限定符后面添加一个关键字<code>override</code>。</p>
+<p>优点：</p>
+<ul>
+<li>如果我们使用了override标记了某个函数，但该函数并没有覆盖已存在的虚函数，此时编译器将会报错。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">pulic:</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span>  <span class="title">B</span>:</span> A</span><br><span class="line">&#123;</span><br><span class="line">pulic:</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func</span><span class="params">()</span> <span class="keyword">const</span> <span class="keyword">override</span> <span class="keyword">final</span></span>; <span class="comment">//OK</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span>:</span> B</span><br><span class="line">&#123;</span><br><span class="line">pulic:</span><br><span class="line"> <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func</span><span class="params">()</span><span class="keyword">const</span></span>; <span class="comment">//error, B::func is final</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="final关键字"><a href="#final关键字" class="headerlink" title="final关键字"></a><strong>final关键字</strong></h2><h3 id="禁用继承"><a href="#禁用继承" class="headerlink" title="禁用继承"></a>禁用继承</h3><p>在C++11中允许将类标记为final，方法时直接在类名称后面使用关键字final。如果继承该类会导致编译错误。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> <span class="title">final</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="comment">/*...*/</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="禁用重写"><a href="#禁用重写" class="headerlink" title="禁用重写"></a>禁用重写</h3><p>在C++中，如果把某个函数指定为<code>final</code>，使之后任何尝试覆盖该函数的操作都引发错误。final关键字至于方法参数列表后面。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    A();</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Method</span><span class="params">()</span> <span class="keyword">final</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="C-抽象类"><a href="#C-抽象类" class="headerlink" title="C++抽象类"></a><strong>C++抽象类</strong></h2><p><code>抽象类</code>：包含有（或继承）一个或多个纯虚函数的类是抽象类。在C#，Java中用abstract定义抽象类，而在C++中有抽象类的概念，但没有这个关键字。</p>
+<p>规定:</p>
+<ul>
+<li>抽象类只能用作其他类的基类，不能建立抽象类对象。</li>
+<li>抽象类不能用作参数类型、函数返回类型或显式转换的类型。</li>
+<li>可以定义指向抽象类的指针和引用，此指针可以指向它的派生类，进而实现多态性。</li>
+</ul>
+<p>特点：</p>
+<ul>
+<li>由于抽象类包含了没有定义的纯虚函数,所以不能定义抽象类的对象，也就是说抽象类无法实例化。</li>
+</ul>
+<h2 id="C-接口"><a href="#C-接口" class="headerlink" title="C++接口"></a><strong>C++接口</strong></h2><p>C++接口满足以下条件：</p>
+<ol>
+<li>类中没有定义任何的成员变量</li>
+<li>所有的成员函数都是纯虚函数</li>
+<li>所有的成员函数都是公有的</li>
+<li>接口是一种特殊的抽象类</li>
+</ol>
+<h2 id="实现继承和接口继承"><a href="#实现继承和接口继承" class="headerlink" title="实现继承和接口继承"></a><strong>实现继承和接口继承</strong></h2><p>实现继承：派生类同时继承基类的接口和实现。<br>接口继承：派生类不继承基类的实现，只会继承基类的接口。  </p>
+<h2 id="包含虚函数的类和包含纯虚函数的类有什么别称吗？"><a href="#包含虚函数的类和包含纯虚函数的类有什么别称吗？" class="headerlink" title="包含虚函数的类和包含纯虚函数的类有什么别称吗？"></a>包含虚函数的类和包含纯虚函数的类有什么别称吗？</h2><p>如果类中包含有纯虚函数，则这个类是抽象类，而且由于抽象类包含了没有定义的纯虚函数,所以不能定义抽象类的对象。</p>
+<p>如果有虚函数和正常函数就是普通的类。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p><code>纯虚函数</code>：要求继承类必须含有某个接口，并对接口函数实现。<br><code>虚函数</code>：继承类必须含有某个接口，可以自己实现。<strong>也可以不实现，而采用基类定义的缺省实现</strong>。<br><code>非虚函数</code>：继承类必须含有某个接口，必须使用基类的实现。  </p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h2><p>C++ primer 第四版<br><a href="https://blog.csdn.net/ljinddlj/article/details/1922189">C++接口继承与实现继承</a><br><a href="https://www.jianshu.com/p/54ccfe658b10">C++虚函数</a><br><a href="https://www.cnblogs.com/itwhite/p/5075357.html">C++开发者眼中的Java关键字abstract</a>  </p>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><blockquote>
+<p>任何可以在基类对象上执行的操作也可以通过派生类对象使用。</p>
+</blockquote>
+<p>可以使用基类类型的指针或引用来引用派生类型对象，所以，使用基类类型的引用或指针时，不知道指针或引用所绑定的对象的类型：基类类型的引用或指针可以引用基类类型对象，也可以引用派生类型对象。无论实际对象具有哪种类型，编译器都将它当作基类类型对象。将派生类对象当作基类对象是安全的，因为每个派生类对象都拥有基类子对象。而且，派生类继承基类的操作。</p>
+
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/10/14/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">
+                <span class="level-item">建造者模式</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'e79770cfee30db02a856',
+        clientSecret: 'bb958f5fc30797ffc222ca631ec345baa48a0bee',
+        id: '3b2b6e1c9bfa882c4e0bc5221bb476ed',
+        repo: 'STEMHA.github.io',
+        owner: 'STEMHA',
+        admin: "STEMHA",
+        createIssueManually: false,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
+</div>-->
+			   <!-- 原始代码-->
+               <!--  
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/avatar.png" alt="STEMHA">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        STEMHA
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            76
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            14
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            105
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/STEMHA" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/STEMHA">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Twitter" href="https://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Dribbble" href="https://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/rss.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#虚函数与纯虚函数">
+        <span class="has-mr-6">1</span>
+        <span>虚函数与纯虚函数</span>
+        </a></li><li>
+        <a class="is-flex" href="#虚函数">
+        <span class="has-mr-6">2</span>
+        <span>虚函数</span>
+        </a></li><li>
+        <a class="is-flex" href="#纯虚函数">
+        <span class="has-mr-6">3</span>
+        <span>纯虚函数</span>
+        </a></li><li>
+        <a class="is-flex" href="#非虚函数">
+        <span class="has-mr-6">4</span>
+        <span>非虚函数</span>
+        </a></li><li>
+        <a class="is-flex" href="#override关键字">
+        <span class="has-mr-6">5</span>
+        <span>override关键字</span>
+        </a></li><li>
+        <a class="is-flex" href="#final关键字">
+        <span class="has-mr-6">6</span>
+        <span>final关键字</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#禁用继承">
+        <span class="has-mr-6">6.1</span>
+        <span>禁用继承</span>
+        </a></li><li>
+        <a class="is-flex" href="#禁用重写">
+        <span class="has-mr-6">6.2</span>
+        <span>禁用重写</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#C-抽象类">
+        <span class="has-mr-6">7</span>
+        <span>C++抽象类</span>
+        </a></li><li>
+        <a class="is-flex" href="#C-接口">
+        <span class="has-mr-6">8</span>
+        <span>C++接口</span>
+        </a></li><li>
+        <a class="is-flex" href="#实现继承和接口继承">
+        <span class="has-mr-6">9</span>
+        <span>实现继承和接口继承</span>
+        </a></li><li>
+        <a class="is-flex" href="#包含虚函数的类和包含纯虚函数的类有什么别称吗？">
+        <span class="has-mr-6">10</span>
+        <span>包含虚函数的类和包含纯虚函数的类有什么别称吗？</span>
+        </a></li><li>
+        <a class="is-flex" href="#总结">
+        <span class="has-mr-6">11</span>
+        <span>总结</span>
+        </a></li><li>
+        <a class="is-flex" href="#参考资料">
+        <span class="has-mr-6">12</span>
+        <span>参考资料</span>
+        </a></li><li>
+        <a class="is-flex" href="#多态">
+        <span class="has-mr-6">13</span>
+        <span>多态</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/STEMHA" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">GitHub - STEMHA</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/C/">
+            <span class="level-start">
+                <span class="level-item">C++</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">20</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Linux/">
+            <span class="level-start">
+                <span class="level-item">Linux</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">21</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E5%8D%9A%E5%AE%A2%E7%BB%B4%E6%8A%A4/">
+            <span class="level-start">
+                <span class="level-item">博客维护</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/">
+            <span class="level-start">
+                <span class="level-item">学术论文</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+            <span class="level-start">
+                <span class="level-item">操作系统</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/">
+            <span class="level-start">
+                <span class="level-item">效率工具</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+            <span class="level-start">
+                <span class="level-item">数据结构</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E7%AE%97%E6%B3%95/">
+            <span class="level-start">
+                <span class="level-item">算法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0/">
+            <span class="level-start">
+                <span class="level-item">英语学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+            <span class="level-start">
+                <span class="level-item">计算机网络</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+            <span class="level-start">
+                <span class="level-item">读书笔记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%AF%BE%E5%A4%96%E5%AD%A6%E6%9C%AF%E9%98%85%E8%AF%BB/">
+            <span class="level-start">
+                <span class="level-item">课外学术阅读</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">
+            <span class="level-start">
+                <span class="level-item">软件工程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E9%86%92%E4%B8%96%E9%80%9A%E8%A8%80/">
+            <span class="level-start">
+                <span class="level-item">醒世通言</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/B-%E6%A0%91/" style="font-size: 10px;">B+树</a> <a href="/tags/B-%E6%A0%91/" style="font-size: 10px;">B-树</a> <a href="/tags/C/" style="font-size: 16.25px;">C++</a> <a href="/tags/C-%E6%A0%87%E5%87%86%E5%BA%93/" style="font-size: 18.75px;">C++标准库</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Linux%E6%A6%82%E8%BF%B0/" style="font-size: 10px;">Linux概述</a> <a href="/tags/TCP/" style="font-size: 13.75px;">TCP</a> <a href="/tags/UDP/" style="font-size: 10px;">UDP</a> <a href="/tags/VFS/" style="font-size: 10px;">VFS</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/deque/" style="font-size: 10px;">deque</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/module/" style="font-size: 10px;">module</a> <a href="/tags/pair/" style="font-size: 10px;">pair</a> <a href="/tags/priority-queue/" style="font-size: 10px;">priority_queue</a> <a href="/tags/queue/" style="font-size: 10px;">queue</a> <a href="/tags/set/" style="font-size: 10px;">set</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/%E4%BA%92%E6%96%A5%E9%94%81/" style="font-size: 10px;">互斥锁</a> <a href="/tags/%E4%BA%BA%E7%94%9F/" style="font-size: 10px;">人生</a> <a href="/tags/%E4%BC%A0%E8%AE%B0/" style="font-size: 10px;">传记</a> <a href="/tags/%E4%BC%A0%E8%BE%93%E5%B1%82/" style="font-size: 15px;">传输层</a> <a href="/tags/%E4%BF%A1%E5%8F%B7%E9%87%8F/" style="font-size: 10px;">信号量</a> <a href="/tags/%E5%85%B3%E8%81%94%E5%AE%B9%E5%99%A8/" style="font-size: 10px;">关联容器</a> <a href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA/" style="font-size: 10px;">内存分区</a> <a href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" style="font-size: 10px;">内存分配</a> <a href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">内存管理</a> <a href="/tags/%E5%86%85%E6%A0%B8/" style="font-size: 17.5px;">内核</a> <a href="/tags/%E5%88%9D%E5%A7%8B%E5%8C%96/" style="font-size: 10px;">初始化</a> <a href="/tags/%E5%8A%A8%E6%80%81%E5%A4%9A%E6%80%81/" style="font-size: 10px;">动态多态</a> <a href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">单例模式</a> <a href="/tags/%E5%90%8D%E8%91%97/" style="font-size: 10px;">名著</a> <a href="/tags/%E5%91%BD%E4%BB%A4/" style="font-size: 11.25px;">命令</a> <a href="/tags/%E5%93%B2%E5%AD%A6/" style="font-size: 10px;">哲学</a> <a href="/tags/%E5%9D%97%E8%AE%BE%E5%A4%87/" style="font-size: 10px;">块设备</a> <a href="/tags/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/" style="font-size: 10px;">基本结构</a> <a href="/tags/%E5%A4%9A%E6%80%81/" style="font-size: 10px;">多态</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 10px;">多线程</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 10px;">大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">大数据计算</a> <a href="/tags/%E5%A5%97%E6%8E%A5%E5%AD%97/" style="font-size: 10px;">套接字</a> <a href="/tags/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/" style="font-size: 10px;">学术论文</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E7%B1%BB/" style="font-size: 10px;">容器类</a> <a href="/tags/%E5%B0%81%E8%A3%85/" style="font-size: 10px;">封装</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 11.25px;">工具</a> <a href="/tags/%E5%BA%94%E7%94%A8%E5%B1%82/" style="font-size: 10px;">应用层</a> <a href="/tags/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">建造者模式</a> <a href="/tags/%E5%BF%83%E6%80%81/" style="font-size: 10px;">心态</a> <a href="/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/" style="font-size: 11.25px;">性能分析</a> <a href="/tags/%E6%8C%91%E6%88%98/" style="font-size: 10px;">挑战</a> <a href="/tags/%E6%8F%92%E4%BB%B6/" style="font-size: 10px;">插件</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">操作系统</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%A3%E5%88%97%E8%A1%A8/" style="font-size: 10px;">散列表</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 12.5px;">数据结构</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95/" style="font-size: 10px;">文件与目录</a> <a href="/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 11.25px;">文件系统</a> <a href="/tags/%E6%96%87%E6%A1%A3%E5%92%8C%E6%B3%A8%E9%87%8A/" style="font-size: 10px;">文档和注释</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">桶排序</a> <a href="/tags/%E6%A6%82%E8%BF%B0/" style="font-size: 11.25px;">概述</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 10px;">模块</a> <a href="/tags/%E6%B5%85%E6%8B%B7%E8%B4%9D/" style="font-size: 10px;">浅拷贝</a> <a href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D/" style="font-size: 10px;">深拷贝</a> <a href="/tags/%E6%BC%94%E8%AE%B2/" style="font-size: 10px;">演讲</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">版本控制</a> <a href="/tags/%E7%89%B9%E6%AE%8A%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">特殊文件系统</a> <a href="/tags/%E7%94%9F%E4%BA%A7%E5%8A%9B/" style="font-size: 10px;">生产力</a> <a href="/tags/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/" style="font-size: 11.25px;">目录结构</a> <a href="/tags/%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E8%AE%BA/" style="font-size: 10px;">研究方法论</a> <a href="/tags/%E7%A1%AC%E8%BF%9E%E6%8E%A5/" style="font-size: 10px;">硬连接</a> <a href="/tags/%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C/" style="font-size: 10px;">程序执行</a> <a href="/tags/%E7%AE%80%E8%BF%B0/" style="font-size: 10px;">简述</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13.75px;">算法</a> <a href="/tags/%E7%BA%A2%E9%BB%91%E6%A0%91/" style="font-size: 10px;">红黑树</a> <a href="/tags/%E7%BB%83%E4%B9%A0/" style="font-size: 10px;">练习</a> <a href="/tags/%E7%BB%A7%E6%89%BF/" style="font-size: 10px;">继承</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8A%A0%E8%BD%BD/" style="font-size: 10px;">编译加载</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">虚拟文件系统</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">计算机网络</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/" style="font-size: 10px;">设计方法</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 12.5px;">设计模式</a> <a href="/tags/%E8%AF%B4%E6%98%8E/" style="font-size: 10px;">说明</a> <a href="/tags/%E8%AF%BA%E8%B4%9D%E5%B0%94%E5%A5%96/" style="font-size: 10px;">诺贝尔奖</a> <a href="/tags/%E8%B0%83%E8%AF%95%E5%99%A8/" style="font-size: 10px;">调试器</a> <a href="/tags/%E8%B4%B9%E6%9B%BC/" style="font-size: 10px;">费曼</a> <a href="/tags/%E8%BD%AF%E8%BF%9E%E6%8E%A5/" style="font-size: 10px;">软连接</a> <a href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6/" style="font-size: 10px;">运算符</a> <a href="/tags/%E9%87%8D%E8%BD%BD/" style="font-size: 10px;">重载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">阅读笔记</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9D%99%E6%80%81%E5%A4%9A%E6%80%81/" style="font-size: 10px;">静态多态</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 13.75px;">面向对象</a> <a href="/tags/%E9%9F%B3%E6%A0%87/" style="font-size: 10px;">音标</a> <a href="/tags/%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/" style="font-size: 10px;">顺序容器</a> <a href="/tags/%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F/" style="font-size: 13.75px;">驱动程序</a>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/10/15/C-%E8%99%9A%E5%87%BD%E6%95%B0/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="C++虚函数">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-10-15T11:21:09.706Z">2020-10-15</time></div>
+                    <a href="/2020/10/15/C-%E8%99%9A%E5%87%BD%E6%95%B0/" class="title has-link-black-ter is-size-6 has-text-weight-normal">C++虚函数</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/C/">C++</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/10/14/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="建造者模式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-10-14T14:02:30.000Z">2020-10-14</time></div>
+                    <a href="/2020/10/14/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" class="title has-link-black-ter is-size-6 has-text-weight-normal">建造者模式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/10/14/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="软件设计模式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-10-14T13:38:03.000Z">2020-10-14</time></div>
+                    <a href="/2020/10/14/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="title has-link-black-ter is-size-6 has-text-weight-normal">软件设计模式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/10/05/Linux%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Linux内存管理">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-10-05T07:05:43.000Z">2020-10-05</time></div>
+                    <a href="/2020/10/05/Linux%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux内存管理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Linux/">Linux</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/09/25/C-%E7%B2%BE%E5%BA%A6%E6%8E%A7%E5%88%B6/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="C++精度控制">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-09-25T01:38:32.449Z">2020-09-25</time></div>
+                    <a href="/2020/09/25/C-%E7%B2%BE%E5%BA%A6%E6%8E%A7%E5%88%B6/" class="title has-link-black-ter is-size-6 has-text-weight-normal">C++精度控制</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/C/">C++</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">10</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">17</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">23</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/B-%E6%A0%91/">
+                        <span class="tag">B+树</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/B-%E6%A0%91/">
+                        <span class="tag">B-树</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C/">
+                        <span class="tag">C++</span>
+                        <span class="tag is-grey">8</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C-%E6%A0%87%E5%87%86%E5%BA%93/">
+                        <span class="tag">C++标准库</span>
+                        <span class="tag is-grey">14</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTTP/">
+                        <span class="tag">HTTP</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Linux/">
+                        <span class="tag">Linux</span>
+                        <span class="tag is-grey">20</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Linux%E6%A6%82%E8%BF%B0/">
+                        <span class="tag">Linux概述</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/TCP/">
+                        <span class="tag">TCP</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/UDP/">
+                        <span class="tag">UDP</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/VFS/">
+                        <span class="tag">VFS</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/chrome/">
+                        <span class="tag">chrome</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/deque/">
+                        <span class="tag">deque</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/heap/">
+                        <span class="tag">heap</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo/">
+                        <span class="tag">hexo</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/leetcode/">
+                        <span class="tag">leetcode</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/list/">
+                        <span class="tag">list</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/map/">
+                        <span class="tag">map</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/module/">
+                        <span class="tag">module</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/pair/">
+                        <span class="tag">pair</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/priority-queue/">
+                        <span class="tag">priority_queue</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/queue/">
+                        <span class="tag">queue</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/set/">
+                        <span class="tag">set</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/stack/">
+                        <span class="tag">stack</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/string/">
+                        <span class="tag">string</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vector/">
+                        <span class="tag">vector</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BA%92%E6%96%A5%E9%94%81/">
+                        <span class="tag">互斥锁</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BA%BA%E7%94%9F/">
+                        <span class="tag">人生</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BC%A0%E8%AE%B0/">
+                        <span class="tag">传记</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BC%A0%E8%BE%93%E5%B1%82/">
+                        <span class="tag">传输层</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BF%A1%E5%8F%B7%E9%87%8F/">
+                        <span class="tag">信号量</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%85%B3%E8%81%94%E5%AE%B9%E5%99%A8/">
+                        <span class="tag">关联容器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA/">
+                        <span class="tag">内存分区</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/">
+                        <span class="tag">内存分配</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">
+                        <span class="tag">内存管理</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E6%A0%B8/">
+                        <span class="tag">内核</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%88%9D%E5%A7%8B%E5%8C%96/">
+                        <span class="tag">初始化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%8A%A8%E6%80%81%E5%A4%9A%E6%80%81/">
+                        <span class="tag">动态多态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+                        <span class="tag">单例模式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%90%8D%E8%91%97/">
+                        <span class="tag">名著</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%91%BD%E4%BB%A4/">
+                        <span class="tag">命令</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%93%B2%E5%AD%A6/">
+                        <span class="tag">哲学</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%9D%97%E8%AE%BE%E5%A4%87/">
+                        <span class="tag">块设备</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/">
+                        <span class="tag">基本结构</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%9A%E6%80%81/">
+                        <span class="tag">多态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="tag">多线程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                        <span class="tag">大数据</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/">
+                        <span class="tag">大数据计算</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A5%97%E6%8E%A5%E5%AD%97/">
+                        <span class="tag">套接字</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/">
+                        <span class="tag">学术论文</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%AE%B9%E5%99%A8%E7%B1%BB/">
+                        <span class="tag">容器类</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B0%81%E8%A3%85/">
+                        <span class="tag">封装</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B7%A5%E5%85%B7/">
+                        <span class="tag">工具</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%BA%94%E7%94%A8%E5%B1%82/">
+                        <span class="tag">应用层</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">
+                        <span class="tag">建造者模式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%BF%83%E6%80%81/">
+                        <span class="tag">心态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/">
+                        <span class="tag">性能分析</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%8C%91%E6%88%98/">
+                        <span class="tag">挑战</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%8F%92%E4%BB%B6/">
+                        <span class="tag">插件</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">操作系统</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%95%99%E7%A8%8B/">
+                        <span class="tag">教程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%95%A3%E5%88%97%E8%A1%A8/">
+                        <span class="tag">散列表</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="tag">数据结构</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95/">
+                        <span class="tag">文件与目录</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">文件系统</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%96%87%E6%A1%A3%E5%92%8C%E6%B3%A8%E9%87%8A/">
+                        <span class="tag">文档和注释</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A0%88/">
+                        <span class="tag">栈</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/">
+                        <span class="tag">桶排序</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A6%82%E8%BF%B0/">
+                        <span class="tag">概述</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A8%A1%E5%9D%97/">
+                        <span class="tag">模块</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%B5%85%E6%8B%B7%E8%B4%9D/">
+                        <span class="tag">浅拷贝</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D/">
+                        <span class="tag">深拷贝</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%BC%94%E8%AE%B2/">
+                        <span class="tag">演讲</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/">
+                        <span class="tag">版本控制</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%89%B9%E6%AE%8A%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">特殊文件系统</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%94%9F%E4%BA%A7%E5%8A%9B/">
+                        <span class="tag">生产力</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">
+                        <span class="tag">目录结构</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E8%AE%BA/">
+                        <span class="tag">研究方法论</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A1%AC%E8%BF%9E%E6%8E%A5/">
+                        <span class="tag">硬连接</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C/">
+                        <span class="tag">程序执行</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%AE%80%E8%BF%B0/">
+                        <span class="tag">简述</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="tag">算法</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BA%A2%E9%BB%91%E6%A0%91/">
+                        <span class="tag">红黑树</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BB%83%E4%B9%A0/">
+                        <span class="tag">练习</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BB%A7%E6%89%BF/">
+                        <span class="tag">继承</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BC%96%E8%AF%91%E5%8A%A0%E8%BD%BD/">
+                        <span class="tag">编译加载</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="tag">网络</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">虚拟文件系统</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                        <span class="tag">计算机网络</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/">
+                        <span class="tag">设计方法</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AF%B4%E6%98%8E/">
+                        <span class="tag">说明</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AF%BA%E8%B4%9D%E5%B0%94%E5%A5%96/">
+                        <span class="tag">诺贝尔奖</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%B0%83%E8%AF%95%E5%99%A8/">
+                        <span class="tag">调试器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%B4%B9%E6%9B%BC/">
+                        <span class="tag">费曼</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%BD%AF%E8%BF%9E%E6%8E%A5/">
+                        <span class="tag">软连接</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6/">
+                        <span class="tag">运算符</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%87%8D%E8%BD%BD/">
+                        <span class="tag">重载</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%93%BE%E8%A1%A8/">
+                        <span class="tag">链表</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">
+                        <span class="tag">阅读笔记</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%98%9F%E5%88%97/">
+                        <span class="tag">队列</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%9D%99%E6%80%81%E5%A4%9A%E6%80%81/">
+                        <span class="tag">静态多态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+                        <span class="tag">面向对象</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%9F%B3%E6%A0%87/">
+                        <span class="tag">音标</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/">
+                        <span class="tag">顺序容器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F/">
+                        <span class="tag">驱动程序</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+ -->
+               <!--  -->
+			   <!-- 下面几行是调整3栏变两栏的代码-->
+			     
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/avatar.png" alt="STEMHA">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        STEMHA
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            76
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            14
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            105
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/STEMHA" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/STEMHA">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Twitter" href="https://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Dribbble" href="https://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/rss.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#虚函数与纯虚函数">
+        <span class="has-mr-6">1</span>
+        <span>虚函数与纯虚函数</span>
+        </a></li><li>
+        <a class="is-flex" href="#虚函数">
+        <span class="has-mr-6">2</span>
+        <span>虚函数</span>
+        </a></li><li>
+        <a class="is-flex" href="#纯虚函数">
+        <span class="has-mr-6">3</span>
+        <span>纯虚函数</span>
+        </a></li><li>
+        <a class="is-flex" href="#非虚函数">
+        <span class="has-mr-6">4</span>
+        <span>非虚函数</span>
+        </a></li><li>
+        <a class="is-flex" href="#override关键字">
+        <span class="has-mr-6">5</span>
+        <span>override关键字</span>
+        </a></li><li>
+        <a class="is-flex" href="#final关键字">
+        <span class="has-mr-6">6</span>
+        <span>final关键字</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#禁用继承">
+        <span class="has-mr-6">6.1</span>
+        <span>禁用继承</span>
+        </a></li><li>
+        <a class="is-flex" href="#禁用重写">
+        <span class="has-mr-6">6.2</span>
+        <span>禁用重写</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#C-抽象类">
+        <span class="has-mr-6">7</span>
+        <span>C++抽象类</span>
+        </a></li><li>
+        <a class="is-flex" href="#C-接口">
+        <span class="has-mr-6">8</span>
+        <span>C++接口</span>
+        </a></li><li>
+        <a class="is-flex" href="#实现继承和接口继承">
+        <span class="has-mr-6">9</span>
+        <span>实现继承和接口继承</span>
+        </a></li><li>
+        <a class="is-flex" href="#包含虚函数的类和包含纯虚函数的类有什么别称吗？">
+        <span class="has-mr-6">10</span>
+        <span>包含虚函数的类和包含纯虚函数的类有什么别称吗？</span>
+        </a></li><li>
+        <a class="is-flex" href="#总结">
+        <span class="has-mr-6">11</span>
+        <span>总结</span>
+        </a></li><li>
+        <a class="is-flex" href="#参考资料">
+        <span class="has-mr-6">12</span>
+        <span>参考资料</span>
+        </a></li><li>
+        <a class="is-flex" href="#多态">
+        <span class="has-mr-6">13</span>
+        <span>多态</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/STEMHA" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">GitHub - STEMHA</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/C/">
+            <span class="level-start">
+                <span class="level-item">C++</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">20</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Linux/">
+            <span class="level-start">
+                <span class="level-item">Linux</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">21</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E5%8D%9A%E5%AE%A2%E7%BB%B4%E6%8A%A4/">
+            <span class="level-start">
+                <span class="level-item">博客维护</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/">
+            <span class="level-start">
+                <span class="level-item">学术论文</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+            <span class="level-start">
+                <span class="level-item">操作系统</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/">
+            <span class="level-start">
+                <span class="level-item">效率工具</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+            <span class="level-start">
+                <span class="level-item">数据结构</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E7%AE%97%E6%B3%95/">
+            <span class="level-start">
+                <span class="level-item">算法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0/">
+            <span class="level-start">
+                <span class="level-item">英语学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+            <span class="level-start">
+                <span class="level-item">计算机网络</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+            <span class="level-start">
+                <span class="level-item">读书笔记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%AF%BE%E5%A4%96%E5%AD%A6%E6%9C%AF%E9%98%85%E8%AF%BB/">
+            <span class="level-start">
+                <span class="level-item">课外学术阅读</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">
+            <span class="level-start">
+                <span class="level-item">软件工程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E9%86%92%E4%B8%96%E9%80%9A%E8%A8%80/">
+            <span class="level-start">
+                <span class="level-item">醒世通言</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/B-%E6%A0%91/" style="font-size: 10px;">B+树</a> <a href="/tags/B-%E6%A0%91/" style="font-size: 10px;">B-树</a> <a href="/tags/C/" style="font-size: 16.25px;">C++</a> <a href="/tags/C-%E6%A0%87%E5%87%86%E5%BA%93/" style="font-size: 18.75px;">C++标准库</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Linux%E6%A6%82%E8%BF%B0/" style="font-size: 10px;">Linux概述</a> <a href="/tags/TCP/" style="font-size: 13.75px;">TCP</a> <a href="/tags/UDP/" style="font-size: 10px;">UDP</a> <a href="/tags/VFS/" style="font-size: 10px;">VFS</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/deque/" style="font-size: 10px;">deque</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/module/" style="font-size: 10px;">module</a> <a href="/tags/pair/" style="font-size: 10px;">pair</a> <a href="/tags/priority-queue/" style="font-size: 10px;">priority_queue</a> <a href="/tags/queue/" style="font-size: 10px;">queue</a> <a href="/tags/set/" style="font-size: 10px;">set</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/%E4%BA%92%E6%96%A5%E9%94%81/" style="font-size: 10px;">互斥锁</a> <a href="/tags/%E4%BA%BA%E7%94%9F/" style="font-size: 10px;">人生</a> <a href="/tags/%E4%BC%A0%E8%AE%B0/" style="font-size: 10px;">传记</a> <a href="/tags/%E4%BC%A0%E8%BE%93%E5%B1%82/" style="font-size: 15px;">传输层</a> <a href="/tags/%E4%BF%A1%E5%8F%B7%E9%87%8F/" style="font-size: 10px;">信号量</a> <a href="/tags/%E5%85%B3%E8%81%94%E5%AE%B9%E5%99%A8/" style="font-size: 10px;">关联容器</a> <a href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA/" style="font-size: 10px;">内存分区</a> <a href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" style="font-size: 10px;">内存分配</a> <a href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">内存管理</a> <a href="/tags/%E5%86%85%E6%A0%B8/" style="font-size: 17.5px;">内核</a> <a href="/tags/%E5%88%9D%E5%A7%8B%E5%8C%96/" style="font-size: 10px;">初始化</a> <a href="/tags/%E5%8A%A8%E6%80%81%E5%A4%9A%E6%80%81/" style="font-size: 10px;">动态多态</a> <a href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">单例模式</a> <a href="/tags/%E5%90%8D%E8%91%97/" style="font-size: 10px;">名著</a> <a href="/tags/%E5%91%BD%E4%BB%A4/" style="font-size: 11.25px;">命令</a> <a href="/tags/%E5%93%B2%E5%AD%A6/" style="font-size: 10px;">哲学</a> <a href="/tags/%E5%9D%97%E8%AE%BE%E5%A4%87/" style="font-size: 10px;">块设备</a> <a href="/tags/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/" style="font-size: 10px;">基本结构</a> <a href="/tags/%E5%A4%9A%E6%80%81/" style="font-size: 10px;">多态</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 10px;">多线程</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 10px;">大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">大数据计算</a> <a href="/tags/%E5%A5%97%E6%8E%A5%E5%AD%97/" style="font-size: 10px;">套接字</a> <a href="/tags/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/" style="font-size: 10px;">学术论文</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E7%B1%BB/" style="font-size: 10px;">容器类</a> <a href="/tags/%E5%B0%81%E8%A3%85/" style="font-size: 10px;">封装</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 11.25px;">工具</a> <a href="/tags/%E5%BA%94%E7%94%A8%E5%B1%82/" style="font-size: 10px;">应用层</a> <a href="/tags/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">建造者模式</a> <a href="/tags/%E5%BF%83%E6%80%81/" style="font-size: 10px;">心态</a> <a href="/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/" style="font-size: 11.25px;">性能分析</a> <a href="/tags/%E6%8C%91%E6%88%98/" style="font-size: 10px;">挑战</a> <a href="/tags/%E6%8F%92%E4%BB%B6/" style="font-size: 10px;">插件</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">操作系统</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E6%95%A3%E5%88%97%E8%A1%A8/" style="font-size: 10px;">散列表</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 12.5px;">数据结构</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95/" style="font-size: 10px;">文件与目录</a> <a href="/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 11.25px;">文件系统</a> <a href="/tags/%E6%96%87%E6%A1%A3%E5%92%8C%E6%B3%A8%E9%87%8A/" style="font-size: 10px;">文档和注释</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">桶排序</a> <a href="/tags/%E6%A6%82%E8%BF%B0/" style="font-size: 11.25px;">概述</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 10px;">模块</a> <a href="/tags/%E6%B5%85%E6%8B%B7%E8%B4%9D/" style="font-size: 10px;">浅拷贝</a> <a href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D/" style="font-size: 10px;">深拷贝</a> <a href="/tags/%E6%BC%94%E8%AE%B2/" style="font-size: 10px;">演讲</a> <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">版本控制</a> <a href="/tags/%E7%89%B9%E6%AE%8A%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">特殊文件系统</a> <a href="/tags/%E7%94%9F%E4%BA%A7%E5%8A%9B/" style="font-size: 10px;">生产力</a> <a href="/tags/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/" style="font-size: 11.25px;">目录结构</a> <a href="/tags/%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E8%AE%BA/" style="font-size: 10px;">研究方法论</a> <a href="/tags/%E7%A1%AC%E8%BF%9E%E6%8E%A5/" style="font-size: 10px;">硬连接</a> <a href="/tags/%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C/" style="font-size: 10px;">程序执行</a> <a href="/tags/%E7%AE%80%E8%BF%B0/" style="font-size: 10px;">简述</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13.75px;">算法</a> <a href="/tags/%E7%BA%A2%E9%BB%91%E6%A0%91/" style="font-size: 10px;">红黑树</a> <a href="/tags/%E7%BB%83%E4%B9%A0/" style="font-size: 10px;">练习</a> <a href="/tags/%E7%BB%A7%E6%89%BF/" style="font-size: 10px;">继承</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8A%A0%E8%BD%BD/" style="font-size: 10px;">编译加载</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">虚拟文件系统</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">计算机网络</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/" style="font-size: 10px;">设计方法</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 12.5px;">设计模式</a> <a href="/tags/%E8%AF%B4%E6%98%8E/" style="font-size: 10px;">说明</a> <a href="/tags/%E8%AF%BA%E8%B4%9D%E5%B0%94%E5%A5%96/" style="font-size: 10px;">诺贝尔奖</a> <a href="/tags/%E8%B0%83%E8%AF%95%E5%99%A8/" style="font-size: 10px;">调试器</a> <a href="/tags/%E8%B4%B9%E6%9B%BC/" style="font-size: 10px;">费曼</a> <a href="/tags/%E8%BD%AF%E8%BF%9E%E6%8E%A5/" style="font-size: 10px;">软连接</a> <a href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6/" style="font-size: 10px;">运算符</a> <a href="/tags/%E9%87%8D%E8%BD%BD/" style="font-size: 10px;">重载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">阅读笔记</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 10px;">队列</a> <a href="/tags/%E9%9D%99%E6%80%81%E5%A4%9A%E6%80%81/" style="font-size: 10px;">静态多态</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 13.75px;">面向对象</a> <a href="/tags/%E9%9F%B3%E6%A0%87/" style="font-size: 10px;">音标</a> <a href="/tags/%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/" style="font-size: 10px;">顺序容器</a> <a href="/tags/%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F/" style="font-size: 13.75px;">驱动程序</a>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/10/15/C-%E8%99%9A%E5%87%BD%E6%95%B0/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="C++虚函数">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-10-15T11:21:09.706Z">2020-10-15</time></div>
+                    <a href="/2020/10/15/C-%E8%99%9A%E5%87%BD%E6%95%B0/" class="title has-link-black-ter is-size-6 has-text-weight-normal">C++虚函数</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/C/">C++</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/10/14/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="建造者模式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-10-14T14:02:30.000Z">2020-10-14</time></div>
+                    <a href="/2020/10/14/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" class="title has-link-black-ter is-size-6 has-text-weight-normal">建造者模式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/10/14/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="软件设计模式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-10-14T13:38:03.000Z">2020-10-14</time></div>
+                    <a href="/2020/10/14/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="title has-link-black-ter is-size-6 has-text-weight-normal">软件设计模式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/10/05/Linux%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Linux内存管理">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-10-05T07:05:43.000Z">2020-10-05</time></div>
+                    <a href="/2020/10/05/Linux%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Linux内存管理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Linux/">Linux</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/09/25/C-%E7%B2%BE%E5%BA%A6%E6%8E%A7%E5%88%B6/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="C++精度控制">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-09-25T01:38:32.449Z">2020-09-25</time></div>
+                    <a href="/2020/09/25/C-%E7%B2%BE%E5%BA%A6%E6%8E%A7%E5%88%B6/" class="title has-link-black-ter is-size-6 has-text-weight-normal">C++精度控制</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/C/">C++</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">10</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">17</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">23</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/B-%E6%A0%91/">
+                        <span class="tag">B+树</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/B-%E6%A0%91/">
+                        <span class="tag">B-树</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C/">
+                        <span class="tag">C++</span>
+                        <span class="tag is-grey">8</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C-%E6%A0%87%E5%87%86%E5%BA%93/">
+                        <span class="tag">C++标准库</span>
+                        <span class="tag is-grey">14</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTTP/">
+                        <span class="tag">HTTP</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Linux/">
+                        <span class="tag">Linux</span>
+                        <span class="tag is-grey">20</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Linux%E6%A6%82%E8%BF%B0/">
+                        <span class="tag">Linux概述</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/TCP/">
+                        <span class="tag">TCP</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/UDP/">
+                        <span class="tag">UDP</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/VFS/">
+                        <span class="tag">VFS</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/chrome/">
+                        <span class="tag">chrome</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/deque/">
+                        <span class="tag">deque</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/heap/">
+                        <span class="tag">heap</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo/">
+                        <span class="tag">hexo</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/leetcode/">
+                        <span class="tag">leetcode</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/list/">
+                        <span class="tag">list</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/map/">
+                        <span class="tag">map</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/module/">
+                        <span class="tag">module</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/pair/">
+                        <span class="tag">pair</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/priority-queue/">
+                        <span class="tag">priority_queue</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/queue/">
+                        <span class="tag">queue</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/set/">
+                        <span class="tag">set</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/stack/">
+                        <span class="tag">stack</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/string/">
+                        <span class="tag">string</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vector/">
+                        <span class="tag">vector</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BA%92%E6%96%A5%E9%94%81/">
+                        <span class="tag">互斥锁</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BA%BA%E7%94%9F/">
+                        <span class="tag">人生</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BC%A0%E8%AE%B0/">
+                        <span class="tag">传记</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BC%A0%E8%BE%93%E5%B1%82/">
+                        <span class="tag">传输层</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E4%BF%A1%E5%8F%B7%E9%87%8F/">
+                        <span class="tag">信号量</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%85%B3%E8%81%94%E5%AE%B9%E5%99%A8/">
+                        <span class="tag">关联容器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA/">
+                        <span class="tag">内存分区</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/">
+                        <span class="tag">内存分配</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">
+                        <span class="tag">内存管理</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%86%85%E6%A0%B8/">
+                        <span class="tag">内核</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%88%9D%E5%A7%8B%E5%8C%96/">
+                        <span class="tag">初始化</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%8A%A8%E6%80%81%E5%A4%9A%E6%80%81/">
+                        <span class="tag">动态多态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+                        <span class="tag">单例模式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%90%8D%E8%91%97/">
+                        <span class="tag">名著</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%91%BD%E4%BB%A4/">
+                        <span class="tag">命令</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%93%B2%E5%AD%A6/">
+                        <span class="tag">哲学</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%9D%97%E8%AE%BE%E5%A4%87/">
+                        <span class="tag">块设备</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/">
+                        <span class="tag">基本结构</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%9A%E6%80%81/">
+                        <span class="tag">多态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="tag">多线程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                        <span class="tag">大数据</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97/">
+                        <span class="tag">大数据计算</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%A5%97%E6%8E%A5%E5%AD%97/">
+                        <span class="tag">套接字</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/">
+                        <span class="tag">学术论文</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%AE%B9%E5%99%A8%E7%B1%BB/">
+                        <span class="tag">容器类</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B0%81%E8%A3%85/">
+                        <span class="tag">封装</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B7%A5%E5%85%B7/">
+                        <span class="tag">工具</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%BA%94%E7%94%A8%E5%B1%82/">
+                        <span class="tag">应用层</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">
+                        <span class="tag">建造者模式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%BF%83%E6%80%81/">
+                        <span class="tag">心态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/">
+                        <span class="tag">性能分析</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%8C%91%E6%88%98/">
+                        <span class="tag">挑战</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%8F%92%E4%BB%B6/">
+                        <span class="tag">插件</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">操作系统</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%95%99%E7%A8%8B/">
+                        <span class="tag">教程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%95%A3%E5%88%97%E8%A1%A8/">
+                        <span class="tag">散列表</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="tag">数据结构</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95/">
+                        <span class="tag">文件与目录</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">文件系统</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%96%87%E6%A1%A3%E5%92%8C%E6%B3%A8%E9%87%8A/">
+                        <span class="tag">文档和注释</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A0%88/">
+                        <span class="tag">栈</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/">
+                        <span class="tag">桶排序</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A6%82%E8%BF%B0/">
+                        <span class="tag">概述</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%A8%A1%E5%9D%97/">
+                        <span class="tag">模块</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%B5%85%E6%8B%B7%E8%B4%9D/">
+                        <span class="tag">浅拷贝</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D/">
+                        <span class="tag">深拷贝</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%BC%94%E8%AE%B2/">
+                        <span class="tag">演讲</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/">
+                        <span class="tag">版本控制</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%89%B9%E6%AE%8A%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">特殊文件系统</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%94%9F%E4%BA%A7%E5%8A%9B/">
+                        <span class="tag">生产力</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">
+                        <span class="tag">目录结构</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E8%AE%BA/">
+                        <span class="tag">研究方法论</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A1%AC%E8%BF%9E%E6%8E%A5/">
+                        <span class="tag">硬连接</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C/">
+                        <span class="tag">程序执行</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%AE%80%E8%BF%B0/">
+                        <span class="tag">简述</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="tag">算法</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BA%A2%E9%BB%91%E6%A0%91/">
+                        <span class="tag">红黑树</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BB%83%E4%B9%A0/">
+                        <span class="tag">练习</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BB%A7%E6%89%BF/">
+                        <span class="tag">继承</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BC%96%E8%AF%91%E5%8A%A0%E8%BD%BD/">
+                        <span class="tag">编译加载</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="tag">网络</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+                        <span class="tag">虚拟文件系统</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                        <span class="tag">计算机网络</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/">
+                        <span class="tag">设计方法</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AF%B4%E6%98%8E/">
+                        <span class="tag">说明</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%AF%BA%E8%B4%9D%E5%B0%94%E5%A5%96/">
+                        <span class="tag">诺贝尔奖</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%B0%83%E8%AF%95%E5%99%A8/">
+                        <span class="tag">调试器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%B4%B9%E6%9B%BC/">
+                        <span class="tag">费曼</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%BD%AF%E8%BF%9E%E6%8E%A5/">
+                        <span class="tag">软连接</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6/">
+                        <span class="tag">运算符</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%87%8D%E8%BD%BD/">
+                        <span class="tag">重载</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%93%BE%E8%A1%A8/">
+                        <span class="tag">链表</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">
+                        <span class="tag">阅读笔记</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%98%9F%E5%88%97/">
+                        <span class="tag">队列</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%9D%99%E6%80%81%E5%A4%9A%E6%80%81/">
+                        <span class="tag">静态多态</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+                        <span class="tag">面向对象</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%9F%B3%E6%A0%87/">
+                        <span class="tag">音标</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/">
+                        <span class="tag">顺序容器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F/">
+                        <span class="tag">驱动程序</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+				 
+				 
+				  <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main twoLine">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-10-15T11:21:09.706Z">2020-10-15</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/C/">C++</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    16 分钟 读完 (大约 2342 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                C++虚函数
+            
+        </h1>
+        <div class="content">
+            <h2 id="虚函数与纯虚函数"><a href="#虚函数与纯虚函数" class="headerlink" title="虚函数与纯虚函数"></a><strong>虚函数与纯虚函数</strong></h2><p><code>定义虚函数的目的</code>：为了允许用基类的指针来调用子类的这个函数。<br><code>定义纯虚函数的目的</code>：为了实现一个接口，起到一个规范的作用，规范继承这个类的程序员必须实现这个函数。</p>
+<a id="more"></a>
+
+<p>注意：</p>
+<ul>
+<li>定义一个函数为虚函数，不代表函数为不被实现的函数。</li>
+<li>定义一个函数为纯虚函数，才代表函数没有被实现。</li>
+</ul>
+<p>C++ 中，基类必须指出希望派生类<strong>重写</strong>哪些函数，定义为 virtual 的函数（虚函数）是基类期待派生类重新定义的，基类希望派生类<strong>继承</strong>的函数不能定义为虚函数。</p>
+<h2 id="虚函数"><a href="#虚函数" class="headerlink" title="虚函数"></a><strong>虚函数</strong></h2><p><code>虚函数定义</code>：被virtual关键字修饰的成员函数。</p>
+<p>使用规则：</p>
+<ul>
+<li>为了指明函数为虚函数，在其返回类型前面加上保留字 virtual。</li>
+<li>除了构造函数之外，任意非 static 成员函数都可以是虚函数。</li>
+<li>virtual 保留字只在类内部的成员函数声明中出现，不能用在类定义体外部出现的函数定义上。</li>
+<li>虚函数声明基类和子类要一致：在派生类中重新定义时,其函数原型,包括返回类型,函数名,参数个数,参数类型及参数的先后顺序,都必须与基类中的原型完全相同. <ul>
+<li>虚函数在派生类中重新定义时候，如果返回的是对基类型的引用或是指针，那么派生类的虚函数可以返回基类函数返回类型的派生类引用或指针，而不是一定要求一样的，primer上看到的。 </li>
+</ul>
+</li>
+<li><code>虚函数符号子类可以不加virtual</code>：c++规定，当一个成员函数被声明为虚函数后，其<u>派生类中的同名函数都自动成为虚函数</u>。因此，在子类从新声明该虚函数时，可以加，也可以不加，但习惯上每一层声明函数时都加virtual,使程序更加清晰。<ul>
+<li>如果基类把一个函数声明成虚函数，则该函数在派生类中隐式地也是虚函数；</li>
+<li>如果派生类没有覆盖基类中的某个成员函数，则该虚函数的行为类似于其他的普通成员，派生类会直接继承其在基类中的版本。</li>
+</ul>
+</li>
+</ul>
+<p>作用：</p>
+<ul>
+<li>启用动态绑定，实现多态性，通过指向派生类的基类指针或引用，访问派生类中同名覆盖成员函数。 如果成员默认为非虚函数，对非虚函数的调用在编译时确定。</li>
+<li>虚函数是重载的一种表现形式,是一种动态的重载方式。</li>
+<li>虚函数是基类希望派生类继承函数的缺省实现和重载的成员函数。当基类的指针或者引用指向派生类的对象的时候，这时候，如果使用基类指针或引用调用一个虚函数，实际上调用的是继承类的版本；</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>当我们使用指针或引用对虚函数的调用将被动态绑定，即根据所绑定的对象不同，所执行的函数不同，有可能是基类的，也有可能是派生类的。</li>
+<li>相对的，<code>非虚函数</code>总是在编译时根据调用该函数的对象、引用或指针的类型而确定。</li>
+</ul>
+<blockquote>
+<p>在 C++ 中，基类必须指出希望派生类重写哪些函数，定义为 virtual 的函数是基类期待派生类重新定义的，基类希望派生类继承的函数不能定义为虚函数。//也就是说虚函数部分，是不被作为基类部分在派生类中继承的，而是被重新定义的，画一画继承的图可能会更清晰地理解这一点。</p>
+</blockquote>
+<h2 id="纯虚函数"><a href="#纯虚函数" class="headerlink" title="纯虚函数"></a><strong>纯虚函数</strong></h2><p>纯虚函数（pure virtual）没有实现，被初始化为0；规定：在函数形参表后面写上 = 0 以指定纯虚函数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">void</span>)</span> </span>= <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<p>声明一个纯虚函数（pure virtual）的目的:</p>
+<ul>
+<li>是为了让派生类只继承函数接口，也就是上面说的接口继承。这个类（包含纯虚函数的类）的存在只是为了让其他类继承。</li>
+<li>为了令继承类继承函数接口以及做一份强制性实现。</li>
+</ul>
+<p>声明非纯虚函数（impure virtual）的目的:</p>
+<ul>
+<li>是让继承类继承该函数的接口和缺省实现。</li>
+</ul>
+<h2 id="非虚函数"><a href="#非虚函数" class="headerlink" title="非虚函数"></a><strong>非虚函数</strong></h2><p>一般成员函数，无virtual关键字修饰。<br><code>非虚函数</code>总是在编译时根据调用该函数的对象、引用或指针的类型而确定，而不是像</p>
+<h2 id="override关键字"><a href="#override关键字" class="headerlink" title="override关键字"></a><strong>override关键字</strong></h2><p>C++11新标准允许派生类显式注明它使用某个成员函数覆盖了它<strong>继承的虚函数</strong>，具体做法是在形参列表或const限定符或引用限定符后面添加一个关键字<code>override</code>。</p>
+<p>优点：</p>
+<ul>
+<li>如果我们使用了override标记了某个函数，但该函数并没有覆盖已存在的虚函数，此时编译器将会报错。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">pulic:</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span>  <span class="title">B</span>:</span> A</span><br><span class="line">&#123;</span><br><span class="line">pulic:</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func</span><span class="params">()</span> <span class="keyword">const</span> <span class="keyword">override</span> <span class="keyword">final</span></span>; <span class="comment">//OK</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span>:</span> B</span><br><span class="line">&#123;</span><br><span class="line">pulic:</span><br><span class="line"> <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func</span><span class="params">()</span><span class="keyword">const</span></span>; <span class="comment">//error, B::func is final</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="final关键字"><a href="#final关键字" class="headerlink" title="final关键字"></a><strong>final关键字</strong></h2><h3 id="禁用继承"><a href="#禁用继承" class="headerlink" title="禁用继承"></a>禁用继承</h3><p>在C++11中允许将类标记为final，方法时直接在类名称后面使用关键字final。如果继承该类会导致编译错误。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> <span class="title">final</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="comment">/*...*/</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="禁用重写"><a href="#禁用重写" class="headerlink" title="禁用重写"></a>禁用重写</h3><p>在C++中，如果把某个函数指定为<code>final</code>，使之后任何尝试覆盖该函数的操作都引发错误。final关键字至于方法参数列表后面。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    A();</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Method</span><span class="params">()</span> <span class="keyword">final</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="C-抽象类"><a href="#C-抽象类" class="headerlink" title="C++抽象类"></a><strong>C++抽象类</strong></h2><p><code>抽象类</code>：包含有（或继承）一个或多个纯虚函数的类是抽象类。在C#，Java中用abstract定义抽象类，而在C++中有抽象类的概念，但没有这个关键字。</p>
+<p>规定:</p>
+<ul>
+<li>抽象类只能用作其他类的基类，不能建立抽象类对象。</li>
+<li>抽象类不能用作参数类型、函数返回类型或显式转换的类型。</li>
+<li>可以定义指向抽象类的指针和引用，此指针可以指向它的派生类，进而实现多态性。</li>
+</ul>
+<p>特点：</p>
+<ul>
+<li>由于抽象类包含了没有定义的纯虚函数,所以不能定义抽象类的对象，也就是说抽象类无法实例化。</li>
+</ul>
+<h2 id="C-接口"><a href="#C-接口" class="headerlink" title="C++接口"></a><strong>C++接口</strong></h2><p>C++接口满足以下条件：</p>
+<ol>
+<li>类中没有定义任何的成员变量</li>
+<li>所有的成员函数都是纯虚函数</li>
+<li>所有的成员函数都是公有的</li>
+<li>接口是一种特殊的抽象类</li>
+</ol>
+<h2 id="实现继承和接口继承"><a href="#实现继承和接口继承" class="headerlink" title="实现继承和接口继承"></a><strong>实现继承和接口继承</strong></h2><p>实现继承：派生类同时继承基类的接口和实现。<br>接口继承：派生类不继承基类的实现，只会继承基类的接口。  </p>
+<h2 id="包含虚函数的类和包含纯虚函数的类有什么别称吗？"><a href="#包含虚函数的类和包含纯虚函数的类有什么别称吗？" class="headerlink" title="包含虚函数的类和包含纯虚函数的类有什么别称吗？"></a>包含虚函数的类和包含纯虚函数的类有什么别称吗？</h2><p>如果类中包含有纯虚函数，则这个类是抽象类，而且由于抽象类包含了没有定义的纯虚函数,所以不能定义抽象类的对象。</p>
+<p>如果有虚函数和正常函数就是普通的类。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p><code>纯虚函数</code>：要求继承类必须含有某个接口，并对接口函数实现。<br><code>虚函数</code>：继承类必须含有某个接口，可以自己实现。<strong>也可以不实现，而采用基类定义的缺省实现</strong>。<br><code>非虚函数</code>：继承类必须含有某个接口，必须使用基类的实现。  </p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h2><p>C++ primer 第四版<br><a href="https://blog.csdn.net/ljinddlj/article/details/1922189">C++接口继承与实现继承</a><br><a href="https://www.jianshu.com/p/54ccfe658b10">C++虚函数</a><br><a href="https://www.cnblogs.com/itwhite/p/5075357.html">C++开发者眼中的Java关键字abstract</a>  </p>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><blockquote>
+<p>任何可以在基类对象上执行的操作也可以通过派生类对象使用。</p>
+</blockquote>
+<p>可以使用基类类型的指针或引用来引用派生类型对象，所以，使用基类类型的引用或指针时，不知道指针或引用所绑定的对象的类型：基类类型的引用或指针可以引用基类类型对象，也可以引用派生类型对象。无论实际对象具有哪种类型，编译器都将它当作基类类型对象。将派生类对象当作基类对象是安全的，因为每个派生类对象都拥有基类子对象。而且，派生类继承基类的操作。</p>
+
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/10/14/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">
+                <span class="level-item">建造者模式</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'e79770cfee30db02a856',
+        clientSecret: 'bb958f5fc30797ffc222ca631ec345baa48a0bee',
+        id: '3b2b6e1c9bfa882c4e0bc5221bb476ed',
+        repo: 'STEMHA.github.io',
+        owner: 'STEMHA',
+        admin: "STEMHA",
+        createIssueManually: false,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
+</div>
+				 
+				
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/og_image.png" alt="C++虚函数" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 STEMHA&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://stemha.github.io',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    	
+
+</body>
+</html>
